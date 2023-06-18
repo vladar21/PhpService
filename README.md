@@ -72,7 +72,7 @@ PhpService - это бекенд сервис на языке PHP 7, котор�
 
 ## Диаграмма классов
 
-![PhpService Class Diagram]([PhpService_Class_Diagram.png](https://app.diagrams.net/#Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fvladrastvorov%2FPhpService%2Fmaster%2FPhpService_Class_Diagram.drawio))
+![PhpService Class Diagram]([PhpService_Class_Diagram.png])
 
 На диаграмме показаны основные классы, используемые в PhpService, их атрибуты и методы, а также связи между ними. Краткое описание каждого класса:
 
