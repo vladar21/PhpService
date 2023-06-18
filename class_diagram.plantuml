@@ -1,0 +1,97 @@
+@startuml
+abstract class Controller {
+  + __construct()
+  + authenticate()
+  + authorize()
+  + respond($data, $status)
+}
+
+class UserController {
+  + register()
+  + login()
+  + logout()
+  + getProfile()
+  + updateProfile()
+}
+
+class OrderController {
+  + getOrders()
+  + getOrder($id)
+  + requestNotification($id, $type)
+}
+
+abstract class Model {
+  + __construct()
+  + insert($data)
+  + find($where)
+  + update($where, $data)
+  + delete($where)
+}
+
+class UserModel {
+  - table = "users"
+  - fields = ["id", "name", "email", "password", "role"]
+  + create($data)
+  + findByEmail($email)
+  + validate($email, $password)
+  + updateProfile($id, $data)
+}
+
+class OrderModel {
+  - table = "orders"
+  - fields = ["id", "user_id", "product_id", "quantity", "price", "status"]
+  + create($data)
+  + findByUser($user_id)
+  + findById($id)
+  + updateStatus($id, $status)
+}
+
+class SalesAPI {
+  - base_url = "https://salesapi.com"
+  - api_key = "secret"
+  - headers = ["Authorization: Bearer " . api_key]
+  + getProducts()
+}
+
+class BillAPI {
+  - base_url = "https://billapi.com"
+  - api_key = "secret"
+  - headers = ["Authorization: Bearer " . api_key]
+  + postInvoice($data)
+}
+
+class CustomAPI {
+  - base_url = "https://customapi.com"
+  - api_key = "secret"
+  - headers = ["Authorization: Bearer " . api_key]
+  + postInvoice($data)
+}
+
+class Mailgun {
+  - base_url = "https://api.mailgun.net/v3"
+  - domain = "example.com"
+  - api_key = "secret"
+  - from = "noreply@example.com"
+  + sendMail($to, $subject, $text)
+}
+
+class Twilio {
+  - base_url = "https://api.twilio.com/2010-04-01"
+  - account_sid = "secret"
+  - auth_token = "secret"
+  - from = "+1234567890"
+  + sendSMS($to, $text)
+}
+
+UserController --|> Controller
+OrderController --|> Controller
+UserModel --|> Model
+OrderModel --|> Model
+OrderController ..> UserModel : uses
+OrderController ..> OrderModel : uses
+OrderController ..> SalesAPI : uses
+OrderController ..> BillAPI : uses
+OrderController ..> CustomAPI : uses
+OrderController ..> Mailgun : uses
+OrderController ..> Twilio : uses
+@enduml
