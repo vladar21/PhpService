@@ -14,13 +14,13 @@
 # ENVIRONMENT
 #--------------------------------------------------------------------
 
-# CI_ENVIRONMENT = production
+CI_ENVIRONMENT = development
 
 #--------------------------------------------------------------------
 # APP
 #--------------------------------------------------------------------
 
-# app.baseURL = ''
+# app.baseURL = 'phpservice.host'
 # If you have trouble with `.`, you could also use `_`.
 # app_baseURL = ''
 # app.forceGlobalSecureRequests = false
@@ -141,3 +141,6 @@
 #--------------------------------------------------------------------
 
 # curlrequest.shareOptions = true
+
+export XDEBUG_CONFIG="idekey=PHPSTORM"
+export PHP_IDE_CONFIG="serverName=phpservice.host"
