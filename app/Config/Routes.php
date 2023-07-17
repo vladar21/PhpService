@@ -32,6 +32,9 @@ $routes->set404Override();
 $routes->get('/', 'Home::index');
 $routes->get('dashboard', 'Dashboard::index');
 
+$routes->get('news', 'News::index');
+$routes->get('news/(:segment)', 'News::page/$1');
+
 
 /*
  * --------------------------------------------------------------------
