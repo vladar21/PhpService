@@ -35,6 +35,9 @@ $routes->get('dashboard', 'Dashboard::index');
 $routes->get('news', 'News::index');
 $routes->get('news/(:segment)', 'News::page/$1');
 
+$routes->get('page', 'App\Modules\Page\Page::index');
+$routes->get('page/(:segment)', 'App\Modules\Page\Page::showPage/$1');
+
 
 /*
  * --------------------------------------------------------------------
