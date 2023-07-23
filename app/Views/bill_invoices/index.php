@@ -19,45 +19,12 @@
     </thead>
     <tbody>
 
-    <?php if (isset($bill_invoices)) {
-        foreach ($bill_invoices as $invoice): ?>
-            <tr>
-                <td><?= $invoice['id']; ?></td>
-                <td><?= $invoice['kind']; ?></td>
-                <td><?= $invoice['number']; ?></td>
-                <td><?= $invoice['sell_date']; ?></td>
-                <td><?= $invoice['issue_date']; ?></td>
-                <td><?= $invoice['payment_to']; ?></td>
-                <td><?= $invoice['seller_name']; ?></td>
-                <td><?= $invoice['seller_tax_no']; ?></td>
-                <td><?= $invoice['buyer_name']; ?></td>
-                <td><?= $invoice['buyer_tax_no']; ?></td>
-            </tr>
-        <?php endforeach;
-    } ?>
     </tbody>
 </table>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.datatables.net/1.11.1/js/jquery.dataTables.min.js"></script>
-<!--<script>-->
-<!--    $(document).ready(function() {-->
-<!--        const table = $('#billInvoicesTable');-->
-<!--        const per_page = 15;-->
-<!--        const not_applicable = 'not_applicable';-->
-<!---->
-<!--        let datatable_obj = $(table).DataTable({-->
-<!--            ajax: '/bill_invoices/get_invoices_ajax'-->
-<!--            // processing: true,-->
-<!--            // serverSide: true,-->
-<!--            // pageLength: per_page,-->
-<!--            // order: [[1, "desc"]],-->
-<!--            // ajax: {-->
-<!--            //     type: 'GET',-->
-<!--            //     url: "/bill_invoices/get_invoices_ajax"-->
-<!--            // },-->
-<!--        });-->
-<!--    })-->
-<!--    -->
-<!--</script>-->
+
+<link rel="stylesheet" href="<?= base_url('assets/css/bill_invoices/index.css') ?>">
+<script src="<?= base_url('assets/js/bill_invoices/index.js') ?>"></script>
+
+
 <?= $this->endSection() ?>
 

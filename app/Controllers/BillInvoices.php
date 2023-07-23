@@ -8,9 +8,10 @@ class BillInvoices extends BaseController
 {
     public function index()
     {
-        $db = \Config\Database::connect();
-        $query   = $db->query('SELECT * FROM bill_invoices');
-        $data['bill_invoices'] = $query->getResultArray();
+//        $db = \Config\Database::connect();
+//        $query   = $db->query('SELECT * FROM bill_invoices');
+//        $data['bill_invoices'] = $query->getResultArray();
+        $data=[];
         return view('bill_invoices/index', $data);
     }
 
