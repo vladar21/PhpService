@@ -15,6 +15,8 @@ $routes->setDefaultController('Home');
 $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
 $routes->set404Override();
+
+$routes->setAutoRoute(true);
 // The Auto Routing (Legacy) is very dangerous. It is easy to create vulnerable apps
 // where controller filters or CSRF protection are bypassed.
 // If you don't want to define all routes, please use the Auto Routing (Improved).
@@ -35,8 +37,9 @@ $routes->get('dashboard', 'Dashboard::index');
 $routes->get('news', 'News::index');
 $routes->get('news/(:segment)', 'News::page/$1');
 
-$routes->get('page', 'App\Modules\Page\Page::index');
-$routes->get('page/(:segment)', 'App\Modules\Page\Page::showPage/$1');
+$routes->get('bill_invoices', 'BillInvoices::index');
+$routes->get('bill_invoices/get_invoices_ajax', 'BillInvoices::get_invoices_ajax');
+//$routes->get('bill_invoices/(:segment)', 'BillInvoices::page/$1');
 
 
 /*
