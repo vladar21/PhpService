@@ -4,16 +4,16 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class BillInvoices extends Model
+class BillPositionsModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'bill_invoices';
+    protected $table            = 'bill_positions';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id', 'kind', 'number', 'sell_date', 'issue_date', 'payment_to', 'seller_name', 'seller_tax_no', 'buyer_name', 'buyer_tax_no'];
+    protected $allowedFields    = ['id', 'invoice_id', 'name', 'tax', 'total_price_gross', 'quantity'];
 
     // Dates
     protected $useTimestamps = false;
@@ -38,4 +38,20 @@ class BillInvoices extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    public function getPositionsInvoice($invoice_id = false)
+    {
+        if ($invoice_id === false)
+            return $this->findAll();
+        else
+            return $this->asArray()->where(['invoice_id' => $invoice_id])->findAll();
+    }
+
+    public function getPositions($id = false)
+    {
+        if ($id === false)
+            return $this->findAll();
+        else
+            return $this->asArray()->where(['id' => $id])->first();
+    }
 }

@@ -12,7 +12,7 @@ class BillPositionsSeeder extends Seeder
         $db = \Config\Database::connect();
 
         // Get the positions model
-        $positionsModel = new \App\Models\BillPositions();
+        $positionsModel = new \App\Models\BillPositionsModel();
 
         // Create some sample data
         $data = [

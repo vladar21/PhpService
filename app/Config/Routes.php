@@ -38,9 +38,10 @@ $routes->get('news', 'News::index');
 $routes->get('news/(:segment)', 'News::page/$1');
 
 $routes->get('bill_invoices', 'BillInvoices::index');
+$routes->get('bill_invoices/(:num)', 'BillInvoices::invoice/$1');
 $routes->get('bill_invoices/get_invoices_ajax', 'BillInvoices::get_invoices_ajax');
 //$routes->get('bill_invoices/(:segment)', 'BillInvoices::page/$1');
-
+$routes->get('bill_positions/get_positions_ajax', 'BillPositions::get_positions_ajax');
 
 /*
  * --------------------------------------------------------------------

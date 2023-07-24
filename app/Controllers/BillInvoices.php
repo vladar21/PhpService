@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\BillInvoicesModel;
 use App\Controllers\BaseController;
 
 class BillInvoices extends BaseController
@@ -67,5 +68,25 @@ class BillInvoices extends BaseController
             $responseData['data'] = [];
         }
         echo json_encode($responseData); die();
+    }
+
+    public function invoice($id = NULL)
+    {
+        $model = new BillInvoicesModel();
+
+        $invoice = $model->getInvoices($id);
+
+        if ($invoice)
+        {
+            $data = $invoice;
+        }
+        else
+        {
+            $data['code'] = '404';
+            $data['message'] = 'Page Not Found';
+            return view('errors/message', $data);
+        }
+
+        return view('bill_invoices/view', $data);
     }
 }
