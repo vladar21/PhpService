@@ -33,26 +33,31 @@ class BillInvoices extends BaseController
         ];
 
         $db = \Config\Database::connect();
-        $query   = $db->query('SELECT * FROM bill_invoices');
-        $results = $query->getResultArray();
+//        $query   = $db->query('SELECT * FROM bill_invoices');
+//        $results = $query->getResultArray();
+        $builder = $db->table('bill_invoices');
+        $query = $builder->get();
+        $results = $query->getResult();
 
-        if (!empty($results)) {
+        $count = $builder->countAllResults();
+
+        if (isset($count) && $count > 0) {
 //            $responseData['draw'] = $getData['draw'];
-            $responseData['recordsTotal'] = count($results);
+            $responseData['recordsTotal'] = $count;
 //            $responseData['recordsFiltered'] = $response['data']['total_count'];
 
             foreach ($results as $key => $value) {
 
-                $responseData['data'][$key]['id'] = $value['id'];
-                $responseData['data'][$key]['kind'] = $value['kind'];
-                $responseData['data'][$key]['number'] = $value['number'];
-                $responseData['data'][$key]['sell_date'] = $value['sell_date'];
-                $responseData['data'][$key]['issue_date'] = $value['issue_date'];
-                $responseData['data'][$key]['payment_to'] = $value['payment_to'];
-                $responseData['data'][$key]['seller_name'] = $value['seller_name'];
-                $responseData['data'][$key]['seller_tax_no'] = $value['seller_tax_no'];
-                $responseData['data'][$key]['buyer_name'] = $value['buyer_name'];
-                $responseData['data'][$key]['buyer_tax_no'] = $value['buyer_tax_no'];
+                $responseData['data'][$key]['id'] = $value->id;
+                $responseData['data'][$key]['kind'] = $value->kind;
+                $responseData['data'][$key]['number'] = $value->number;
+                $responseData['data'][$key]['sell_date'] = $value->sell_date;
+                $responseData['data'][$key]['issue_date'] = $value->issue_date;
+                $responseData['data'][$key]['payment_to'] = $value->payment_to;
+                $responseData['data'][$key]['seller_name'] = $value->seller_name;
+                $responseData['data'][$key]['seller_tax_no'] = $value->seller_tax_no;
+                $responseData['data'][$key]['buyer_name'] = $value->buyer_name;
+                $responseData['data'][$key]['buyer_tax_no'] = $value->buyer_tax_no;
 
             }
         } else {
