@@ -55,4 +55,11 @@ abstract class BaseController extends Controller
 
         // E.g.: $this->session = \Config\Services::session();
     }
+
+    public function switchLanguage($lang)
+    {
+        $request = service(RequestInterface::class);
+        $request->setLocale($lang);
+    }
+
 }

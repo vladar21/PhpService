@@ -9,6 +9,8 @@ class BillInvoices extends BaseController
 {
     public function index()
     {
+        helper('language');
+        $lang = lang('app_lang');
 //        $db = \Config\Database::connect();
 //        $query   = $db->query('SELECT * FROM bill_invoices');
 //        $data['bill_invoices'] = $query->getResultArray();

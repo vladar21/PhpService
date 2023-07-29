@@ -5,8 +5,8 @@
 <table id="billInvoicesTable">
     <thead>
     <tr>
-        <th>Id</th>
-        <th>Kind</th>
+        <th><?= lang('app_lang.id') ?></th>
+        <th><?= lang('app_lang.kind') ?></th>
         <th>Number</th>
         <th>Sell date</th>
         <th>Issue date</th>
@@ -15,6 +15,7 @@
         <th>Seller tax no</th>
         <th>Buyer name</th>
         <th>Buyer tax no</th>
+        <th>Actions</th>
     </tr>
     </thead>
     <tbody>

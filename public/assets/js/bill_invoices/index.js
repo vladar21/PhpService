@@ -1,7 +1,10 @@
 $(document).ready(function() {
     const table = $('#billInvoicesTable');
-    const per_page = 15;
     const not_applicable = 'not_applicable';
+    const per_page = getAppVariable('per_page');
+    const title_view = getAppVariable('title_view');
+    const base_url = getAppVariable('base_url');
+    const language = getAppVariable('language');
 
     let datatable_obj = $(table).DataTable({
         ajax: '/bill_invoices/get_invoices_ajax',
@@ -55,6 +58,12 @@ $(document).ready(function() {
                 data: 'buyer_tax_no',
                 render: function(data, type, row) {
                     return row.buyer_tax_no ? row.buyer_tax_no : not_applicable;
+                }
+            },{
+                data: 'actions',
+                orderable: false,
+                render: function (data, type, row){
+                    return '<a href="/bill_invoices/' + row.id + '" class="btn btn-sm btn-blue-outline">' + title_view + '</a>';
                 }
             }
         ]
