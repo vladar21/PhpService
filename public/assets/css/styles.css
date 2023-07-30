@@ -112,6 +112,9 @@ table.dataTable tbody tr {
 td a {
     color: white;
 }
+#billPositionsTable_wrapper input {
+    width: 132px;
+}
 
 /* Responsive styles */
 @media screen and (max-width: 768px) {
