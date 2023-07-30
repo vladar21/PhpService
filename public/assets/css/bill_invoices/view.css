@@ -3,11 +3,18 @@
     text-align: center;
 }
 
-.bill1, .bill2, .bill3 {
-    display: inline-block;
+.bills {
+    display: flex;
 }
 
-label {
+
+
+/*.bill1, .bill2, .bill3 {*/
+/*    display: inline-block;*/
+/*}*/
+
+
+.bills label {
     display: inline-block;
     width: 150px; /* Set the desired width for the labels */
     text-align: right;
