@@ -112,10 +112,9 @@ table.dataTable tbody tr {
 td a {
     color: white;
 }
-/*#billPositionsTable_wrapper input {*/
-/*    width: 132px;*/
-/*    color: #689;*/
-/*}*/
+#billPositionsTable_wrapper input {
+    color: #689;
+}
 
 /* Responsive styles */
 @media screen and (max-width: 768px) {
