@@ -114,6 +114,7 @@ td a {
 }
 #billPositionsTable_wrapper input {
     width: 132px;
+    color: #689;
 }
 
 /* Responsive styles */
