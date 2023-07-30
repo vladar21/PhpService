@@ -1,0 +1,132 @@
+/* styles.css */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #1a1a1a;
+    color: #ffffff;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100vh;
+}
+
+.header,
+.navigation,
+.footer {
+    background-color: #333333;
+    padding: 1rem;
+}
+
+.header,
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+    margin-left: auto; /* Align navigation to the right */
+}
+
+.nav-link > a {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.nav-link > a:hover {
+    text-decoration: none; /* Remove underline on hover */
+    color: #ffffff;
+}
+
+.content {
+    flex: 1;
+    padding: 1rem;
+}
+
+.footer-icon {
+    color: #ffffff;
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+}
+
+.breadcrumb {
+    color: #ffffff; /* Set breadcrumb text color to white */
+    margin-bottom: 1rem;
+}
+
+.admin-dashboard {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.search-panel {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem; /* Move search panel below Admin dashboard */
+}
+
+.search-input {
+    padding: 0.5rem;
+    border: 1px solid #666666;
+    border-radius: 5px;
+    background-color: #333333;
+    color: #ffffff;
+}
+
+.search-button {
+    padding: 0.5rem 1rem;
+    background-color: #666666;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/*datatabale*/
+table.dataTable tbody tr {
+    background-color: inherit;
+}
+.dataTables_wrapper .dataTables_length select {
+    background-color: white;
+}
+.dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate {
+    color: inherit;
+}
+td a {
+    color: white;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 768px) {
+    .header,
+    .navigation,
+    .footer {
+        padding: 0.5rem;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    .nav-link {
+        margin-top: 0.5rem;
+    }
+}
