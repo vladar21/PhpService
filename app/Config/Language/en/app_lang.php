@@ -15,5 +15,20 @@ return [
     'history' => 'History',
     'top_up' => 'Top-up',
     'id' => 'Id',
-    'kind' => 'Kind'
+    'kind' => 'Kind',
+    'name' => 'Name',
+    'description' => 'Description',
+    'price_net' => 'Price Net',
+    'created_at' => 'Created At',
+    'updated_at' => 'Updated At',
+    'quantity' => 'Qty',
+    'quantity_unit' => 'Qty Unit',
+    'additional_info' => 'Additional Info',
+    'disabled' => 'Disabled',
+    'price_gross' => 'Price Gross',
+    'form_name' => 'Form Name',
+    'code' => 'Code',
+    'currency' => 'Currency',
+    'weight_unit' => 'Weight Unit',
+    'supplier_code' => 'Supplier Code'
 ];
