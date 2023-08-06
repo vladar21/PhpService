@@ -34,7 +34,7 @@
     </header>
 
     <main class="content">
-        <div class="breadcrumb">Home / Dashboard / Reports</div>
+<!--        <div class="breadcrumb">Home / Dashboard / Reports</div>-->
         <?= $this->renderSection('content') ?>
     </main>
     <footer class="footer">

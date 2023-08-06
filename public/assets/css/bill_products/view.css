@@ -1,0 +1,25 @@
+fieldset {
+    width: 20%;
+}
+
+.product-form {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.product-item {
+    display: flex;
+    flex-direction: row;
+}
+label {
+    flex-basis: 50%;
+}
+
+input {
+    flex-basis: 50%;
+}
+/*.product-item {*/
+/*    flex:*/
+/*}*/

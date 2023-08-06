@@ -32,4 +32,5 @@ return [
     'weight_unit' => 'Weight Unit',
     'supplier_code' => 'Supplier Code',
     'actions' => 'Actions',
+    'product_id' => 'Product Id',
 ];

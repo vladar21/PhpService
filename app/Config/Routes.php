@@ -44,8 +44,12 @@ $routes->get('bill_invoices/get_invoices_ajax', 'BillInvoices::get_invoices_ajax
 $routes->get('bill_positions/get_positions_ajax', 'BillPositions::get_positions_ajax');
 
 $routes->get('bill_products', 'BillProducts::index');
-$routes->get('bill_products/(:num)', 'BillProducts::index/$1');
+$routes->get('bill_products/(:num)', 'BillProducts::product/$1');
 $routes->get('bill_products/get_products_ajax', 'BillProducts::get_products_ajax');
+
+// update all bill products
+$routes->get('/billapi/fetchProducts', 'api\BillAPIController::fetchProducts');
+
 
 
 /*

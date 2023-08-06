@@ -68,6 +68,12 @@ body {
     margin-bottom: 1rem;
 }
 
+.breadcrumb a {
+    text-decoration: none;
+    color: ghostwhite;
+    font-weight: bold;
+}
+
 .admin-dashboard {
     display: flex;
     align-items: center;
@@ -112,8 +118,11 @@ table.dataTable tbody tr {
 td a {
     color: white;
 }
-#billPositionsTable_wrapper input {
-    color: #689;
+/*#billPositionsTable_wrapper input {*/
+/*    color: #689;*/
+/*}*/
+.dataTables_filter input {
+    color: ghostwhite;
 }
 
 /* Responsive styles */

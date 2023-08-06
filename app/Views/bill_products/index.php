@@ -3,8 +3,9 @@
 <?= $this->section('content') ?>
 <h2>Bill Products</h2>
 <!-- Button to load products -->
-<button id="loadProductsBtn" class="btn btn-primary">Load Products from API</button>
-
+<button id="loadProductsBtn" class="btn btn-primary">Update Products from API</button>
+<br>
+<br>
 <table id="billProductsTable">
     <thead>
     <tr>
@@ -31,8 +32,8 @@
     </tbody>
 </table>
 
-<link rel="stylesheet" href="<?= base_url('assets/css/bill_product/index.css') ?>">
-<script src="<?= base_url('assets/js/bill_product/index.js') ?>"></script>
+<link rel="stylesheet" href="<?= base_url('assets/css/bill_products/index.css') ?>">
+<script src="<?= base_url('assets/js/bill_products/index.js') ?>"></script>
 
 
 <?= $this->endSection() ?>

@@ -5,6 +5,7 @@ namespace App\Controllers\Api;
 use App\Controllers\BaseController;
 use App\Models\BillProductModel;
 use CodeIgniter\API\ResponseTrait;
+use CodeIgniter\Log\Logger;
 
 class BillAPIController extends BaseController
 {
@@ -22,9 +23,14 @@ class BillAPIController extends BaseController
     {
         $perPage = 25;
         $page = 1;
+        $errorMessage = null;
+
+        // Get the logger instance
+        $logger = service('logger');
 
         while (true) {
-            echo "Fetching page {$page}...\n";
+            // Logging the message
+            $logger->info(service('router')->controllerName()."::".service('router')->methodName().": Fetching page {$page}...");
             // Make a GET request to the external API
             $url = "https://elista.fakturownia.pl/products.json?page={$page}&per_page={$perPage}&api_token={$this->apiToken}";
             $response = $this->sendGetRequest($url);
@@ -52,12 +58,24 @@ class BillAPIController extends BaseController
                     break;
                 }
             } else {
+                // Request failed, set an error message and stop the loop
+                $errorMessage = "Error: Failed to fetch products from the API. HTTP Status Code: {$response['status']}";
                 // Request failed, stop the loop
                 break;
             }
         }
 
-        echo "Product fetching completed!\n";
+        if ($errorMessage) {
+            return json_encode([
+                'success' => false,
+                'message' => $errorMessage,
+            ]);
+        } else {
+            return json_encode([
+                'success' => true,
+                'message' => 'Products fetching completed successfully!',
+            ]);
+        }
     }
 
     private function sendGetRequest($url)
