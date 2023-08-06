@@ -17,6 +17,7 @@
 
 <body>
 <div class="container">
+<!--    Main part -->
     <header class="header">
         <h1 class="logo">Admin Dashboard</h1>
         <nav class="navigation">
@@ -34,7 +35,15 @@
     </header>
 
     <main class="content">
-<!--        <div class="breadcrumb">Home / Dashboard / Reports</div>-->
+        <!-- Messages -->
+        <div id="successMessage">
+            Products fetching completed successfully.
+        </div>
+
+        <div id="errorMessage" style="display: none;" class="alert alert-danger">
+            Error fetching products. Please try again later.
+        </div>
+        <!--        Content -->
         <?= $this->renderSection('content') ?>
     </main>
     <footer class="footer">

@@ -125,6 +125,40 @@ td a {
     color: ghostwhite;
 }
 
+/* Success and Error messages */
+#successMessage {
+    display: none;
+    background-color: lightgray;
+    color: darkgreen;
+    padding:5px;
+    margin-bottom: 15px;
+}
+
+#errorMessage {
+    display: none;
+    background-color: lightgray;
+    color: red;
+    padding:5px;
+}
+
+/* Utils class */
+.float-right {
+    float: right;
+}
+
+.float-left {
+    float: left;
+}
+
+.clear-both {
+    clear: both;
+}
+
+.flex {
+    display: flex;
+}
+
+
 /* Responsive styles */
 @media screen and (max-width: 768px) {
     .header,

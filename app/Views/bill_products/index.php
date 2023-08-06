@@ -1,11 +1,25 @@
 <?= $this->extend('default') ?>
 
 <?= $this->section('content') ?>
-<h2>Bill Products</h2>
+
+<?php
+// Load the breadcrumb helper
+helper('breadcrumb');
+
+// Breadcrumb items
+$breadcrumbs = [
+    'Home' => site_url(),
+    'Bill Products' => base_url('bill_products'),
+];
+
+// Generate and display the breadcrumbs
+echo generate_breadcrumbs($breadcrumbs, ' / ');
+?>
+
+<h2 class="float-left">Bill Products</h2>
 <!-- Button to load products -->
-<button id="loadProductsBtn" class="btn btn-primary">Update Products from API</button>
-<br>
-<br>
+<button type="submit" id="loadProductsBtn" class="btn btn-primary float-right">Update Products</button>
+<div class="clear-both"></div>
 <table id="billProductsTable">
     <thead>
     <tr>

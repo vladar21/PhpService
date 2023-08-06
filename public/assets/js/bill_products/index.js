@@ -109,24 +109,33 @@ $(document).ready(function() {
     $("#loadProductsBtn").on("click", function() {
         // Send an AJAX request to fetch products
         $.ajax({
-            url: "/billapi/fetchProducts", // Use the defined route URL for the AJAX request
-            method: "GET",
-            dataType: "json",
+            url: "/billapi/fetchProducts",
+            method: 'GET',
+            dataType: 'json',
             success: function(response) {
-                // Handle the success response
-                if (response.success) {
-                    // Update the billProductsTable on the page with the new data (if applicable)
-                    // Display a success message popup
-                    alert("Products successfully updated!");
-                } else {
-                    // Handle the error response
-                    // Display an error message popup
-                    alert("Error updating products: " + response.message);
-                }
+                var message = response.message || 'Products fetching completed successfully.';
+                // Show the success message with a fade-in effect
+                $('#successMessage').text(message).fadeIn(1000, function() {
+                    // Hide the success message after 5 seconds with a fade-out effect
+                    setTimeout(function() {
+                        $('#successMessage').fadeOut(1000);
+                    }, 5000);
+                });
+                // Hide the error message if it's currently displayed
+                $('#errorMessage').hide();
             },
-            error: function(xhr, status, error) {
-                // Handle the AJAX request error
-                alert("An error occurred while updating products.");
+            error: function(xhr) {
+                var errorMessage = xhr.responseJSON && xhr.responseJSON.message;
+                var message = errorMessage || 'Error fetching products. Please try again later.';
+                // Show the error message with a fade-in effect
+                $('#errorMessage').text(message).fadeIn(1000, function() {
+                    // Hide the error message after 5 seconds with a fade-out effect
+                    setTimeout(function() {
+                        $('#errorMessage').fadeOut(1000);
+                    }, 5000);
+                });
+                // Hide the success message if it's currently displayed
+                $('#successMessage').hide();
             }
         });
     });
