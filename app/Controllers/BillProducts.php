@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Controllers\BaseController;
+use App\Models\BillProductModel;
 
 class BillProducts extends BaseController
 {
@@ -31,7 +31,7 @@ class BillProducts extends BaseController
 
         $model = new BillProductModel();
 
-        $results = $model->getProduct();
+        $results = $model->getProducts();
 
         if (isset($results) && ($count = count($results)) > 0) {
 //            $responseData['draw'] = $getData['draw'];

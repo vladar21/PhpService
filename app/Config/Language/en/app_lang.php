@@ -30,5 +30,6 @@ return [
     'code' => 'Code',
     'currency' => 'Currency',
     'weight_unit' => 'Weight Unit',
-    'supplier_code' => 'Supplier Code'
+    'supplier_code' => 'Supplier Code',
+    'actions' => 'Actions',
 ];

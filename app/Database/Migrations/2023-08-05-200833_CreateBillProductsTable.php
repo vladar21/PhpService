@@ -18,6 +18,7 @@ class CreateBillProductsTable extends Migration
             'name' => [
                 'type' => 'VARCHAR',
                 'constraint' => 255,
+                'null' => true,
             ],
             'description' => [
                 'type' => 'TEXT',
@@ -26,10 +27,12 @@ class CreateBillProductsTable extends Migration
             'price_net' => [
                 'type' => 'DECIMAL',
                 'constraint' => '10,2',
+                'null' => true,
             ],
             'tax' => [
                 'type' => 'DECIMAL',
                 'constraint' => '10,2',
+                'null' => true,
             ],
             'created_at' => [
                 'type' => 'DATETIME',
@@ -42,10 +45,12 @@ class CreateBillProductsTable extends Migration
             'automatic_sales' => [
                 'type' => 'VARCHAR',
                 'constraint' => 10,
+                'null' => true,
             ],
             'limited' => [
                 'type' => 'BOOLEAN',
                 'default' => false,
+                'null' => true,
             ],
             'warehouse_quantity' => [
                 'type' => 'INT',
@@ -64,6 +69,7 @@ class CreateBillProductsTable extends Migration
             'payment_callback' => [
                 'type' => 'VARCHAR',
                 'constraint' => 10,
+                'null' => true,
             ],
             'payment_url_ok' => [
                 'type' => 'TEXT',
@@ -76,14 +82,17 @@ class CreateBillProductsTable extends Migration
             'token' => [
                 'type' => 'VARCHAR',
                 'constraint' => 255,
+                'null' => true,
             ],
             'quantity' => [
                 'type' => 'DECIMAL',
                 'constraint' => '10,2',
+                'null' => true,
             ],
             'quantity_unit' => [
                 'type' => 'VARCHAR',
                 'constraint' => 255,
+                'null' => true,
             ],
             'additional_info' => [
                 'type' => 'TEXT',
@@ -92,18 +101,22 @@ class CreateBillProductsTable extends Migration
             'disabled' => [
                 'type' => 'BOOLEAN',
                 'default' => false,
+                'null' => true,
             ],
             'price_gross' => [
                 'type' => 'DECIMAL',
                 'constraint' => '10,2',
+                'null' => true,
             ],
             'price_tax' => [
                 'type' => 'DECIMAL',
                 'constraint' => '10,2',
+                'null' => true,
             ],
             'form_fields_horizontal' => [
                 'type' => 'BOOLEAN',
                 'default' => false,
+                'null' => true,
             ],
             'form_fields' => [
                 'type' => 'TEXT',
@@ -112,6 +125,7 @@ class CreateBillProductsTable extends Migration
             'form_name' => [
                 'type' => 'VARCHAR',
                 'constraint' => 255,
+                'null' => true,
             ],
             'form_description' => [
                 'type' => 'TEXT',
@@ -125,6 +139,7 @@ class CreateBillProductsTable extends Migration
             'form_kind' => [
                 'type' => 'VARCHAR',
                 'constraint' => 255,
+                'null' => true,
             ],
             'form_template' => [
                 'type' => 'TEXT',
@@ -133,6 +148,7 @@ class CreateBillProductsTable extends Migration
             'elastic_price' => [
                 'type' => 'BOOLEAN',
                 'default' => false,
+                'null' => true,
             ],
             'next_product_id' => [
                 'type' => 'INT',
@@ -148,26 +164,32 @@ class CreateBillProductsTable extends Migration
             'deleted' => [
                 'type' => 'BOOLEAN',
                 'default' => false,
+                'null' => true,
             ],
             'code' => [
                 'type' => 'VARCHAR',
                 'constraint' => 255,
+                'null' => true,
             ],
             'currency' => [
                 'type' => 'VARCHAR',
                 'constraint' => 255,
+                'null' => true,
             ],
             'ecommerce' => [
                 'type' => 'BOOLEAN',
                 'default' => false,
+                'null' => true,
             ],
             'period' => [
                 'type' => 'VARCHAR',
                 'constraint' => 100,
+                'null' => true,
             ],
             'show_elastic_price' => [
                 'type' => 'BOOLEAN',
                 'default' => false,
+                'null' => true,
             ],
             'elastic_price_details' => [
                 'type' => 'TEXT',
@@ -195,6 +217,7 @@ class CreateBillProductsTable extends Migration
             'use_formula' => [
                 'type' => 'BOOLEAN',
                 'default' => false,
+                'null' => true,
             ],
             'formula' => [
                 'type' => 'TEXT',
@@ -207,10 +230,12 @@ class CreateBillProductsTable extends Migration
             'stock_level' => [
                 'type' => 'DECIMAL',
                 'constraint' => '10,2',
+                'null' => true,
             ],
             'sync' => [
                 'type' => 'BOOLEAN',
                 'default' => false,
+                'null' => true,
             ],
             'category_id' => [
                 'type' => 'INT',
@@ -221,10 +246,12 @@ class CreateBillProductsTable extends Migration
             'kind' => [
                 'type' => 'VARCHAR',
                 'constraint' => 255,
+                'null' => true,
             ],
             'package' => [
                 'type' => 'BOOLEAN',
                 'default' => false,
+                'null' => true,
             ],
             'package_product_ids' => [
                 'type' => 'TEXT',
@@ -239,6 +266,7 @@ class CreateBillProductsTable extends Migration
             'use_product_warehouses' => [
                 'type' => 'BOOLEAN',
                 'default' => false,
+                'null' => true,
             ],
             'purchase_price_tax' => [
                 'type' => 'DECIMAL',
@@ -248,14 +276,17 @@ class CreateBillProductsTable extends Migration
             'purchase_tax' => [
                 'type' => 'DECIMAL',
                 'constraint' => '10,2',
+                'null' => true,
             ],
             'service' => [
                 'type' => 'BOOLEAN',
                 'default' => false,
+                'null' => true,
             ],
             'use_quantity_discount' => [
                 'type' => 'BOOLEAN',
                 'default' => false,
+                'null' => true,
             ],
             'quantity_discount_details' => [
                 'type' => 'TEXT',
@@ -264,6 +295,7 @@ class CreateBillProductsTable extends Migration
             'price_net_on_payment' => [
                 'type' => 'BOOLEAN',
                 'default' => false,
+                'null' => true,
             ],
             'warehouse_numbers_updated_at' => [
                 'type' => 'DATETIME',
@@ -272,6 +304,7 @@ class CreateBillProductsTable extends Migration
             'ean_code' => [
                 'type' => 'VARCHAR',
                 'constraint' => 255,
+                'null' => true,
             ],
             'weight' => [
                 'type' => 'DECIMAL',
@@ -322,10 +355,12 @@ class CreateBillProductsTable extends Migration
             'tax2' => [
                 'type' => 'DECIMAL',
                 'constraint' => '10,2',
+                'null' => true,
             ],
             'purchase_tax2' => [
                 'type' => 'DECIMAL',
                 'constraint' => '10,2',
+                'null' => true,
             ],
             'supplier_code' => [
                 'type' => 'VARCHAR',
@@ -339,10 +374,12 @@ class CreateBillProductsTable extends Migration
             'siteor_disabled' => [
                 'type' => 'BOOLEAN',
                 'default' => false,
+                'null' => true,
             ],
             'use_moss' => [
                 'type' => 'BOOLEAN',
                 'default' => false,
+                'null' => true,
             ],
             'subscription_id' => [
                 'type' => 'INT',
@@ -364,12 +401,13 @@ class CreateBillProductsTable extends Migration
             'restricted_to_warehouses' => [
                 'type' => 'BOOLEAN',
                 'default' => false,
+                'null' => true,
             ],
-            'gtu_codes_id' => [
+            'gtu_codes' => [
                 'type' => 'TEXT',
                 'null' => true,
             ],
-            'tag_list_id' => [
+            'tag_list' => [
                 'type' => 'TEXT',
                 'null' => true,
             ],
@@ -380,6 +418,7 @@ class CreateBillProductsTable extends Migration
             'is_delivery' => [
                 'type' => 'BOOLEAN',
                 'default' => false,
+                'null' => true,
             ],
         ]);
 
