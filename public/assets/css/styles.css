@@ -55,6 +55,7 @@ body {
 .content {
     flex: 1;
     padding: 1rem;
+
 }
 
 .footer-icon {
@@ -124,6 +125,12 @@ td a {
 .dataTables_filter input {
     color: ghostwhite;
 }
+.table-container {
+    overflow-x: auto;
+    white-space: nowrap; /* Prevent text wrapping */
+}
+
+
 
 /* Success and Error messages */
 #successMessage {
