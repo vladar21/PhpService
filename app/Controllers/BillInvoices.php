@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\BillInvoiceModel;
 use App\Models\BillInvoicesModel;
 use App\Controllers\BaseController;
 
@@ -35,16 +36,11 @@ class BillInvoices extends BaseController
 //            'page' => $paginationLimit
         ];
 
-        $db = \Config\Database::connect();
-//        $query   = $db->query('SELECT * FROM bill_invoices');
-//        $results = $query->getResultArray();
-        $builder = $db->table('bill_invoices');
-        $query = $builder->get();
-        $results = $query->getResult();
+        $model = new BillInvoiceModel();
 
-        $count = $builder->countAllResults();
+        $results = $model->getProducts();
 
-        if (isset($count) && $count > 0) {
+        if (isset($results) && ($count = count($results)) > 0) {
 //            $responseData['draw'] = $getData['draw'];
             $responseData['recordsTotal'] = $count;
 //            $responseData['recordsFiltered'] = $response['data']['total_count'];
