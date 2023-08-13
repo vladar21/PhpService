@@ -1,6 +1,21 @@
 <?= $this->extend('default') ?>
 
 <?= $this->section('content') ?>
+
+<?php
+// Load the breadcrumb helper
+helper('breadcrumb');
+
+// Breadcrumb items
+$breadcrumbs = [
+    'Home' => site_url(),
+    'Bill Invoices' => base_url('bill_invoices'),
+];
+
+// Generate and display the breadcrumbs
+echo generate_breadcrumbs($breadcrumbs, ' / ');
+?>
+
 <h2>Bill Invoices</h2>
 <div class="table-container">
     <table id="billInvoicesTable" class="dataTable">
