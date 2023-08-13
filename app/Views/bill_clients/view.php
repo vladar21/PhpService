@@ -9,8 +9,8 @@ helper('breadcrumb');
 // Breadcrumb items
 $breadcrumbs = [
     'Home' => site_url(),
-    'Bill Products' => base_url('bill_products'),
-    'Product "'.$name.'"' => base_url('bill_products/'.$id),
+    'Bill Clients' => base_url('bill_clients'),
+    'Client "'.$name.'"' => base_url('bill_clients/'.$id),
 ];
 
 // Generate and display the breadcrumbs
@@ -18,9 +18,9 @@ echo generate_breadcrumbs($breadcrumbs, ' / ');
 ?>
 
 <h2>Bill Product</h2>
-<section id="billproduct">
+<section id="billclient">
     <fieldset>
-        <legend>Product's Data</legend>
+        <legend>Client's Data</legend>
         <form class="product-form">
             <div class="product-item">
                 <label for="id"><?= lang('app_lang.id') ?>:</label>

@@ -63,7 +63,7 @@ class BillClients extends BaseController
 
             foreach ($results as $key => $value) {
                 foreach($value as $k => $v){
-                    $responseData['data'][$key][$k] = $v[$k];
+                    $responseData['data'][$key][$k] = $v;
                 }
 //                $responseData['data'][$key]['id'] = $value['id'];
 //                $responseData['data'][$key]['name'] = $value['name'];
