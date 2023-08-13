@@ -33,6 +33,7 @@ echo generate_breadcrumbs($breadcrumbs, ' / ');
             <th><?= lang('app_lang.first_name') ?></th>
             <th><?= lang('app_lang.country') ?></th>
             <th><?= lang('app_lang.email') ?></th>
+            <th><?= lang('app_lang.phone') ?></th>
             <th><?= lang('app_lang.www') ?></th>
             <th><?= lang('app_lang.fax') ?></th>
             <th><?= lang('app_lang.created_at') ?></th>

@@ -1,0 +1,10 @@
+#loadClientsBtn {
+    margin: 19.920px 19.920px;
+    padding: 5px;
+    border-radius: 5%;
+}
+
+/* Hover effect */
+#loadClientsBtn:hover {
+    background-color: #ffffff;
+}

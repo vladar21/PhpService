@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class BillClientModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'billclients';
+    protected $table            = 'bill_clients';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
