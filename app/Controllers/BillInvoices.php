@@ -94,7 +94,7 @@ class BillInvoices extends BaseController
 
     public function invoice($id = NULL)
     {
-        $model = new BillInvoicesModel();
+        $model = new BillInvoiceModel();
 
         $invoice = $model->getInvoices($id);
 

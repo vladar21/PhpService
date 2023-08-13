@@ -37,7 +37,7 @@ return [
     'number' => 'Number',
     'place' => 'Place',
     'sell_date' => 'Sell date',
-    'seller_name' => 'Seller net',
+    'seller_name' => 'Seller name',
     'seller_tax_no' => 'Seller tax_no',
     'seller_street' => 'Seller street',
     'seller_post_code' => 'Seller post code',
@@ -56,10 +56,11 @@ return [
     'buyer_country' => 'Buyer country',
     'token' => 'Token',
     'buyer_email' => 'Buyer email',
-    'client_id' => 'client id',
+    'client_id' => 'Client id',
     'lang' => 'Language',
     'product_cache' => 'Product cache',
     'buyer_last_name' => 'Buyer last name',
-    'delivery_date' => 'Delivery date'
+    'delivery_date' => 'Delivery date',
+    'invoice_id' =>'Invoice id',
 
 ];
