@@ -6,7 +6,7 @@
             <legend>Invoice's Data</legend>
 
             <div class="bills">
-                <div class="bill1">
+                <div class="group-bills">
                     <div>
                         <label for="bill_id"><?= lang('app_lang.invoice_id') ?>:</label>
                         <input type="text" id="invoice_id" name="invoice_id" value="<?= $id ?>" readonly>
@@ -41,7 +41,7 @@
                         <input type="text" id="currency" name="currency" value="<?= $currency ?>" readonly>
                     </div>
                 </div>
-                <div class="bill2">
+                <div class="group-bills">
                     <div>
                         <label for="token"><?= lang('app_lang.token') ?>:</label>
                         <input type="text" id="token" name="token" value="<?= $token ?>" readonly>
@@ -76,7 +76,7 @@
                     </div>
 
                 </div>
-                <div class="bill3">
+                <div class="group-bills">
                     <div>
                         <label for="seller_name"><?= lang('app_lang.seller_name') ?>:</label>
                         <textarea id="seller_name" name="seller_name" readonly><?= $seller_name ?> </textarea>
@@ -122,7 +122,7 @@
                         <input type="text" id="seller_bank_account" name="seller_bank_account" value="<?= $seller_bank_account ?>" readonly>
                     </div>
                 </div>
-                <div class="bill4">
+                <div class="group-bills">
                     <div>
                         <label for="buyer_name"><?= lang('app_lang.buyer_name') ?>:</label>
                         <input type="text" id="buyer_name" name="buyer_name" value="<?= $buyer_name ?>" readonly>

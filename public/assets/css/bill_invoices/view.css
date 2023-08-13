@@ -10,16 +10,10 @@
     align-items: stretch;
 }
 
-.bill1, .bill2, .bill3, .bill4 {
+.group-bills {
     flex-grow: 1;flex-basis: calc(50% - 10px); /* Половина ширины контейнера, с учетом промежутков между элементами */
     margin-bottom: 20px; /* Промежуток между строками */
 }
-
-/*.bills > div > div input,*/
-/*.bills > div > div textarea {*/
-/*    display: inline-block;*/
-/*    width: 50%;*/
-/*}*/
 
 .bills input[type="text"] {
     width: 50%;
