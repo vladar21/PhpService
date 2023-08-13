@@ -1,5 +1,21 @@
 <?= $this->extend('default') ?>
 <?= $this->section('content') ?>
+
+<?php
+// Load the breadcrumb helper
+helper('breadcrumb');
+
+// Breadcrumb items
+$breadcrumbs = [
+    'Home' => site_url(),
+    'Bill Invoices' => base_url('bill_invoices'),
+    'Invoice Id "'.$id.'"' => base_url('bill_invoices/'.$id),
+];
+
+// Generate and display the breadcrumbs
+echo generate_breadcrumbs($breadcrumbs, ' / ');
+?>
+
 <h2>Invoice and Positions (Products)</h2>
     <section id="invoice">
         <fieldset>
