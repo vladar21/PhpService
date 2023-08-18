@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Models\BillPositionsModel;
+use App\Models\BillPositionModel;
 use App\Controllers\BaseController;
 
 class BillPositions extends BaseController
@@ -34,7 +34,7 @@ class BillPositions extends BaseController
 //            'page' => $paginationLimit
         ];
 
-        $model = new BillPositionsModel();
+        $model = new BillPositionModel();
 
         if ($invoice_id){
             $results = $model->getPositionsInvoice($invoice_id);

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class BillPositionsModel extends Model
+class BillPositionModel extends Model
 {
     protected $DBGroup          = 'default';
     protected $table            = 'bill_positions';
@@ -13,7 +13,7 @@ class BillPositionsModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id', 'invoice_id', 'name', 'tax', 'total_price_gross', 'quantity'];
+    protected $allowedFields = ['id', 'invoice_id', 'name', 'description', 'price_net', 'quantity', 'total_price_gross', 'total_price_net', 'account_id', 'created_at', 'updated_at', 'additional_info', 'quantity_unit', 'tax', 'price_gross', 'price_tax', 'total_price_tax', 'kind', 'invoice_position_id', 'product_id', 'deleted', 'discount', 'discount_percent', 'tax2', 'exchange_rate', 'accounting_tax_kind', 'code', 'discount_net', 'lump_sum_tax', 'corrected_pos_kind', 'gtu_code'];
 
     // Dates
     protected $useTimestamps = false;
