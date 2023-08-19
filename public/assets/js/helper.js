@@ -10,6 +10,7 @@ $(document).ready(function() {
             $('.spinner-overlay').show(); // Display the spinner container
         },
         complete: function(){
+            $('table:first').DataTable().ajax.reload();
             $('.spinner-overlay').hide();
         },
         success: function() {}

@@ -43,6 +43,10 @@
         <div id="errorMessage" style="display: none;" class="alert alert-danger">
             Error fetching products. Please try again later.
         </div>
+        <!--        spinner -->
+        <div class="spinner-overlay">
+            <div class="spinner"></div>
+        </div>
         <!--        Content -->
         <?= $this->renderSection('content') ?>
     </main>
