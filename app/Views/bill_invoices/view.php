@@ -179,39 +179,39 @@ echo generate_breadcrumbs($breadcrumbs, ' / ');
         </fieldset>
     </section>
 
-<!--    <section id="positions">-->
-<!--        <fieldset>-->
-<!--            <legend>Positions (Products) Data</legend>-->
-<!--            <table id="billPositionsTable">-->
-<!--                <thead>-->
-<!--                <tr>-->
-<!--                    <th>Id</th>-->
-<!--                    <th>Invoice Id</th>-->
-<!--                    <th>Name</th>-->
-<!--                    <th>Tax</th>-->
-<!--                    <th>Total Price Gross</th>-->
-<!--                    <th>Qty</th>-->
-<!--                </tr>-->
-<!--                </thead>-->
-<!--                <tbody>-->
-<!---->
-<!--                </tbody>-->
-<!--            </table>-->
-<!--        </fieldset>-->
-<!---->
-<!--    </section>-->
+    <section id="positions">
+        <fieldset>
+            <legend>Positions (Products) Data</legend>
+            <table id="billPositionsTable">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Invoice Id</th>
+                    <th>Name</th>
+                    <th>Tax</th>
+                    <th>Total Price Gross</th>
+                    <th>Qty</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </fieldset>
+
+    </section>
 
 
     <link rel="stylesheet" href="<?= base_url('assets/css/bill_invoices/view.css') ?>">
     <script src="<?= base_url('assets/js/bill_invoices/view.js') ?>"></script>
 <script>
-    $(document).ready(function() {
-        // При изменении содержимого textarea
-        $('.bills textarea').on('input', function() {
-            this.style.height = 'auto'; // Сначала установите высоту в auto, чтобы сбросить высоту
-            this.style.height = (this.scrollHeight) + 'px'; // Установите высоту, чтобы вместить содержимое
-        });
-    });
+    // $(document).ready(function() {
+    //     // При изменении содержимого textarea
+    //     $('.bills textarea').on('input', function() {
+    //         this.style.height = 'auto'; // Сначала установите высоту в auto, чтобы сбросить высоту
+    //         this.style.height = (this.scrollHeight) + 'px'; // Установите высоту, чтобы вместить содержимое
+    //     });
+    // });
 </script>
 
 <?= $this->endSection() ?>

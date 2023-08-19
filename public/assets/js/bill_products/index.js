@@ -1,4 +1,6 @@
 $(document).ready(function() {
+
+    // datatables
     const table = $('#billProductsTable');
     const not_applicable = 'not_applicable';
     const per_page = getAppVariable('per_page');

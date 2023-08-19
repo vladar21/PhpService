@@ -289,16 +289,16 @@ $(document).ready(function() {
     });
 
 
-    // Handler for the "Load Products" button click
+    // Handler for the "Load Clients" button click
     // Add click event listener to the "Load Products" button
-    $("#loadProductsBtn").on("click", function() {
+    $("#loadClientsBtn").on("click", function() {
         // Send an AJAX request to fetch products
         $.ajax({
-            url: "/billapi/fetchProducts",
+            url: "/billapi/fetchClients",
             method: 'GET',
             dataType: 'json',
             success: function(response) {
-                var message = response.message || 'Products fetching completed successfully.';
+                var message = response.message || 'Clients fetching completed successfully.';
                 // Show the success message with a fade-in effect
                 $('#successMessage').text(message).fadeIn(1000, function() {
                     // Hide the success message after 5 seconds with a fade-out effect
@@ -311,7 +311,7 @@ $(document).ready(function() {
             },
             error: function(xhr) {
                 var errorMessage = xhr.responseJSON && xhr.responseJSON.message;
-                var message = errorMessage || 'Error fetching products. Please try again later.';
+                var message = errorMessage || 'Error fetching clients. Please try again later.';
                 // Show the error message with a fade-in effect
                 $('#errorMessage').text(message).fadeIn(1000, function() {
                     // Hide the error message after 5 seconds with a fade-out effect

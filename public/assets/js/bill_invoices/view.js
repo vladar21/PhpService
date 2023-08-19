@@ -52,4 +52,10 @@ $(document).ready(function() {
             // },
         });
     }
+
+    // При изменении содержимого textarea
+    $('.bills textarea').on('input', function() {
+        this.style.height = 'auto'; // Сначала установите высоту в auto, чтобы сбросить высоту
+        this.style.height = (this.scrollHeight) + 'px'; // Установите высоту, чтобы вместить содержимое
+    });
 })

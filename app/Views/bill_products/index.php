@@ -20,6 +20,9 @@ echo generate_breadcrumbs($breadcrumbs, ' / ');
 <!-- Button to load products -->
 <button type="submit" id="loadProductsBtn" class="btn btn-primary float-right">Update Products</button>
 <div class="clear-both"></div>
+<div class="spinner-overlay">
+    <div class="spinner"></div>
+</div>
 <div class="table-container">
     <table id="billProductsTable" class="dataTable">
         <thead>

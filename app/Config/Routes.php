@@ -53,6 +53,8 @@ $routes->get('bill_clients/get_clients_ajax', 'BillClients::get_clients_ajax');
 
 // update all bill products
 $routes->get('/billapi/fetchProducts', 'api\BillAPIController::fetchProducts');
+$routes->get('/billapi/fetchClients', 'api\BillAPIController::fetchClients');
+$routes->get('/billapi/fetchInvoices', 'api\BillAPIController::fetchInvoices');
 
 
 

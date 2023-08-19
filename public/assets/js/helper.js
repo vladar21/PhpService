@@ -3,6 +3,17 @@
  */
 $(document).ready(function() {
     $('.dataTables_paginate').addClass('hide');
+
+    // spinner
+    jQuery.ajaxSetup({
+        beforeSend: function() {
+            $('.spinner-overlay').show(); // Display the spinner container
+        },
+        complete: function(){
+            $('.spinner-overlay').hide();
+        },
+        success: function() {}
+    });
 });
 
 /**
