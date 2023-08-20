@@ -223,7 +223,8 @@ $(document).ready(function() {
             },
             error: function (xhr) {
                 if ( xhr.status == 200){
-                    var message = 'Invoices fetching completed successfully.';
+                    var message =
+                        'Invoices fetching completed successfully.';
                     // Show the success message with a fade-in effect
                     $('#successMessage').text(message).fadeIn(1000, function () {
                         // Hide the success message after 5 seconds with a fade-out effect

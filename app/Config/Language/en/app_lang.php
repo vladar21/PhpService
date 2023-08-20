@@ -113,5 +113,12 @@ return [
     'update_invoices' => 'Update Invoices',
     'update_products' => 'Update Products',
     'bill_products' => 'Bill Products',
+    'not_account' => "Don't have an account?",
+    'sign_up' => 'Sign up',
+    'enter' => 'Enter',
+    'password' => 'Password',
+    'login' => 'Login',
+    'register' => 'Register',
+    'sign_in' => 'Sign In',
 
 ];

@@ -51,7 +51,7 @@
         <?= $this->renderSection('content') ?>
     </main>
     <footer class="footer">
-        <span>&copy; <?php echo date('Y'); ?> Admin Dashboard. All rights reserved.</span>
+        <span>&copy; <?php echo date('Y'); ?> PHP Service. All rights reserved.</span>
         <div class="social-icons">
             <a href="#" class="footer-icon"><i class="fab fa-telegram"></i></a>
             <a href="#" class="footer-icon"><i class="fab fa-viber"></i></a>

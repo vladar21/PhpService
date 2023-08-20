@@ -186,10 +186,6 @@ td a {
     100% { transform: rotate(360deg); }
 }
 
-
-
-
-
 /* Responsive styles */
 @media screen and (max-width: 768px) {
     .header,
