@@ -85,7 +85,6 @@ class BillAPIController extends BaseController
         $perPage = 25;
         $page = 1;
         $errorMessage = null;
-        $positions = [];
 
         // Get the logger instance
         $logger = service('logger');
@@ -249,52 +248,52 @@ class BillAPIController extends BaseController
         // Assuming you have a model called ProductModel to interact with the database
         $model = new BillInvoiceModel();
 
-        foreach ($invoices as $invoice) {
-            // add data to positions
-            if (count($invoice['positions']) > 0){
-                $positions[] = $invoice['positions'];
-            }
-            unset($invoice['positions']);
-            // Find the product by 'id' in our database
-            $existingInvoice = $model->find($invoice['id']);
+        try{
 
-            if ($existingInvoice) {
-                // If the product already exists, check for field-by-field differences
-                $updatedData = [];
+            foreach ($invoices as $invoice) {
+                // add data to positions
+                if (count($invoice['positions']) > 0){
+    //                $positions[] = $invoice['positions'];
+                    $this->savePositionsToDatabase($invoice['positions']);
+                }
+                unset($invoice['positions']);
+                // Find the invoice by 'id' in our database
+                $existingInvoice = $model->find($invoice['id']);
 
-                // Compare each field of the existing product with the new data
-                foreach ($invoice as $field => $value) {
-                    if (in_array($field, $exceptionFields)) continue;
-                    if ($existingInvoice[$field] !== $value) {
-                        $updatedData[$field] = $value;
+                if ($existingInvoice) {
+                    // If the product already exists, check for field-by-field differences
+                    $updatedData = [];
+
+                    // Compare each field of the existing product with the new data
+                    foreach ($invoice as $field => $value) {
+                        if (in_array($field, $exceptionFields)) continue;
+                        if ($existingInvoice[$field] !== $value) {
+                            $updatedData[$field] = $value;
+                        }
                     }
-                }
 
-                // If there are differences, update the existing product with the new data
-                if (!empty($updatedData)) {
-                    $model->update($invoice['id'], $updatedData);
+                    // If there are differences, update the existing product with the new data
+                    if (!empty($updatedData)) {
+                        $model->update($invoice['id'], $updatedData);
+                    }
+                } else {
+                    // If the product does not exist, insert it into the database
+                    $model->insert($invoice);
                 }
-            } else {
-                // If the product does not exist, insert it into the database
-                $model->insert($invoice);
             }
-        }
-        if (count($positions) > 0){
-            foreach($positions as $key => $value){
-                $this->savePositionsToDatabase($value);
-            }
-
+        }catch(\Throwable $ex){
+            new \Exception($ex->getMessage());
         }
     }
 
     private function savePositionsToDatabase($positions)
     {
-        echo "Positions ".print_r($positions);
+//        echo "Positions ".print_r($positions);
         // Assuming you have a model called ProductModel to interact with the database
         $model = new BillPositionModel();
 
         foreach ($positions as $position) {
-            echo "Position ".print_r($position);
+//            echo "Position ".print_r($position);
             // Find the product by 'id' in our database
             $existingPosition = $model->find($position['id']);
 

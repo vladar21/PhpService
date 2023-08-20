@@ -15,7 +15,9 @@ class BillInvoices extends BaseController
 //        $db = \Config\Database::connect();
 //        $query   = $db->query('SELECT * FROM bill_invoices');
 //        $data['bill_invoices'] = $query->getResultArray();
-        $data=[];
+        $data=[
+            'per_page' => 10
+        ];
         return view('bill_invoices/index', $data);
     }
 
@@ -24,26 +26,120 @@ class BillInvoices extends BaseController
         $request = service('request');
         $getData = $request->getGet();
 
-        $searchKey = !empty($getData['search']['value']) ? $getData['search']['value'] : '';
-        $limit = !empty($getData['length']) ? $getData['length'] : 10;
+        // Get the request parameters from DataTables AJAX
+        $draw = $getData['draw'];
+        $start = $getData['start'];
+        $length = $getData['length'];
+        $search = $getData['search']['value'];
+        $orders = $getData['order'];
 
-//        $paginationLimit = ($getData['start'] == 0)
-//            ? 1 : ($getData['start'] / $limit) + 1;
-
-        $queryStr = [
-            'search' => $searchKey,
-            'limit' => $limit,
-//            'page' => $paginationLimit
-        ];
-
+        // Create an instance of your model
         $model = new BillInvoiceModel();
 
-        $results = $model->getInvoices();
+        $query = $model->select('*');
+
+        // Conditions
+        if ($search) {
+            $query->where('id', $search)
+                ->orWhere('user_id', $search)
+                ->orWhere('number', 'LIKE', "%$search%")
+                ->orWhere('place', 'LIKE', "%$search%")
+                ->orWhere('price_net', $search)
+                ->orWhere('price_gross', $search)
+                ->orWhere('currency', 'LIKE', "%$search%")
+                ->orWhere('description', 'LIKE', "%$search%")
+                ->orWhere('seller_name', 'LIKE', "%$search%")
+                ->orWhere('seller_tax_no', 'LIKE', "%$search%")
+                ->orWhere('seller_street', 'LIKE', "%$search%")
+                ->orWhere('seller_post_code', 'LIKE', "%$search%")
+                ->orWhere('seller_city', 'LIKE', "%$search%")
+                ->orWhere('seller_country', 'LIKE', "%$search%")
+                ->orWhere('seller_email', 'LIKE', "%$search%")
+                ->orWhere('seller_phone', 'LIKE', "%$search%")
+                ->orWhere('seller_www', 'LIKE', "%$search%")
+                ->orWhere('seller_bank', 'LIKE', "%$search%")
+                ->orWhere('seller_bank_account', 'LIKE', "%$search%")
+                ->orWhere('buyer_name', 'LIKE', "%$search%")
+                ->orWhere('buyer_post_code', 'LIKE', "%$search%")
+                ->orWhere('buyer_city', 'LIKE', "%$search%")
+                ->orWhere('buyer_street', 'LIKE', "%$search%")
+                ->orWhere('buyer_first_name', 'LIKE', "%$search%")
+                ->orWhere('buyer_country', 'LIKE', "%$search%")
+                ->orWhere('created_at', 'LIKE', "%$search%")
+                ->orWhere('updated_at', 'LIKE', "%$search%")
+                ->orWhere('token', 'LIKE', "%$search%")
+                ->orWhere('buyer_email', 'LIKE', "%$search%")
+                ->orWhere('client_id', $search)
+                ->orWhere('lang', 'LIKE', "%$search%")
+                ->orWhere('product_cache', 'LIKE', "%$search%")
+                ->orWhere('buyer_last_name', 'LIKE', "%$search%");
+        }
+
+        // total records
+        $totalRecords = $query->countAllResults();
+
+        // Iterate through each order element
+        $columns = [
+            'id',
+            'user_id',
+            'number',
+            'place',
+            'sell_date',
+            'price_net',
+            'price_gross',
+            'currency',
+            'description',
+            'seller_name',
+            'seller_tax_no',
+            'seller_street',
+            'seller_post_code',
+            'seller_city',
+            'seller_country',
+            'seller_email',
+            'seller_phone',
+            'seller_www',
+            'seller_bank',
+            'seller_bank_account',
+            'buyer_name',
+            'buyer_post_code',
+            'buyer_city',
+            'buyer_street',
+            'buyer_first_name',
+            'buyer_country',
+            'created_at',
+            'updated_at',
+            'token',
+            'buyer_email',
+            'client_id',
+            'lang',
+            'product_cache',
+            'buyer_last_name',
+            'delivery_date',
+        ];
+
+        foreach ($orders as $order) {
+            $order_column_index = $order['column'];
+            $order_column = $columns[$order_column_index]; // Map to your database column
+            $order_dir = $order['dir'];
+
+            // Add ordering for each column
+            $query->orderBy($order_column, $order_dir);
+        }
+
+        // Limit and offset
+        $query->limit($length, $start);
+
+        try {
+            // Execute the query and store the result in $results
+            $results = $query->get()->getResultArray();
+        } catch (\Exception $e) {
+            die($e->getMessage());
+        }
 
         if (isset($results) && ($count = count($results)) > 0) {
-//            $responseData['draw'] = $getData['draw'];
+            $responseData['draw'] = $getData['draw'];
             $responseData['recordsTotal'] = $count;
-//            $responseData['recordsFiltered'] = $response['data']['total_count'];
+            $responseData['recordsFiltered'] = $totalRecords;
 
             foreach ($results as $key => $value) {
 

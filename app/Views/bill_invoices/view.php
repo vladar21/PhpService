@@ -196,6 +196,9 @@ echo generate_breadcrumbs($breadcrumbs, ' / ');
                 <tbody>
 
                 </tbody>
+                <tfoot align="center">
+                <tr><th></th><th></th><th></th><th></th><th></th><th></th></tr>
+                </tfoot>
             </table>
         </fieldset>
 

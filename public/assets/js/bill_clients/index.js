@@ -7,6 +7,10 @@ $(document).ready(function() {
     const language = getAppVariable('language');
 
     let datatable_obj = $(table).DataTable({
+        // processing: true,
+        // serverSide: true,
+        pageLength: per_page,
+        order: [[1, "desc"]],
         ajax: '/bill_clients/get_clients_ajax',
         columns: [
             {
@@ -278,44 +282,38 @@ $(document).ready(function() {
                 }
             }
         ]
-        // processing: true,
-        // serverSide: true,
-        // pageLength: per_page,
-        // order: [[1, "desc"]],
-        // ajax: {
-        //     type: 'GET',
-        //     url: "/bill_invoices/get_invoices_ajax"
-        // },
     });
+});
 
-
-    // Handler for the "Load Clients" button click
-    // Add click event listener to the "Load Products" button
-    $("#loadClientsBtn").on("click", function() {
-        // Send an AJAX request to fetch products
+$(document).ready(function() {
+// Handler for the "Load Clients" button click
+// Add click event listener to the "Load Clients" button
+    $("#loadClientsBtn").on("click", function () {
+        // Send an AJAX request to fetch clients
         $.ajax({
             url: "/billapi/fetchClients",
             method: 'GET',
             dataType: 'json',
-            success: function(response) {
+            success: function (response) {
                 var message = response.message || 'Clients fetching completed successfully.';
                 // Show the success message with a fade-in effect
-                $('#successMessage').text(message).fadeIn(1000, function() {
+                $('#successMessage').text(message).fadeIn(1000, function () {
                     // Hide the success message after 5 seconds with a fade-out effect
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#successMessage').fadeOut(1000);
                     }, 5000);
                 });
                 // Hide the error message if it's currently displayed
                 $('#errorMessage').hide();
+                $('#billClientsTable').DataTable().ajax.reload();
             },
-            error: function(xhr) {
+            error: function (xhr) {
                 var errorMessage = xhr.responseJSON && xhr.responseJSON.message;
                 var message = errorMessage || 'Error fetching clients. Please try again later.';
                 // Show the error message with a fade-in effect
-                $('#errorMessage').text(message).fadeIn(1000, function() {
+                $('#errorMessage').text(message).fadeIn(1000, function () {
                     // Hide the error message after 5 seconds with a fade-out effect
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#errorMessage').fadeOut(1000);
                     }, 5000);
                 });
@@ -324,5 +322,4 @@ $(document).ready(function() {
             }
         });
     });
-
-})
+});

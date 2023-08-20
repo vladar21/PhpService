@@ -108,5 +108,10 @@ return [
     'buyer_id' => 'Buyer id',
     'price_list_id' => 'Price list id',
     'panel_url' => 'Panel url',
+    'bill_clients' => 'Bill Clients',
+    'update_clients' => 'Update Clients',
+    'update_invoices' => 'Update Invoices',
+    'update_products' => 'Update Products',
+    'bill_products' => 'Bill Products',
 
 ];

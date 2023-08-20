@@ -16,7 +16,11 @@ $breadcrumbs = [
 echo generate_breadcrumbs($breadcrumbs, ' / ');
 ?>
 
-<h2>Bill Invoices</h2>
+<h2 class="float-left">Bill Invoices</h2>
+<!-- Button to load invoices -->
+<button type="submit" id="loadInvoicesBtn" class="btn btn-primary float-right">Update Invoices</button>
+<div class="clear-both"></div>
+
 <div class="table-container">
     <table id="billInvoicesTable" class="dataTable">
         <thead>

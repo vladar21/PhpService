@@ -10,7 +10,9 @@ class BillProducts extends BaseController
     {
         helper('language');
         $lang = lang('app_lang');
-        $data=[];
+        $data=[
+            'per_page' => 10
+        ];
         return view('bill_products/index', $data);
     }
 
@@ -83,26 +85,78 @@ class BillProducts extends BaseController
         $request = service('request');
         $getData = $request->getGet();
 
-        $searchKey = !empty($getData['search']['value']) ? $getData['search']['value'] : '';
-        $limit = !empty($getData['length']) ? $getData['length'] : 10;
+        // Get the request parameters from DataTables AJAX
+        $draw = $getData['draw'];
+        $start = $getData['start'];
+        $length = $getData['length'];
+        $search = $getData['search']['value'];
+        $orders = $getData['order'];
 
-//        $paginationLimit = ($getData['start'] == 0)
-//            ? 1 : ($getData['start'] / $limit) + 1;
-
-        $queryStr = [
-            'search' => $searchKey,
-            'limit' => $limit,
-//            'page' => $paginationLimit
-        ];
-
+        // Create an instance of your model
         $model = new BillProductModel();
 
-        $results = $model->getProducts();
+        $query = $model->select('*');
+
+        // Conditions
+        if ($search) {
+            $query->where('id', $search)
+                ->orWhere('name', 'LIKE', "%$search%")
+                ->orWhere('description', 'LIKE', "%$search%")
+                ->orWhere('price_net', 'LIKE', "%$search%")
+                ->orWhere('quantity', $search)
+                ->orWhere('quantity_unit', 'LIKE', "%$search%")
+                ->orWhere('additional_info', 'LIKE', "%$search%")
+                ->orWhere('price_gross', $search)
+                ->orWhere('form_name', 'LIKE', "%$search%")
+                ->orWhere('code', 'LIKE', "%$search%")
+                ->orWhere('currency', 'LIKE', "%$search%")
+                ->orWhere('weight_unit', 'LIKE', "%$search%")
+                ->orWhere('supplier_code', 'LIKE', "%$search%");
+        }
+
+        // total records
+        $totalRecords = $query->countAllResults();
+
+        // Iterate through each order element
+        $columns = [
+            'id', // 0
+            'name',
+            'description',
+            'price_net',
+            'quantity',
+            'quantity_unit',
+            'additional_info',
+            'price_gross',
+            'form_name',
+            'code',
+            'currency',
+            'weight_unit',
+            'supplier_code'
+        ];
+
+        foreach ($orders as $order) {
+            $order_column_index = $order['column'];
+            $order_column = $columns[$order_column_index]; // Map to your database column
+            $order_dir = $order['dir'];
+
+            // Add ordering for each column
+            $query->orderBy($order_column, $order_dir);
+        }
+
+        // Limit and offset
+        $query->limit($length, $start);
+
+        try {
+            // Execute the query and store the result in $results
+            $results = $query->get()->getResultArray();
+        } catch (\Exception $e) {
+            die($e->getMessage());
+        }
 
         if (isset($results) && ($count = count($results)) > 0) {
-//            $responseData['draw'] = $getData['draw'];
+            $responseData['draw'] = $getData['draw'];
             $responseData['recordsTotal'] = $count;
-//            $responseData['recordsFiltered'] = $response['data']['total_count'];
+            $responseData['recordsFiltered'] = $totalRecords;
 
             foreach ($results as $key => $value) {
 
@@ -123,7 +177,7 @@ class BillProducts extends BaseController
                 $responseData['data'][$key]['updated_at'] = $value['updated_at'];
             }
         } else {
-//            $responseData['draw'] = $getData['draw'];
+            $responseData['draw'] = $getData['draw'];
             $responseData['recordsTotal'] = 0;
             $responseData['recordsFiltered'] = 0;
             $responseData['data'] = [];

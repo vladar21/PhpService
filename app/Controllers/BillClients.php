@@ -11,7 +11,9 @@ class BillClients extends BaseController
     {
         helper('language');
         $lang = lang('app_lang');
-        $data=[];
+        $data=[
+            'per_page' => 10
+        ];
         return view('bill_clients/index', $data);
     }
 

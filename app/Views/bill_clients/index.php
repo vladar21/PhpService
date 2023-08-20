@@ -16,9 +16,9 @@ $breadcrumbs = [
 echo generate_breadcrumbs($breadcrumbs, ' / ');
 ?>
 
-<h2 class="float-left">Bill Clients</h2>
+<h2 class="float-left"><?= lang('app_lang.bill_clients') ?></h2>
 <!-- Button to load products -->
-<button type="submit" id="loadClientsBtn" class="btn btn-primary float-right">Update Clients</button>
+<button type="submit" id="loadClientsBtn" class="btn btn-primary float-right"><?= lang('app_lang.update_clients') ?></button>
 <div class="clear-both"></div>
 <div class="table-container">
     <table id="billClientsTable" class="dataTable">

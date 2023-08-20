@@ -41,16 +41,45 @@ $(document).ready(function() {
                         return row.quantity ? row.quantity : not_applicable;
                     }
                 }
-            ]
-            // processing: true,
-            // serverSide: true,
-            // pageLength: per_page,
-            // order: [[1, "desc"]],
-            // ajax: {
-            //     type: 'GET',
-            //     url: "/bill_invoices/get_invoices_ajax"
-            // },
+            ],
+            footerCallback: function ( row, data, start, end, display ) {
+                var api = this.api(), data;
+
+                // converting to integer to find total
+                var intVal = function ( i ) {
+                    return typeof i === 'string' ?
+                        i.replace(/[\$,]/g, '')*1 :
+                        typeof i === 'number' ?
+                            i : 0;
+                };
+
+                // const sum = numbers.reduce((accumulator, currentValue) => {
+                //     return accumulator + currentValue;
+                // }, 0);
+
+                // computing column Total of the complete result
+                var thuTotal = api
+                    .column( 4 )
+                    .data()
+                    .reduce( function (a, b) {
+                        return parseFloat(intVal(a).toFixed(2)) + parseFloat(intVal(b).toFixed(2));
+                    }, 0 );
+
+                var friTotal = api
+                    .column( 5 )
+                    .data()
+                    .reduce( function (a, b) {
+                        return parseFloat(intVal(a).toFixed(2)) + parseFloat(intVal(b).toFixed(2));
+                    }, 0 );
+
+
+                // Update footer by showing the total with the reference of the column index
+                $( api.column( 3 ).footer() ).html('Total');
+                $( api.column( 4 ).footer() ).html(thuTotal);
+                $( api.column( 5 ).footer() ).html(friTotal);
+            },
         });
+
     }
 
     // При изменении содержимого textarea

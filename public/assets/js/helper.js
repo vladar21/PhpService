@@ -4,13 +4,17 @@
 $(document).ready(function() {
     $('.dataTables_paginate').addClass('hide');
 
+    // $('table').DataTable({
+    //     pageLength: 10, // Set the number of rows to display per page
+    //     // Other DataTable options...
+    // });
+
     // spinner
     jQuery.ajaxSetup({
         beforeSend: function() {
             $('.spinner-overlay').show(); // Display the spinner container
         },
         complete: function(){
-            $('table:first').DataTable().ajax.reload();
             $('.spinner-overlay').hide();
         },
         success: function() {}

@@ -9,6 +9,10 @@ $(document).ready(function() {
     const language = getAppVariable('language');
 
     let datatable_obj = $(table).DataTable({
+        // processing: true,
+        serverSide: true,
+        pageLength: per_page,
+        order: [[0, "desc"]],
         ajax: '/bill_products/get_products_ajax',
         columns: [
             {
@@ -95,14 +99,6 @@ $(document).ready(function() {
                 }
             }
         ]
-        // processing: true,
-        // serverSide: true,
-        // pageLength: per_page,
-        // order: [[1, "desc"]],
-        // ajax: {
-        //     type: 'GET',
-        //     url: "/bill_invoices/get_invoices_ajax"
-        // },
     });
 
 
@@ -141,5 +137,4 @@ $(document).ready(function() {
             }
         });
     });
-
 })
