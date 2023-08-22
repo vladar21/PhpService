@@ -10,6 +10,8 @@ $routes = Services::routes();
  * Router Setup
  * --------------------------------------------------------------------
  */
+service('auth')->routes($routes);
+
 $routes->setDefaultNamespace('App\Controllers');
 $routes->setDefaultController('Home');
 $routes->setDefaultMethod('index');
@@ -60,6 +62,8 @@ $routes->get('bill_clients/get_clients_ajax', 'BillClients::get_clients_ajax');
 $routes->get('/billapi/fetchProducts', 'api\BillAPIController::fetchProducts');
 $routes->get('/billapi/fetchClients', 'api\BillAPIController::fetchClients');
 $routes->get('/billapi/fetchInvoices', 'api\BillAPIController::fetchInvoices');
+
+service('auth')->routes($routes);
 
 
 
