@@ -33,16 +33,9 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'AuthController::login');
+$routes->get('/', 'Dashboard::index');
 $routes->get('dashboard', 'Dashboard::index');
-
-$routes->group('auth', ['namespace' => 'App\Controllers'], function($routes)
-{
-    $routes->get('register', 'AuthController::register');
-    $routes->get('login', 'AuthController::login');
-    $routes->get('logout', 'AuthController::logout');
-    $routes->post('processRegister', 'AuthController::processRegister');
-});
+$routes->get('dashboard/get_users_ajax', 'Dashboard::get_users_ajax');
 
 $routes->get('bill_invoices', 'BillInvoices::index');
 $routes->get('bill_invoices/(:num)', 'BillInvoices::invoice/$1');
@@ -56,7 +49,7 @@ $routes->get('bill_products/get_products_ajax', 'BillProducts::get_products_ajax
 
 $routes->get('bill_clients', 'BillClients::index');
 $routes->get('bill_clients/(:num)', 'BillClients::client/$1');
-$routes->get('bill_clients/get_clients_ajax', 'BillClients::get_clients_ajax');
+$routes->post('bill_clients/get_clients_ajax', 'BillClients::get_clients_ajax');
 
 // update all bill products
 $routes->get('/billapi/fetchProducts', 'api\BillAPIController::fetchProducts');

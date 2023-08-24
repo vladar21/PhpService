@@ -96,7 +96,7 @@ class BillProducts extends BaseController
         $model = new BillProductModel();
 
         $query = $model->select('*');
-
+        $totalRecords = $query->countAllResults();
         // Conditions
         if ($search) {
             $query->where('id', $search)
@@ -114,8 +114,7 @@ class BillProducts extends BaseController
                 ->orWhere('supplier_code', 'LIKE', "%$search%");
         }
 
-        // total records
-        $totalRecords = $query->countAllResults();
+        $filteredCount = $query->countAllResults();
 
         // Iterate through each order element
         $columns = [
@@ -153,10 +152,10 @@ class BillProducts extends BaseController
             die($e->getMessage());
         }
 
-        if (isset($results) && ($count = count($results)) > 0) {
-            $responseData['draw'] = $getData['draw'];
-            $responseData['recordsTotal'] = $count;
-            $responseData['recordsFiltered'] = $totalRecords;
+        if (isset($results)) {
+            $responseData['draw'] = $draw;
+            $responseData['recordsTotal'] = $totalRecords;
+            $responseData['recordsFiltered'] = $filteredCount;
 
             foreach ($results as $key => $value) {
 
@@ -177,7 +176,7 @@ class BillProducts extends BaseController
                 $responseData['data'][$key]['updated_at'] = $value['updated_at'];
             }
         } else {
-            $responseData['draw'] = $getData['draw'];
+            $responseData['draw'] = $draw;
             $responseData['recordsTotal'] = 0;
             $responseData['recordsFiltered'] = 0;
             $responseData['data'] = [];

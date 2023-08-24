@@ -8,10 +8,17 @@ $(document).ready(function() {
 
     let datatable_obj = $(table).DataTable({
         // processing: true,
-        // serverSide: true,
+        serverSide: true,
         pageLength: per_page,
         order: [[1, "desc"]],
-        ajax: '/bill_clients/get_clients_ajax',
+        ajax: {
+            url: '/bill_clients/get_clients_ajax',
+            type: 'POST',
+            data: function (d) {
+                return JSON.stringify(d);
+            },
+            contentType: 'application/json',
+        },
         columns: [
             {
                 data: 'id',

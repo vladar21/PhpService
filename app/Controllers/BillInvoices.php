@@ -37,7 +37,7 @@ class BillInvoices extends BaseController
         $model = new BillInvoiceModel();
 
         $query = $model->select('*');
-
+        $totalRecords = $query->countAllResults();
         // Conditions
         if ($search) {
             $query->where('id', $search)
@@ -76,7 +76,7 @@ class BillInvoices extends BaseController
         }
 
         // total records
-        $totalRecords = $query->countAllResults();
+        $filteredCount = $query->countAllResults();
 
         // Iterate through each order element
         $columns = [
@@ -136,10 +136,10 @@ class BillInvoices extends BaseController
             die($e->getMessage());
         }
 
-        if (isset($results) && ($count = count($results)) > 0) {
-            $responseData['draw'] = $getData['draw'];
-            $responseData['recordsTotal'] = $count;
-            $responseData['recordsFiltered'] = $totalRecords;
+        if (isset($results)) {
+            $responseData['draw'] = $draw;
+            $responseData['recordsTotal'] = $totalRecords;
+            $responseData['recordsFiltered'] = $filteredCount;
 
             foreach ($results as $key => $value) {
 
@@ -180,7 +180,7 @@ class BillInvoices extends BaseController
                 $responseData['data'][$key]['delivery_date'] = $value['delivery_date'];
             }
         } else {
-            $responseData['draw'] = $getData['draw'];
+            $responseData['draw'] = $draw;
             $responseData['recordsTotal'] = 0;
             $responseData['recordsFiltered'] = 0;
             $responseData['data'] = [];

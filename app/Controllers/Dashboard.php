@@ -2,23 +2,95 @@
 
 namespace App\Controllers;
 
+use App\Models\UserModel;
+
 class Dashboard extends BaseController
 {
     public function index()
     {
-        // Logic for the dashboard
-        // Fetch user data, perform calculations, etc.
-        // Load necessary views and pass data to them
-        
-        // Example: Load a view called dashboard_view.php
-//        phpinfo();
-        ;
-        $data['users'][] = [
-            'id' => 1,
-            'name' => 'John',
-            'email' => 'example1@example.ir',
-            'role' => 3 // users
+        helper('language');
+        $lang = lang('app_lang');
+        $data=[
+            'per_page' => 10
         ];
-        return view('dashboard_view', $data);
+        return view('dashboard/index', $data);
+    }
+
+    public function get_users_ajax(){
+
+        $request = service('request');
+        $getData = $request->getGet();
+
+        // Get the request parameters from DataTables AJAX
+        $draw = $getData['draw'];
+        $start = $getData['start'];
+        $length = $getData['length'];
+        $search = $getData['search']['value'];
+        $orders = $getData['order'];
+
+        $model = new UserModel();
+
+        $query = $model->select('*');
+        $totalRecords = $query->countAllResults();
+        // Conditions
+        if ($search) {
+            $query->where('id', $search)
+                ->orWhere('username', 'LIKE', "%$search%")
+                ->orWhere('status', 'LIKE', "%$search%")
+                ->orWhere('status_message', 'LIKE', "%$search%")
+                ->orWhere('active', $search);
+        }
+
+        $filteredCount = $query->countAllResults();
+
+        // Iterate through each order element
+        $columns = [
+            'id', // 0
+            'username',
+            'status',
+            'status_message',
+            'active',
+            'last_active',
+            'created_at',
+            'updated_at',
+            'deleted_at',
+        ];
+
+        foreach ($orders as $order) {
+            $order_column_index = $order['column'];
+            $order_column = $columns[$order_column_index]; // Map to your database column
+            $order_dir = $order['dir'];
+
+            // Add ordering for each column
+            $query->orderBy($order_column, $order_dir);
+        }
+
+        // Limit and offset
+        $query->limit($length, $start);
+
+        try {
+            // Execute the query and store the result in $results
+            $results = $query->get()->getResultArray();
+        } catch (\Exception $e) {
+            die($e->getMessage());
+        }
+
+        if (isset($results)) {
+            $responseData['draw'] = $draw;
+            $responseData['recordsTotal'] = $totalRecords;
+            $responseData['recordsFiltered'] = $filteredCount;
+
+            foreach ($results as $key => $value) {
+                foreach($value as $k => $v){
+                    $responseData['data'][$key][$k] = $v;
+                }
+            }
+        } else {
+            $responseData['draw'] = $draw;
+            $responseData['recordsTotal'] = 0;
+            $responseData['recordsFiltered'] = 0;
+            $responseData['data'] = [];
+        }
+        echo json_encode($responseData); die();
     }
 }
