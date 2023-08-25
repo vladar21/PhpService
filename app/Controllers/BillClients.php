@@ -36,7 +36,7 @@ class BillClients extends BaseController
 
         return view('bill_clients/view', $data);
     }
-
+    
     public function get_clients_ajax(){
 
         $request = service('request');

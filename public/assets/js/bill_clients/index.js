@@ -5,6 +5,8 @@ $(document).ready(function() {
     const title_view = getAppVariable('title_view');
     const base_url = getAppVariable('base_url');
     const language = getAppVariable('language');
+    const csrf_token = getAppVariable('csrf_token');
+
 
     let datatable_obj = $(table).DataTable({
         // processing: true,
@@ -14,7 +16,11 @@ $(document).ready(function() {
         ajax: {
             url: '/bill_clients/get_clients_ajax',
             type: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': csrfToken
+            },
             data: function (d) {
+                d.csrf_token;
                 return JSON.stringify(d);
             },
             contentType: 'application/json',

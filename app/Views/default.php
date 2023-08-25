@@ -87,11 +87,11 @@
 <script>
     var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': csrfToken
-        }
-    });
+    // $.ajaxSetup({
+    //     headers: {
+    //         'X-CSRF-TOKEN': csrfToken
+    //     }
+    // });
 
 </script>
 </body>
