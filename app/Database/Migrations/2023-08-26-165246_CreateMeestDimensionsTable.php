@@ -36,6 +36,7 @@ class CreateMeestDimensionsTable extends Migration
 
         $this->forge->addKey('id', true);
         $this->forge->addForeignKey('meest_parcels_id', 'meest_parcels', 'id');
+
         $this->forge->createTable('meest_dimensions');
     }
 
