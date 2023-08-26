@@ -47,6 +47,7 @@ class CreateMeestRecipientDocumentsTable extends Migration
 
         $this->forge->addKey('id', true);
         $this->forge->addForeignKey('sender_recipient_id', 'meest_senders_recipients', 'id');
+
         $this->forge->createTable('meest_sender_recipient_documents');
     }
 

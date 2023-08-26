@@ -8,6 +8,28 @@ class MeestItemDescriptionsSeeder extends Seeder
 {
     public function run()
     {
-        //
+        $datas = [
+            [
+                "item_id" => 1,
+                "description" => "Słuchawki bezprzewodowe Sony WH-CH510L Blue",
+                "lang" => "pl"
+            ],
+            [
+                "item_id" => 1,
+                "description" => "Навушники безпровідні Sony WH-CH510L Блакитні",
+                "lang" => "uk"
+            ],
+            [
+                "item_id" => 1,
+                "description" => "Sony WH-CH510L Blue wireless headphones",
+                "lang" => "en"
+            ]
+
+        ];
+
+        foreach($datas as $data){
+            $this->db->table('meest_item_descriptions')->insert($data);
+        }
+
     }
 }

@@ -23,17 +23,13 @@ class MeestParcelsSeeder extends Seeder
             'serviceType' => 'Home Delivery',
             'totalValue' => 30,
             'currency' => 'EUR',
-            'dimensions_height' => 20,
-            'dimensions_length' => 25,
-            'dimensions_width' => 10,
             'fulfillment' => 'FULL',
             'incoterms' => 'DDP',
             'iossVatIDenc' => 'EuLyAWjprs9+SqY9n1vIjl7CvqoWoKcDFSDaQE+mmE4=',
             'senderID' => '5FD924625F6AB16A',
             'weight' => 0.5,
-            'meest_recipients_id' => , // Замените на соответствующий ID получателя
-            'meest_senders_id' => ,    // Замените на соответствующий ID отправителя
-            'meest_items_id' => ,
+            'meest_recipients_id' => 2, // Замените на соответствующий ID получателя
+            'meest_senders_id' => 1,    // Замените на соответствующий ID отправителя
         ];
 
         $this->db->table('meest_parcels')->insert($data);
