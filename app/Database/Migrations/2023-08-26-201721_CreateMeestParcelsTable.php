@@ -127,8 +127,9 @@ class CreateMeestParcelsTable extends Migration
         ]);
 
         $this->forge->addKey('id', true);
-        $this->forge->addForeignKey('meest_recipients_id', 'meest_senders_recipients', 'id');        $this->forge->addForeignKey('meest_senders_id', 'meest_senders_recipients', 'id');
-        $this->forge->addForeignKey('meest_recipients_id', 'meest_senders_recipients', 'id');        $this->forge->addForeignKey('meest_items_id', 'meest_items', 'id');
+        $this->forge->addForeignKey('meest_recipients_id', 'meest_senders_recipients', 'id');
+        $this->forge->addForeignKey('meest_senders_id', 'meest_senders_recipients', 'id');
+        $this->forge->addForeignKey('meest_items_id', 'meest_items', 'id');
 
         $this->forge->createTable('meest_parcels');
     }
