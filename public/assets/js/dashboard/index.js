@@ -9,7 +9,7 @@ $(document).ready(function() {
     const language = getAppVariable('language');
 
     let datatable_obj = $(table).DataTable({
-        // processing: true,
+        processing: true,
         serverSide: true,
         pageLength: per_page,
         order: [[0, "desc"]],

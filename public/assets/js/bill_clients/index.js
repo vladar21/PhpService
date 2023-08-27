@@ -9,7 +9,7 @@ $(document).ready(function() {
 
 
     let datatable_obj = $(table).DataTable({
-        // processing: true,
+        processing: true,
         serverSide: true,
         pageLength: per_page,
         order: [[1, "desc"]],
@@ -302,12 +302,14 @@ $(document).ready(function() {
 // Handler for the "Load Clients" button click
 // Add click event listener to the "Load Clients" button
     $("#loadClientsBtn").on("click", function () {
+        $('.spinner-overlay').show();
         // Send an AJAX request to fetch clients
         $.ajax({
             url: "/billapi/fetchClients",
             method: 'GET',
             dataType: 'json',
             success: function (response) {
+                $('.spinner-overlay').hide();
                 var message = response.message || 'Clients fetching completed successfully.';
                 // Show the success message with a fade-in effect
                 $('#successMessage').text(message).fadeIn(1000, function () {
@@ -321,6 +323,7 @@ $(document).ready(function() {
                 $('#billClientsTable').DataTable().ajax.reload();
             },
             error: function (xhr) {
+                $('.spinner-overlay').hide();
                 var errorMessage = xhr.responseJSON && xhr.responseJSON.message;
                 var message = errorMessage || 'Error fetching clients. Please try again later.';
                 // Show the error message with a fade-in effect

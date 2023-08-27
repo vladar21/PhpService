@@ -7,7 +7,7 @@ $(document).ready(function() {
     const language = getAppVariable('language');
 
     let datatable_obj = $(table).DataTable({
-        // processing: true,
+        processing: true,
         serverSide: true,
         pageLength: per_page,
         order: [[0, "desc"]],
@@ -203,12 +203,14 @@ $(document).ready(function() {
 // Handler for the "Load Invoices" button click
 // Add click event listener to the "Load Invoices" button
     $("#loadInvoicesBtn").on("click", function () {
+        $('.spinner-overlay').show();
         // Send an AJAX request to fetch invoices
         $.ajax({
             url: "/billapi/fetchInvoices",
             method: 'GET',
             dataType: 'json',
             success: function (response) {
+                $('.spinner-overlay').hide();
                 var message = response.message || 'Invoices fetching completed successfully.';
                 // Show the success message with a fade-in effect
                 $('#successMessage').text(message).fadeIn(1000, function () {
@@ -222,6 +224,7 @@ $(document).ready(function() {
                 $('#billInvoicesTable').DataTable().ajax.reload();
             },
             error: function (xhr) {
+                $('.spinner-overlay').hide();
                 if ( xhr.status == 200){
                     var message =
                         'Invoices fetching completed successfully.';

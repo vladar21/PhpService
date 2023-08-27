@@ -9,7 +9,7 @@ $(document).ready(function() {
     const language = getAppVariable('language');
 
     let datatable_obj = $(table).DataTable({
-        // processing: true,
+        processing: true,
         serverSide: true,
         pageLength: per_page,
         order: [[0, "desc"]],
@@ -105,12 +105,14 @@ $(document).ready(function() {
     // Handler for the "Load Products" button click
     // Add click event listener to the "Load Products" button
     $("#loadProductsBtn").on("click", function() {
+        $('.spinner-overlay').show();
         // Send an AJAX request to fetch products
         $.ajax({
             url: "/billapi/fetchProducts",
             method: 'GET',
             dataType: 'json',
             success: function(response) {
+                $('.spinner-overlay').hide();
                 var message = response.message || 'Products fetching completed successfully.';
                 // Show the success message with a fade-in effect
                 $('#successMessage').text(message).fadeIn(1000, function() {
@@ -123,6 +125,7 @@ $(document).ready(function() {
                 $('#errorMessage').hide();
             },
             error: function(xhr) {
+                $('.spinner-overlay').hide();
                 var errorMessage = xhr.responseJSON && xhr.responseJSON.message;
                 var message = errorMessage || 'Error fetching products. Please try again later.';
                 // Show the error message with a fade-in effect

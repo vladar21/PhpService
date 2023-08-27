@@ -9,16 +9,6 @@ $(document).ready(function() {
     //     // Other DataTable options...
     // });
 
-    // spinner
-    jQuery.ajaxSetup({
-        beforeSend: function() {
-            $('.spinner-overlay').show(); // Display the spinner container
-        },
-        complete: function(){
-            $('.spinner-overlay').hide();
-        },
-        success: function() {}
-    });
 });
 
 /**
@@ -39,7 +29,7 @@ $(document).on('click', '.input-group-append.calendar, .input-group-prepend.cale
  * @param mode
  */
 loader = function(mode) {
-    let loader = $('.spinner-loader.global');
+    let loader = $('.spinner-overlay');
     mode === 'show' ? $(loader).show() : $(loader).hide();
 };
 

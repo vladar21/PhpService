@@ -167,6 +167,7 @@ td a {
 
 /* Spinner styles */
 .spinner-overlay {
+    display: none;
     position: absolute;
     top: 50%;
     left: 50%;
