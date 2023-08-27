@@ -2,6 +2,7 @@
 
 namespace App\Database\Seeds;
 
+use App\Models\MeestItemDescriptionModel;
 use CodeIgniter\Database\Seeder;
 
 class MeestItemDescriptionsSeeder extends Seeder
@@ -28,7 +29,9 @@ class MeestItemDescriptionsSeeder extends Seeder
         ];
 
         foreach($datas as $data){
-            $this->db->table('meest_item_descriptions')->insert($data);
+            $model = new MeestItemDescriptionModel();
+            $model->insert($data);
+//            $this->db->table('meest_item_descriptions')->insert($data);
         }
 
     }

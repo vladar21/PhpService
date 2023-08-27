@@ -2,6 +2,7 @@
 
 namespace App\Database\Seeds;
 
+use App\Models\MeestItemModel;
 use CodeIgniter\Database\Seeder;
 
 class MeestItemsSeeder extends Seeder
@@ -25,7 +26,9 @@ class MeestItemsSeeder extends Seeder
             "weight" => 0.5
         ];
 
-        $this->db->table('meest_items')->insert($data);
+        $model = new MeestItemModel();
+        $model->insert($data);
+//        $this->db->table('meest_items')->insert($data);
     }
 }
 

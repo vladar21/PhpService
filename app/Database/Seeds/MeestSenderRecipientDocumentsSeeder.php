@@ -2,6 +2,7 @@
 
 namespace App\Database\Seeds;
 
+use App\Models\MeestSenderRecipientDocumentModel;
 use CodeIgniter\Database\Seeder;
 
 class MeestSenderRecipientDocumentsSeeder extends Seeder
@@ -18,6 +19,8 @@ class MeestSenderRecipientDocumentsSeeder extends Seeder
             "series" => "FE",
         ];
 
-        $this->db->table('meest_sender_recipient_documents')->insert($data);
+        $model = new MeestSenderRecipientDocumentModel();
+        $model->insert($data);
+//        $this->db->table('meest_sender_recipient_documents')->insert($data);
     }
 }

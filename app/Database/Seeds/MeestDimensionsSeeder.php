@@ -2,6 +2,7 @@
 
 namespace App\Database\Seeds;
 
+use App\Models\MeestDimensionModel;
 use CodeIgniter\Database\Seeder;
 
 class MeestDimensionsSeeder extends Seeder
@@ -15,7 +16,9 @@ class MeestDimensionsSeeder extends Seeder
             'width' => 10,
         ];
 
-        $this->db->table('meest_dimensions')->insert($data);
+        $model = new MeestDimensionModel();
+        $model->insert($data);
+//        $this->db->table('meest_dimensions')->insert($data);
     }
 }
 

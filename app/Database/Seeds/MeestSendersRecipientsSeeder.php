@@ -2,6 +2,7 @@
 
 namespace App\Database\Seeds;
 
+use App\Models\MeestSenderRecipientModel;
 use CodeIgniter\Database\Seeder;
 
 class MeestSendersRecipientsSeeder extends Seeder
@@ -37,8 +38,11 @@ class MeestSendersRecipientsSeeder extends Seeder
             "street" => "Podskarbińska",
             "zipCode" => "03-833",       
         ];
+
+        $model = new MeestSenderRecipientModel();
         foreach($datas as $data){
-            $this->db->table('meest_senders_recipients')->insert($data);
+            $model->insert($data);
+//            $this->db->table('meest_senders_recipients')->insert($data);
         }
         
     }

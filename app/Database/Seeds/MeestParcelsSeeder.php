@@ -2,6 +2,7 @@
 
 namespace App\Database\Seeds;
 
+use App\Models\MeestParcelModel;
 use CodeIgniter\Database\Seeder;
 
 class MeestParcelsSeeder extends Seeder
@@ -32,6 +33,8 @@ class MeestParcelsSeeder extends Seeder
             'meest_senders_id' => 1,    // Замените на соответствующий ID отправителя
         ];
 
-        $this->db->table('meest_parcels')->insert($data);
+        $model = new MeestParcelModel();
+        $model->insert($data);
+//        $this->db->table('meest_parcels')->insert($data);
     }
 }
