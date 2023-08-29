@@ -145,5 +145,8 @@ return [
     'weight' => 'Weight',
     'meest_recipients_id' => 'Meest recipients id',
     'meest_senders_id' => 'Meest senders id',
+    'name_sender' => 'Sender name',
+    'name_recipient' => 'Recipient name',
+    'meest_parcels' => 'Meest Parcels',
 
 ];

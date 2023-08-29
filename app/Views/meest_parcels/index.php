@@ -16,7 +16,7 @@ $breadcrumbs = [
 echo generate_breadcrumbs($breadcrumbs, ' / ');
 ?>
 
-<h2 class="float-left">Mees Parcels</h2>
+<h2 class="float-left"><?= lang('app_lang.meest_parcels') ?></h2>
 <!-- Button  -->
 <!--<button type="submit" id="loadInvoicesBtn" class="btn btn-primary float-right">Update Invoices</button>-->
 <div class="clear-both"></div>

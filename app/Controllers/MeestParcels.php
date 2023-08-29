@@ -91,8 +91,10 @@ class MeestParcels extends BaseController
             'iossVatIDenc',
             'senderID',
             'weight',
-            'created_at',
-            'updated_at',
+            'name_recipient',
+            'name_sender',
+            'meest_parcels.created_at',
+            'meest_parcels.updated_at',
         ];
 
         foreach ($orders as $order) {
