@@ -32,7 +32,7 @@ class MeestParcels extends BaseController
         // Create an instance of your model
         $db = \Config\Database::connect();
         $builder = $db->table('meest_parcels');
-        $builder->select('*, s.name as name_sender, r.name as name_recipient');
+        $builder->select('*, meest_parcels.id as parcel_id, s.name as name_sender, r.name as name_recipient');
         $builder->join('meest_senders_recipients as s', 's.id = meest_parcels.meest_senders_id');
         $builder->join('meest_senders_recipients as r', 'r.id = meest_parcels.meest_recipients_id');
         $builderAllRecords = clone $builder;
@@ -41,7 +41,7 @@ class MeestParcels extends BaseController
 
         // Conditions
         if ($search) {
-            $builder->where('meest_parcels.id', $search)
+            $builder->where('parcel_id', $search)
                 ->orWhere('name_sender', 'LIKE', "%$search%")
                 ->orWhere('name_recipient', 'LIKE', "%$search%")
                 ->orWhere('parcelNumber', 'LIKE', "%$search%")
@@ -71,7 +71,7 @@ class MeestParcels extends BaseController
 
         // Iterate through each order element
         $columns = [
-            'meest_parcels.id',
+            'parcel_id',
             'parcelNumber',
             'parcelNumberInternal',
             'parcelNumberParent',
@@ -124,7 +124,7 @@ class MeestParcels extends BaseController
 
             foreach ($results as $key => $value) {
 
-                $responseData['data'][$key]['id'] = $value['id'];
+                $responseData['data'][$key]['id'] = $value['parcel_id'];
                 $responseData['data'][$key]['parcelNumber'] = $value['parcelNumber'];
                 $responseData['data'][$key]['parcelNumberInternal'] = $value['parcelNumberInternal'];
                 $responseData['data'][$key]['parcelNumberParent'] = $value['parcelNumberParent'];

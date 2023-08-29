@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    const table = $('#billPositionsTable');
+    const table = $('#meestItemsTable');
     const per_page = 15;
     const not_applicable = 'not_applicable';
 

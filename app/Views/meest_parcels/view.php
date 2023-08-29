@@ -8,8 +8,8 @@ helper('breadcrumb');
 // Breadcrumb items
 $breadcrumbs = [
     'Home' => site_url(),
-    'Bill Invoices' => base_url('bill_invoices'),
-    'Invoice Id "'.$id.'"' => base_url('bill_invoices/'.$id),
+    'Meest Parcels' => base_url('meest_parcels'),
+    'Parcel Number "'.$parcelNumber.'"' => base_url('meest_parcels/'.$id),
 ];
 
 // Generate and display the breadcrumbs
@@ -19,68 +19,98 @@ echo generate_breadcrumbs($breadcrumbs, ' / ');
 <h2>Invoice and Positions (Products)</h2>
     <section id="invoice">
         <fieldset>
-            <legend>Invoice's Data</legend>
+            <legend>Parcel's Data</legend>
 
             <div class="bills">
                 <div class="group-bills">
                     <div>
-                        <label for="bill_id"><?= lang('app_lang.invoice_id') ?>:</label>
-                        <input type="text" id="invoice_id" name="invoice_id" value="<?= $id ?>" readonly>
-                        <input type="hidden" id="bill_id" name="bill_id" value="<?= $id ?>" >
+                        <label for="parcel_id"><?= lang('app_lang.id') ?>:</label>
+                        <input type="text" id="parcel_id" name="parcel_id" value="<?= $parcel_id ?>" readonly>
                     </div>
                     <div>
-                        <label for="user_id"><?= lang('app_lang.user_id') ?>:</label>
-                        <input type="text" id="user_id" name="user_id" value="<?= $user_id ?>" readonly>
+                        <label for="parcelNumber"><?= lang('app_lang.parcelNumber') ?>:</label>
+                        <input type="text" id="parcelNumber" name="parcelNumber" value="<?= $parcelNumber ?>" readonly>
                     </div>
                     <div>
-                        <label for="number"><?= lang('app_lang.number') ?>:</label>
-                        <input type="text" id="number" name="number" value="<?= $number ?>" readonly>
+                        <label for="parcelNumberInternal"><?= lang('app_lang.parcelNumberInternal') ?>:</label>
+                        <input type="text" id="parcelNumberInternal" name="parcelNumberInternal" value="<?= $parcelNumberInternal ?>">
                     </div>
                     <div>
-                        <label for="place"><?= lang('app_lang.place') ?>:</label>
-                        <input type="text" id="place" name="place" value="<?= $place ?>" readonly>
+                        <label for="parcelNumberParent"><?= lang('app_lang.parcelNumberParent') ?>:</label>
+                        <input type="text" id="parcelNumberParent" name="parcelNumberParent" value="<?= $parcelNumberParent ?>">
                     </div>
                     <div>
-                        <label for="sell_date"><?= lang('app_lang.sell_date') ?>:</label>
-                        <input type="date" id="sell_date" name="sell_date" value="<?= $sell_date ?>" readonly>
+                        <label for="partnerKey"><?= lang('app_lang.partnerKey') ?>:</label>
+                        <input type="text" id="partnerKey" name="partnerKey" value="<?= $partnerKey ?>">
                     </div>
                     <div>
-                        <label for="price_net"><?= lang('app_lang.price_net') ?>:</label>
-                        <input type="text" id="price_net" name="price_net" value="<?= $price_net ?>" readonly>
+                        <label for="bagId"><?= lang('app_lang.bagId') ?>:</label>
+                        <input type="text" id="bagId" name="bagId" value="<?= $bagId ?>">
                     </div>
                     <div>
-                        <label for="price_gross"><?= lang('app_lang.price_gross') ?>:</label>
-                        <input type="text" id="price_gross" name="price_gross" value="<?= $price_gross ?>" readonly>
+                        <label for="carrierLastMile"><?= lang('app_lang.carrierLastMile') ?>:</label>
+                        <input type="text" id="carrierLastMile" name="carrierLastMile" value="<?= $carrierLastMile ?>">
                     </div>
                     <div>
-                        <label for="currency"><?= lang('app_lang.currency') ?>:</label>
-                        <input type="text" id="currency" name="currency" value="<?= $currency ?>" readonly>
+                        <label for="createReturnParcel"><?= lang('app_lang.createReturnParcel') ?>:</label>
+                        <input type="text" id="createReturnParcel" name="createReturnParcel" value="<?= $createReturnParcel ?>">
                     </div>
                 </div>
                 <div class="group-bills">
                     <div>
-                        <label for="token"><?= lang('app_lang.token') ?>:</label>
-                        <input type="text" id="token" name="token" value="<?= $token ?>" readonly>
+                        <label for="returnCarrier"><?= lang('app_lang.returnCarrier') ?>:</label>
+                        <input type="text" id="returnCarrier" name="returnCarrier" value="<?= $returnCarrier ?>">
                     </div>
                     <div>
-                        <label for="client_id"><?= lang('app_lang.client_id') ?>:</label>
-                        <input type="text" id="client_id" name="client_id" value="<?= $client_id ?>" readonly>
+                        <label for="cod"><?= lang('app_lang.cod') ?>:</label>
+                        <input type="text" id="cod" name="cod" value="<?= $cod ?>">
                     </div>
                     <div>
-                        <label for="lang"><?= lang('app_lang.lang') ?>:</label>
-                        <input type="text" id="lang" name="lang" value="<?= $lang ?>" readonly>
+                        <label for="codCurrency"><?= lang('app_lang.codCurrency') ?>:</label>
+                        <input type="text" id="codCurrency" name="codCurrency" value="<?= $codCurrency ?>">
                     </div>
                     <div>
-                        <label for="product_cache"><?= lang('app_lang.product_cache') ?>:</label>
-                        <textarea id="product_cache" name="product_cache" readonly><?= $product_cache ?></textarea>
+                        <label for="deliveryCost"><?= lang('app_lang.deliveryCost') ?>:</label>
+                        <input type="text" id="deliveryCost" name="deliveryCost" value="<?= $deliveryCost ?>">
                     </div>
                     <div>
-                        <label for="description"><?= lang('app_lang.description') ?>:</label>
-                        <textarea id="description" name="description" readonly><?= $description ?></textarea>
+                        <label for="serviceType"><?= lang('app_lang.serviceType') ?>:</label>
+                        <input type="text" id="serviceType" name="serviceType" value="<?= $serviceType ?>">
                     </div>
                     <div>
-                        <label for="delivery_date"><?= lang('app_lang.delivery_date') ?>:</label>
-                        <input type="date" id="delivery_date" name="delivery_date" value="<?= $delivery_date ?>" readonly>
+                        <label for="totalValue"><?= lang('app_lang.totalValue') ?>:</label>
+                        <input type="text" id="totalValue" name="totalValue" value="<?= $totalValue ?>">
+                    </div>
+                    <div>
+                        <label for="fulfillment"><?= lang('app_lang.fulfillment') ?>:</label>
+                        <input type="text" id="fulfillment" name="fulfillment" value="<?= $fulfillment ?>">
+                    </div>
+                    <div>
+                        <label for="incoterms"><?= lang('app_lang.incoterms') ?>:</label>
+                        <input type="text" id="incoterms" name="incoterms" value="<?= $incoterms ?>">
+                    </div>
+
+                </div>
+                <div class="group-bills">
+                    <div>
+                        <label for="iossVatIDenc"><?= lang('app_lang.iossVatIDenc') ?>:</label>
+                        <input type="text" id="iossVatIDenc" name="iossVatIDenc" value="<?= $iossVatIDenc ?>">
+                    </div>
+                    <div>
+                        <label for="senderID"><?= lang('app_lang.senderID') ?>:</label>
+                        <input type="text" id="senderID" name="senderID" value="<?= $senderID ?>">
+                    </div>
+                    <div>
+                        <label for="weight"><?= lang('app_lang.weight') ?>:</label>
+                        <input type="text" id="weight" name="weight" value="<?= $weight ?>">
+                    </div>
+                    <div>
+                        <label for="name_recipient"><?= lang('app_lang.name_recipient') ?>:</label>
+                        <input type="text" id="name_recipient" name="name_recipient" value="<?= $name_recipient ?>">
+                    </div>
+                    <div>
+                        <label for="name_sender"><?= lang('app_lang.name_sender') ?>:</label>
+                        <input type="text" id="name_sender" name="name_sender" value="<?= $name_sender ?>">
                     </div>
                     <div>
                         <label for="created_at"><?= lang('app_lang.created_at') ?>:</label>
@@ -88,91 +118,9 @@ echo generate_breadcrumbs($breadcrumbs, ' / ');
                     </div>
                     <div>
                         <label for="updated_at"><?= lang('app_lang.updated_at') ?>:</label>
-                        <input type="text" id="updated_at" name="updated_at" value="<?= $updated_at ?>" readonly>
-                    </div>
-
-                </div>
-                <div class="group-bills">
-                    <div>
-                        <label for="seller_name"><?= lang('app_lang.seller_name') ?>:</label>
-                        <textarea id="seller_name" name="seller_name" readonly><?= $seller_name ?> </textarea>
-                    </div>
-                    <div>
-                        <label for="seller_tax_no"><?= lang('app_lang.seller_tax_no') ?>:</label>
-                        <input type="text" id="seller_tax_no" name="seller_tax_no" value="<?= $seller_tax_no ?>" readonly>
-                    </div>
-                    <div>
-                        <label for="seller_street"><?= lang('app_lang.seller_street') ?>:</label>
-                        <input type="text" id="seller_street" name="seller_street" value="<?= $seller_street ?>" readonly>
-                    </div>
-                    <div>
-                        <label for="seller_post_code"><?= lang('app_lang.seller_post_code') ?>:</label>
-                        <input type="text" id="seller_post_code" name="seller_post_code" value="<?= $seller_post_code ?>" readonly>
-                    </div>
-                    <div>
-                        <label for="seller_city"><?= lang('app_lang.seller_city') ?>:</label>
-                        <input type="text" id="seller_city" name="seller_city" value="<?= $seller_city ?>" readonly>
-                    </div>
-                    <div>
-                        <label for="seller_country"><?= lang('app_lang.seller_country') ?>:</label>
-                        <input type="text" id="seller_country" name="seller_country" value="<?= $seller_country ?>" readonly>
-                    </div>
-                    <div>
-                        <label for="seller_email"><?= lang('app_lang.seller_email') ?>:</label>
-                        <input type="text" id="seller_email" name="seller_email" value="<?= $seller_email ?>" readonly>
-                    </div>
-                    <div>
-                        <label for="seller_phone"><?= lang('app_lang.seller_phone') ?>:</label>
-                        <input type="text" id="seller_phone" name="seller_phone" value="<?= $seller_phone ?>" readonly>
-                    </div>
-                    <div>
-                        <label for="seller_www"><?= lang('app_lang.seller_www') ?>:</label>
-                        <input type="text" id="seller_www" name="seller_www" value="<?= $seller_www ?>" readonly>
-                    </div>
-                    <div>
-                        <label for="seller_bank"><?= lang('app_lang.seller_bank') ?>:</label>
-                        <input type="text" id="seller_bank" name="seller_bank" value="<?= $seller_bank ?>" readonly>
-                    </div>
-                    <div>
-                        <label for="seller_bank_account"><?= lang('app_lang.seller_bank_account') ?>:</label>
-                        <input type="text" id="seller_bank_account" name="seller_bank_account" value="<?= $seller_bank_account ?>" readonly>
+                        <input type="text" id="updated_at" name="updated_at" value="<?= $updated_at ?>">
                     </div>
                 </div>
-                <div class="group-bills">
-                    <div>
-                        <label for="buyer_name"><?= lang('app_lang.buyer_name') ?>:</label>
-                        <input type="text" id="buyer_name" name="buyer_name" value="<?= $buyer_name ?>" readonly>
-                    </div>
-                    <div>
-                        <label for="buyer_post_code"><?= lang('app_lang.buyer_post_code') ?>:</label>
-                        <input type="text" id="buyer_post_code" name="buyer_post_code" value="<?= $buyer_post_code ?>" readonly>
-                    </div>
-                    <div>
-                        <label for="buyer_city"><?= lang('app_lang.buyer_city') ?>:</label>
-                        <input type="text" id="buyer_city" name="buyer_city" value="<?= $buyer_city ?>" readonly>
-                    </div>
-                    <div>
-                        <label for="buyer_street"><?= lang('app_lang.buyer_street') ?>:</label>
-                        <input type="text" id="buyer_street" name="buyer_street" value="<?= $buyer_street ?>" readonly>
-                    </div>
-                    <div>
-                        <label for="buyer_first_name"><?= lang('app_lang.buyer_first_name') ?>:</label>
-                        <input type="text" id="buyer_first_name" name="buyer_first_name" value="<?= $buyer_first_name ?>" readonly>
-                    </div>
-                    <div>
-                        <label for="buyer_last_name"><?= lang('app_lang.buyer_last_name') ?>:</label>
-                        <input type="text" id="buyer_last_name" name="buyer_last_name" value="<?= $buyer_last_name ?>" readonly>
-                    </div>
-                    <div>
-                        <label for="buyer_country"><?= lang('app_lang.buyer_country') ?>:</label>
-                        <input type="text" id="buyer_country" name="buyer_country" value="<?= $buyer_country ?>" readonly>
-                    </div>
-                    <div>
-                        <label for="buyer_email"><?= lang('app_lang.buyer_email') ?>:</label>
-                        <input type="text" id="buyer_email" name="buyer_email" value="<?= $buyer_email ?>" readonly>
-                    </div>
-                </div>
-
             </div>
 
 
@@ -182,7 +130,7 @@ echo generate_breadcrumbs($breadcrumbs, ' / ');
     <section id="positions">
         <fieldset>
             <legend>Positions (Products) Data</legend>
-            <table id="billPositionsTable">
+            <table id="meestItemsTable">
                 <thead>
                 <tr>
                     <th>Id</th>
@@ -205,8 +153,8 @@ echo generate_breadcrumbs($breadcrumbs, ' / ');
     </section>
 
 
-    <link rel="stylesheet" href="<?= base_url('assets/css/bill_invoices/view.css') ?>">
-    <script src="<?= base_url('assets/js/bill_invoices/view.js') ?>"></script>
+    <link rel="stylesheet" href="<?= base_url('assets/css/meest_parcels/view.css') ?>">
+    <script src="<?= base_url('assets/js/meest_parcels/view.js') ?>"></script>
 <script>
     // $(document).ready(function() {
     //     // При изменении содержимого textarea

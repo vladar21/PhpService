@@ -51,4 +51,18 @@ class MeestParcelModel extends Model
     {
         return $this->belongsTo(MeestSenderRecipientModel::class, 'meest_recipients_id', 'id');
     }
+
+    public function getParcels($id = false)
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('meest_parcels');
+        $builder->select('*, meest_parcels.id as parcel_id, s.name as name_sender, r.name as name_recipient');
+        $builder->join('meest_senders_recipients as s', 's.id = meest_parcels.meest_senders_id');
+        $builder->join('meest_senders_recipients as r', 'r.id = meest_parcels.meest_recipients_id');
+
+        if ($id === false)
+            return $builder->get()->getResultArray();
+        else
+            return $builder->where(['meest_parcels.id' => $id])->get()->getRowArray();
+    }
 }
