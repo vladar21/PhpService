@@ -66,8 +66,7 @@ class CreateMeestParcelsTable extends Migration
                 'null' => true,
             ],
             'deliveryCost' => [
-                'type' => 'INT',
-                'constraint' => 11,
+                'type' => 'DECIMAL(10, 2)',
                 'null' => true,
             ],
             'serviceType' => [
@@ -76,8 +75,7 @@ class CreateMeestParcelsTable extends Migration
                 'null' => true,
             ],
             'totalValue' => [
-                'type' => 'INT',
-                'constraint' => 11,
+                'type' => 'DECIMAL(10, 2)',
                 'null' => true,
             ],
             'currency' => [

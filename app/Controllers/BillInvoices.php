@@ -12,9 +12,6 @@ class BillInvoices extends BaseController
     {
         helper('language');
         $lang = lang('app_lang');
-//        $db = \Config\Database::connect();
-//        $query   = $db->query('SELECT * FROM bill_invoices');
-//        $data['bill_invoices'] = $query->getResultArray();
         $data=[
             'per_page' => 10
         ];
@@ -65,8 +62,6 @@ class BillInvoices extends BaseController
                 ->orWhere('buyer_street', 'LIKE', "%$search%")
                 ->orWhere('buyer_first_name', 'LIKE', "%$search%")
                 ->orWhere('buyer_country', 'LIKE', "%$search%")
-                ->orWhere('created_at', 'LIKE', "%$search%")
-                ->orWhere('updated_at', 'LIKE', "%$search%")
                 ->orWhere('token', 'LIKE', "%$search%")
                 ->orWhere('buyer_email', 'LIKE', "%$search%")
                 ->orWhere('client_id', $search)

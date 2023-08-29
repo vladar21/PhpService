@@ -32,12 +32,23 @@ class MeestParcelModel extends Model
         'iossVatIDenc',
         'senderID',
         'weight',
-        'meest_recipients_id',
         'meest_senders_id',
+        'meest_recipients_id',
+        'name_sender',
+        'name_recipient',
     ];
 
     protected $useAutoIncrement = true;
 
     protected $useTimestamps = true;
 
+    public function sender()
+    {
+        return $this->belongsTo(MeestSenderRecipientModel::class, 'meest_senders_id', 'id');
+    }
+
+    public function recipient()
+    {
+        return $this->belongsTo(MeestSenderRecipientModel::class, 'meest_recipients_id', 'id');
+    }
 }

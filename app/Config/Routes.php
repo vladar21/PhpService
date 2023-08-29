@@ -56,6 +56,10 @@ $routes->get('/billapi/fetchProducts', 'api\BillAPIController::fetchProducts');
 $routes->get('/billapi/fetchClients', 'api\BillAPIController::fetchClients');
 $routes->get('/billapi/fetchInvoices', 'api\BillAPIController::fetchInvoices');
 
+$routes->get('meest_parcels', 'MeestParcels::index');
+$routes->get('meest_parcels/(:num)', 'MeestParcels::parcel/$1');
+$routes->post('meest_parcels/get_parcels_ajax', 'MeestParcels::get_parcels_ajax');
+
 service('auth')->routes($routes);
 
 
