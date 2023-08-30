@@ -148,5 +148,18 @@ return [
     'name_sender' => 'Sender name',
     'name_recipient' => 'Recipient name',
     'meest_parcels' => 'Meest Parcels',
+    'parcel_items' => 'Parcel Items',
+    'barcode' => 'Barcode',
+    'brand' => 'Brand',
+    'hsCode' => 'HsCode',
+    'manufacturer' => 'Manufacturer',
+    'originCountry' => 'Origin country',
+    'productCategory' => 'Product category',
+    'productEAN' => 'ProductEAN',
+    'productURL' => 'ProductURL',
+    'skuCode' => 'Sku code',
+    'value' => 'Value',
+    'meest_parcels_id' => 'Meest parcels id',
+    'p2p' => 'p2p',
 
 ];

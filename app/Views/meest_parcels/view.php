@@ -129,23 +129,33 @@ echo generate_breadcrumbs($breadcrumbs, ' / ');
 
     <section id="positions">
         <fieldset>
-            <legend>Positions (Products) Data</legend>
-            <table id="meestItemsTable">
+            <legend><?= lang('app_lang.parcel_items') ?></legend>
+            <table id="parcelItemsTable">
                 <thead>
                 <tr>
-                    <th>Id</th>
-                    <th>Invoice Id</th>
-                    <th>Name</th>
-                    <th>Tax</th>
-                    <th>Total Price Gross</th>
-                    <th>Qty</th>
+                    <th><?= lang('app_lang.p2p') ?></th>
+                    <th><?= lang('app_lang.product_id') ?></th>
+                    <th><?= lang('app_lang.barcode') ?></th>
+                    <th><?= lang('app_lang.brand') ?></th>
+                    <th><?= lang('app_lang.description') ?></th>
+<!--                    <th>--><?php //= lang('app_lang.descriptions') ?><!--</th>-->
+                    <th><?= lang('app_lang.hsCode') ?></th>
+                    <th><?= lang('app_lang.manufacturer') ?></th>
+                    <th><?= lang('app_lang.originCountry') ?></th>
+                    <th><?= lang('app_lang.productCategory') ?></th>
+                    <th><?= lang('app_lang.productEAN') ?></th>
+                    <th><?= lang('app_lang.productURL') ?></th>
+                    <th><?= lang('app_lang.quantity') ?></th>
+                    <th><?= lang('app_lang.skuCode') ?></th>
+                    <th><?= lang('app_lang.value') ?></th>
+                    <th><?= lang('app_lang.weight') ?></th>
                 </tr>
                 </thead>
                 <tbody>
 
                 </tbody>
                 <tfoot align="center">
-                <tr><th></th><th></th><th></th><th></th><th></th><th></th></tr>
+                <tr><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th></tr>
                 </tfoot>
             </table>
         </fieldset>
