@@ -20,7 +20,6 @@ $(document).ready(function() {
                 'X-CSRF-TOKEN': csrfToken
             },
             data: function (d) {
-                d.csrf_token;
                 return JSON.stringify(d);
             },
             contentType: 'application/json',
@@ -290,7 +289,6 @@ $(document).ready(function() {
                 data: 'actions',
                 orderable: false,
                 render: function (data, type, row){
-                    console.log('route ' + "/bill_clients/" + row.id)
                     return '<a href="/bill_clients/' + row.id + '" class="btn btn-sm btn-blue-outline">' + title_view + '</a>';
                 }
             }

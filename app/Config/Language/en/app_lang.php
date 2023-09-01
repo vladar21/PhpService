@@ -178,5 +178,13 @@ return [
     'invoice_and_positions_products' => 'Invoice and Positions (Products)',
     'parcel_data' => 'Parcel\'s Data',
     'parcel_and_items_products' => 'Parcel and Items (Products)',
+    'meest_clients' => 'Meest clients',
+    'building_number' => 'Building number',
+    'company_name' => 'Company name',
+    'flat_number' => 'Flat number',
+    'pickup_point' => 'Pickup point',
+    'region1' => 'Region1',
+    'region2' => 'Region2',
+    'zip_code' => 'Zip code',
 
 ];

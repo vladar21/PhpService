@@ -30,4 +30,12 @@ class MeestSenderRecipientModel extends Model
     protected $useAutoIncrement = true;
 
     protected $useTimestamps = true;
+
+    public function getClients($id = false)
+    {
+        if ($id === false)
+            return $this->findAll();
+        else
+            return $this->asArray()->where(['id' => $id])->first();
+    }
 }
