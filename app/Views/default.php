@@ -21,12 +21,24 @@
 <!--    Main part -->
     <header class="header">
         <h1 class="logo">Admin Dashboard</h1>
-        <nav class="navigation">
+        <nav class="navigation menu">
             <ul class="nav-links">
-                <li class="nav-link"><a href="#">Home</a></li>
-                <li class="nav-link"><a href="#">Dashboard</a></li>
-                <li class="nav-link"><a href="#">Reports</a></li>
-                <li class="nav-link"><a href="#">Settings</a></li>
+                <li class="nav-link"><a href="/">Home</a></li>
+                <li class="nav-link"><a href="/dashboard">Users</a></li>
+                <li class="nav-link"><span>Bill</span>
+                    <ul class="submenu">
+                        <li><a href="/bill_invoices">Invoices</a></li>
+                        <li><a href="/bill_products">Products</a></li>
+                        <li><a href="/bill_clients">Clients</a></li>
+                    </ul>
+                </li>
+                <li class="nav-link"><span>Meest</span>
+                    <ul class="submenu">
+                        <li><a href="/meest_parcels">Parcels</a></li>
+                        <li><a href="/meest_items">Items</a></li>
+                        <li><a href="/meest_clients">Clients</a></li>
+                    </ul>
+                </li>
             </ul>
         </nav>
         <div class="search-panel">

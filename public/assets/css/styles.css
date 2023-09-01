@@ -182,6 +182,67 @@ td a {
     animation: spin 1s linear infinite;
 }
 
+/* Menu styles */
+/* Reset default list styles */
+.menu ul, .menu li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/* Style the top-level menu */
+.menu {
+    background-color: #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.menu li {
+    position: relative;
+}
+
+.menu a {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+}
+
+/* Style the submenu */
+.submenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    display: none; /* Hide the submenu initially */
+    background-color: #444;
+    min-width: 100%; /* Ensure submenu covers parent width */
+    z-index: 1; /* Ensure submenu is above other content */
+}
+
+.menu li:hover .submenu {
+    display: block; /* Show the submenu on hover */
+}
+
+.submenu li {
+    padding: 10px;
+    white-space: nowrap;
+}
+
+.submenu a {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+}
+
+/* Style submenu on hover */
+.submenu li:hover {
+    background-color: #555;
+}
+
+
+
+
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
