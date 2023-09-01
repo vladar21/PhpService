@@ -16,10 +16,10 @@ $breadcrumbs = [
 echo generate_breadcrumbs($breadcrumbs, ' / ');
 ?>
 
-<h2>Invoice and Positions (Products)</h2>
+<h2><?= lang('app_lang.parcel_and_items_products') ?></h2>
     <section id="invoice">
         <fieldset>
-            <legend>Parcel's Data</legend>
+            <legend><?= lang('app_lang.parcel_data') ?></legend>
 
             <div class="bills">
                 <div class="group-bills">

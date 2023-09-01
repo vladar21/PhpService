@@ -20,12 +20,12 @@
 <div class="container">
 <!--    Main part -->
     <header class="header">
-        <h1 class="logo">Admin Dashboard</h1>
+        <h1 class="logo">PHP Service</h1>
         <nav class="navigation menu">
             <ul class="nav-links">
                 <li class="nav-link"><a href="/">Home</a></li>
                 <li class="nav-link"><a href="/dashboard">Users</a></li>
-                <li class="nav-link"><span>Bill</span>
+                <li class="nav-link"><span>Bills</span>
                     <ul class="submenu">
                         <li><a href="/bill_invoices">Invoices</a></li>
                         <li><a href="/bill_products">Products</a></li>

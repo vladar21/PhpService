@@ -16,10 +16,10 @@ $breadcrumbs = [
 echo generate_breadcrumbs($breadcrumbs, ' / ');
 ?>
 
-<h2>Invoice and Positions (Products)</h2>
+<h2><?= lang('app_lang.invoice_and_positions_products') ?></h2>
     <section id="invoice">
         <fieldset>
-            <legend>Invoice's Data</legend>
+            <legend><?= lang('app_lang.invoices_data') ?></legend>
 
             <div class="bills">
                 <div class="group-bills">
@@ -181,16 +181,16 @@ echo generate_breadcrumbs($breadcrumbs, ' / ');
 
     <section id="positions">
         <fieldset>
-            <legend>Positions (Products) Data</legend>
+            <legend><?= lang('app_lang.positions_products_data') ?></legend>
             <table id="billPositionsTable">
                 <thead>
                 <tr>
-                    <th>Id</th>
-                    <th>Invoice Id</th>
-                    <th>Name</th>
-                    <th>Tax</th>
-                    <th>Total Price Gross</th>
-                    <th>Qty</th>
+                    <th><?= lang('app_lang.id') ?></th>
+                    <th><?= lang('app_lang.invoice_id') ?></th>
+                    <th><?= lang('app_lang.name') ?></th>
+                    <th><?= lang('app_lang.tax') ?></th>
+                    <th><?= lang('app_lang.total_price_gross') ?></th>
+                    <th><?= lang('app_lang.qty') ?></th>
                 </tr>
                 </thead>
                 <tbody>
