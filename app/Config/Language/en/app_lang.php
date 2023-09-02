@@ -186,5 +186,12 @@ return [
     'region1' => 'Region1',
     'region2' => 'Region2',
     'zip_code' => 'Zip code',
+    'clients_data' => 'Client\'s Data',
+    'meest_client' => 'Meest Client',
+    'documents' => 'Documents',
+    'date' => 'Date',
+    'issuer' => 'Issuer',
+    'series' => 'Series',
+    'id_number' => 'Id number'
 
 ];

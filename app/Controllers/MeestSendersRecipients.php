@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\MeestSenderRecipientDocumentModel;
 use App\Models\MeestSenderRecipientModel;
 
 class MeestSendersRecipients extends BaseController
@@ -152,4 +153,50 @@ class MeestSendersRecipients extends BaseController
 
         return view('meest_clients/view', $data);
     }
+
+    public function get_meest_client_docs(){
+        $request = service('request');
+        $getData = $request->getGet();
+        $client_id = $getData['client_id'] ?? null;
+
+        $searchKey = !empty($getData['search']['value']) ? $getData['search']['value'] : '';
+        $limit = !empty($getData['length']) ? $getData['length'] : 10;
+
+//        $paginationLimit = ($getData['start'] == 0)
+//            ? 1 : ($getData['start'] / $limit) + 1;
+
+        $queryStr = [
+            'search' => $searchKey,
+            'limit' => $limit,
+//            'page' => $paginationLimit
+        ];
+
+        $model = new MeestSenderRecipientDocumentModel();
+
+        if ($client_id){
+            $results = $model->getAllClinetDocs($client_id);
+
+            if (isset($results) && ($count = count($results)) > 0) {
+//            $responseData['draw'] = $getData['draw'];
+                $responseData['recordsTotal'] = $count;
+//            $responseData['recordsFiltered'] = $response['data']['total_count'];
+
+                foreach ($results as $key => $value) {
+                    $responseData['data'][$key]['id_number'] = $value['id_number'];
+                    $responseData['data'][$key]['date'] = $value['date'];
+                    $responseData['data'][$key]['issuer'] = $value['issuer'];
+                    $responseData['data'][$key]['name'] = $value['name'];
+                    $responseData['data'][$key]['number'] = $value['number'];
+                    $responseData['data'][$key]['series'] = $value['series'];
+                }
+            } else {
+//            $responseData['draw'] = $getData['draw'];
+                $responseData['recordsTotal'] = 0;
+                $responseData['recordsFiltered'] = 0;
+                $responseData['data'] = [];
+            }
+            echo json_encode($responseData); die();
+        }
+    }
+
 }

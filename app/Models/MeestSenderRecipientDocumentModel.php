@@ -24,4 +24,17 @@ class MeestSenderRecipientDocumentModel extends Model
     protected $useAutoIncrement = true;
 
     protected $useTimestamps = true;
+
+    public function getDocs($id = false)
+    {
+        if ($id === false)
+            return $this->findAll();
+        else
+            return $this->asArray()->where(['sender_recipient_id' => $id])->first();
+    }
+
+    public function getAllClinetDocs($id)
+    {
+        return $this->asArray()->where(['sender_recipient_id' => $id])->findAll();
+    }
 }

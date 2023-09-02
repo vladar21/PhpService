@@ -38,4 +38,5 @@ class MeestSenderRecipientModel extends Model
         else
             return $this->asArray()->where(['id' => $id])->first();
     }
+
 }

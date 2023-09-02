@@ -64,6 +64,7 @@ $routes->post('meest_parcels/get_parcel_items_ajax', 'MeestParcels::get_parcel_i
 $routes->get('meest_clients', 'MeestSendersRecipients::index');
 $routes->get('meest_clients/(:num)', 'MeestSendersRecipients::clients/$1');
 $routes->post('meest_clients/get_meest_clients_ajax', 'MeestSendersRecipients::get_meest_clients_ajax');
+$routes->get('meest_clients/get_meest_client_docs', 'MeestSendersRecipients::get_meest_client_docs');
 
 service('auth')->routes($routes);
 

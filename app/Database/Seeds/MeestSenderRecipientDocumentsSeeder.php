@@ -12,7 +12,7 @@ class MeestSenderRecipientDocumentsSeeder extends Seeder
         $data = [
             "sender_recipient_id" => 1,
             "date" => "2020-03-13",
-            "id" => "25451115544",
+            "id_number" => "25451115544",
             "issuer" => "1402",
             "name" => "Foreign Passport",
             "number" => "461222",
