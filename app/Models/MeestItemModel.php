@@ -39,4 +39,12 @@ class MeestItemModel extends Model
         else
             return $this->asArray()->where(['id' => $id])->first();
     }
+
+    public function getParcelItems($parcelNumber = false)
+    {
+        if ($parcelNumber !== false)
+            return $this->asArray()->where(['parcelNumber' => $parcelNumber])->findAll();
+    }
+
+
 }

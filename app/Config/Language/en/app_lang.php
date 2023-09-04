@@ -192,6 +192,11 @@ return [
     'date' => 'Date',
     'issuer' => 'Issuer',
     'series' => 'Series',
-    'id_number' => 'Id number'
+    'id_number' => 'Id number',
+    'meest_items' => 'Meest items',
+    'items_data' => 'Item\'s data',
+    'descriptions' => 'Descriptions',
+    'parcel_item' => 'Parcel item'
+
 
 ];

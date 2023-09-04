@@ -25,4 +25,10 @@ class MeestItemDescriptionModel extends Model
     {
         return $this->belongsTo('App\Models\MeestItem', 'item_id');
     }
+
+    public function getItemDescription($item_id = null){
+        if ($item_id){
+            return $this->asArray()->where(['item_id' => $item_id])->findAll();
+        }
+    }
 }

@@ -10,6 +10,7 @@ $(document).ready(function() {
     const parcel_id = $('#parcel_id').val();
     const url = '/meest_items/get_parcel_items_ajax';
 
+
     let datatable_obj = $(table).DataTable({
         processing: true,
         serverSide: true,
@@ -22,7 +23,9 @@ $(document).ready(function() {
                 'X-CSRF-TOKEN': csrfToken
             },
             data: function (d) {
-                d.parcel_id = parcel_id;
+                if (parcel_id){
+                    d.parcel_id = parcel_id;
+                }
                 return JSON.stringify(d);
             },
             contentType: 'application/json',
@@ -103,51 +106,23 @@ $(document).ready(function() {
                 render: function(data, type, row) {
                     return row.weight ? row.weight : not_applicable;
                 }
+            }, {
+                data: 'created_at',
+                render: function(data, type, row) {
+                    return row.created_at ? row.created_at : not_applicable;
+                }
+            }, {
+                data: 'updated_at',
+                render: function(data, type, row) {
+                    return row.updated_at ? row.updated_at : not_applicable;
+                }
+            }, {
+                data: 'actions',
+                orderable: false,
+                render: function (data, type, row) {
+                    return '<a href="/meest_items/' + row.product_id + '" class="btn btn-sm btn-blue-outline">' + title_view + '</a>';
+                }
             }
         ],
-        footerCallback: function ( row, data, start, end, display ) {
-            var api = this.api(), data;
-
-            // converting to integer to find total
-            var intVal = function ( i ) {
-                return typeof i === 'string' ?
-                    i.replace(/[\$,]/g, '')*1 :
-                    typeof i === 'number' ?
-                        i : 0;
-            };
-
-            // const sum = numbers.reduce((accumulator, currentValue) => {
-            //     return accumulator + currentValue;
-            // }, 0);
-
-            // computing column Total of the complete result
-            var thuTotal = api
-                .column( 11 )
-                .data()
-                .reduce( function (a, b) {
-                    return parseFloat(intVal(a).toFixed(2)) + parseFloat(intVal(b).toFixed(2));
-                }, 0 );
-
-            var friTotal = api
-                .column( 13 )
-                .data()
-                .reduce( function (a, b) {
-                    return parseFloat(intVal(a).toFixed(2)) + parseFloat(intVal(b).toFixed(2));
-                }, 0 );
-
-
-            // Update footer by showing the total with the reference of the column index
-            $( api.column( 10 ).footer() ).html('Total');
-            $( api.column( 11 ).footer() ).html(thuTotal);
-            $( api.column( 13 ).footer() ).html(friTotal);
-        },
-    });
-
-
-
-    // При изменении содержимого textarea
-    $('.bills textarea').on('input', function() {
-        this.style.height = 'auto'; // Сначала установите высоту в auto, чтобы сбросить высоту
-        this.style.height = (this.scrollHeight) + 'px'; // Установите высоту, чтобы вместить содержимое
     });
 })
