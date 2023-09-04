@@ -41,9 +41,7 @@ class BillPositionModel extends Model
 
     public function getPositionsInvoice($invoice_id = false)
     {
-        if ($invoice_id === false)
-            return $this->findAll();
-        else
+        if ($invoice_id)
             return $this->asArray()->where(['invoice_id' => $invoice_id])->findAll();
     }
 

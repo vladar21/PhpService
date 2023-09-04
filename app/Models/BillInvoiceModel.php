@@ -48,4 +48,16 @@ class BillInvoiceModel extends Model
         else
             return $this->asArray()->where(['id' => $id])->first();
     }
+
+    public function getInvoiceWithPositions($invoice_id = null){
+        if ($invoice_id){
+            $invoice = $this->getInvoices($invoice_id);
+
+            $positionModel = new BillPositionModel();
+            $positions = $positionModel->getPositionsInvoice($invoice_id);
+            $invoice['positions'] = $positions;
+
+            return $invoice;
+        }
+    }
 }

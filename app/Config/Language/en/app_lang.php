@@ -196,7 +196,8 @@ return [
     'meest_items' => 'Meest items',
     'items_data' => 'Item\'s data',
     'descriptions' => 'Descriptions',
-    'parcel_item' => 'Parcel item'
+    'parcel_item' => 'Parcel item',
+    'create_parcel' => 'Create parcel',
 
 
 ];

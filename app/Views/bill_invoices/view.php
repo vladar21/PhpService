@@ -16,7 +16,10 @@ $breadcrumbs = [
 echo generate_breadcrumbs($breadcrumbs, ' / ');
 ?>
 
-<h2><?= lang('app_lang.invoice_and_positions_products') ?></h2>
+<h2 class="float-left"><?= lang('app_lang.invoice_and_positions_products') ?></h2>
+    <!-- Button to create parcel -->
+    <button type="button" id="createParcelBtn" class="btn btn-primary float-right"><?= lang('app_lang.create_parcel') ?></button>
+    <div class="clear-both"></div>
     <section id="invoice">
         <fieldset>
             <legend><?= lang('app_lang.invoices_data') ?></legend>
@@ -41,10 +44,6 @@ echo generate_breadcrumbs($breadcrumbs, ' / ');
                         <input type="text" id="place" name="place" value="<?= $place ?>" readonly>
                     </div>
                     <div>
-                        <label for="sell_date"><?= lang('app_lang.sell_date') ?>:</label>
-                        <input type="date" id="sell_date" name="sell_date" value="<?= $sell_date ?>" readonly>
-                    </div>
-                    <div>
                         <label for="price_net"><?= lang('app_lang.price_net') ?>:</label>
                         <input type="text" id="price_net" name="price_net" value="<?= $price_net ?>" readonly>
                     </div>
@@ -55,6 +54,22 @@ echo generate_breadcrumbs($breadcrumbs, ' / ');
                     <div>
                         <label for="currency"><?= lang('app_lang.currency') ?>:</label>
                         <input type="text" id="currency" name="currency" value="<?= $currency ?>" readonly>
+                    </div>
+                    <div>
+                        <label for="sell_date"><?= lang('app_lang.sell_date') ?>:</label>
+                        <input type="date" id="sell_date" name="sell_date" value="<?= $sell_date ?>" readonly>
+                    </div>
+                    <div>
+                        <label for="delivery_date"><?= lang('app_lang.delivery_date') ?>:</label>
+                        <input type="date" id="delivery_date" name="delivery_date" value="<?= $delivery_date ?>" readonly>
+                    </div>
+                    <div>
+                        <label for="created_at"><?= lang('app_lang.created_at') ?>:</label>
+                        <input type="text" id="created_at" name="created_at" value="<?= $created_at ?>" readonly>
+                    </div>
+                    <div>
+                        <label for="updated_at"><?= lang('app_lang.updated_at') ?>:</label>
+                        <input type="text" id="updated_at" name="updated_at" value="<?= $updated_at ?>" readonly>
                     </div>
                 </div>
                 <div class="group-bills">
@@ -72,23 +87,11 @@ echo generate_breadcrumbs($breadcrumbs, ' / ');
                     </div>
                     <div>
                         <label for="product_cache"><?= lang('app_lang.product_cache') ?>:</label>
-                        <textarea id="product_cache" name="product_cache" readonly><?= $product_cache ?></textarea>
+                        <textarea id="product_cache" name="product_cache" rows="7" readonly><?= $product_cache ?></textarea>
                     </div>
                     <div>
                         <label for="description"><?= lang('app_lang.description') ?>:</label>
                         <textarea id="description" name="description" readonly><?= $description ?></textarea>
-                    </div>
-                    <div>
-                        <label for="delivery_date"><?= lang('app_lang.delivery_date') ?>:</label>
-                        <input type="date" id="delivery_date" name="delivery_date" value="<?= $delivery_date ?>" readonly>
-                    </div>
-                    <div>
-                        <label for="created_at"><?= lang('app_lang.created_at') ?>:</label>
-                        <input type="text" id="created_at" name="created_at" value="<?= $created_at ?>" readonly>
-                    </div>
-                    <div>
-                        <label for="updated_at"><?= lang('app_lang.updated_at') ?>:</label>
-                        <input type="text" id="updated_at" name="updated_at" value="<?= $updated_at ?>" readonly>
                     </div>
 
                 </div>

@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\BillInvoiceModel;
 use App\Models\MeestItemModel;
 use App\Models\MeestParcelModel;
 
@@ -164,19 +165,50 @@ class MeestParcels extends BaseController
 
     public function parcel($id = NULL)
     {
-        $model = new MeestParcelModel();
+        if ($id){
+            $model = new MeestParcelModel();
+            $parcel = $model->getParcels($id);
 
-        $parcel = $model->getParcels($id);
-
-        if ($parcel)
-        {
-            $data = $parcel;
+            if ($parcel)
+            {
+                $data = $parcel;
+            }
+            else
+            {
+                $data['code'] = '404';
+                $data['message'] = 'Page Not Found';
+                return view('errors/message', $data);
+            }
         }
-        else
-        {
-            $data['code'] = '404';
-            $data['message'] = 'Page Not Found';
-            return view('errors/message', $data);
+
+        return view('meest_parcels/view', $data);
+    }
+
+    public function add($invoice_id = NULL){
+        if ($invoice_id){
+
+            $invoiceModel = new BillInvoiceModel();
+
+            try{
+                $invoice = $invoiceModel->getInvoiceWithPositions($invoice_id);
+            }catch(\Throwable $ex){
+                $data['code'] = '500';
+                $data['message'] = $ex->getMessage();
+                return $data;
+            }
+
+
+            if ($invoice)
+            {
+                $data = $invoice;
+            }
+            else
+            {
+                $data['code'] = '404';
+                $data['message'] = 'Page Not Found';
+                return view('errors/message', $data);
+            }
+
         }
 
         return view('meest_parcels/view', $data);

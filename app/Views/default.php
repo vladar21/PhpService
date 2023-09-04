@@ -49,13 +49,9 @@
 
     <main class="content">
         <!-- Messages -->
-        <div id="successMessage">
-            Products fetching completed successfully.
-        </div>
+        <div id="successMessage"></div>
 
-        <div id="errorMessage" style="display: none;" class="alert alert-danger">
-            Error fetching products. Please try again later.
-        </div>
+        <div id="errorMessage" style="display: none;" class="alert alert-danger"></div>
         <!--        spinner -->
         <div class="spinner-overlay">
             <div class="spinner"></div>

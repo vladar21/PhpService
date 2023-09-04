@@ -9,7 +9,7 @@ helper('breadcrumb');
 $breadcrumbs = [
     'Home' => site_url(),
     'Meest Parcels' => base_url('meest_parcels'),
-    'Parcel Number "'.$parcelNumber.'"' => base_url('meest_parcels/'.$id),
+    'Parcel Number "'.($parcelNumber ?? null).'"' => base_url('meest_parcels/'.$id ?? null),
 ];
 
 // Generate and display the breadcrumbs

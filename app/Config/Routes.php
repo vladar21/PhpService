@@ -60,6 +60,7 @@ $routes->get('meest_parcels', 'MeestParcels::index');
 $routes->get('meest_parcels/(:num)', 'MeestParcels::parcel/$1');
 $routes->post('meest_parcels/get_parcels_ajax', 'MeestParcels::get_parcels_ajax');
 $routes->post('meest_parcels/get_parcel_items_ajax', 'MeestItems::get_parcel_items_ajax');
+$routes->get('meest_parcels/add/(:num)', 'MeestParcels::add/$1');
 
 $routes->get('meest_clients', 'MeestSendersRecipients::index');
 $routes->get('meest_clients/(:num)', 'MeestSendersRecipients::clients/$1');

@@ -2,9 +2,10 @@ $(document).ready(function() {
     const table = $('#billPositionsTable');
     const per_page = 15;
     const not_applicable = 'not_applicable';
+    const invoice_id = $('#bill_id').val();
 
     if ($('#bill_id').val() !== undefined ){
-        const invoice_id = $('#bill_id').val();
+
         const url = '/bill_positions/get_positions_ajax?invoice_id=' + invoice_id;
 
         let datatable_obj = $(table).DataTable({
@@ -82,9 +83,35 @@ $(document).ready(function() {
 
     }
 
-    // При изменении содержимого textarea
-    $('.bills textarea').on('input', function() {
-        this.style.height = 'auto'; // Сначала установите высоту в auto, чтобы сбросить высоту
-        this.style.height = (this.scrollHeight) + 'px'; // Установите высоту, чтобы вместить содержимое
+    $('#createParcelBtn').click(function() {
+        // Send a GET request when the button is clicked
+        $.get('/meest_parcels/add/' + invoice_id)
+            .done(function(response) {
+                var message = response.message || 'Parcel created successfully.';
+                // Show the success message with a fade-in effect
+                $('#successMessage').text(message).fadeIn(1000, function () {
+                    // Hide the success message after 5 seconds with a fade-out effect
+                    setTimeout(function () {
+                        $('#successMessage').fadeOut(1000);
+                    }, 5000);
+                });
+                // Hide the error message if it's currently displayed
+                $('#errorMessage').hide();
+            })
+            .fail(function(xhr) {
+                var errorMessage = xhr.responseJSON && xhr.responseJSON.message;
+                var message = errorMessage || 'Error creating parcel. Please try again later.';
+                // Show the error message with a fade-in effect
+                $('#errorMessage').text(message).fadeIn(1000, function () {
+                    // Hide the error message after 5 seconds with a fade-out effect
+                    setTimeout(function () {
+                        $('#errorMessage').fadeOut(1000);
+                    }, 5000);
+                });
+                // Hide the success message if it's currently displayed
+                $('#successMessage').hide();
+            });
     });
+
+
 })
