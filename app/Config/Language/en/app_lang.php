@@ -198,6 +198,7 @@ return [
     'descriptions' => 'Descriptions',
     'parcel_item' => 'Parcel item',
     'create_parcel' => 'Create parcel',
+    'deleted_at' => 'Deleted',
 
 
 ];

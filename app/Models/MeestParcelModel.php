@@ -34,8 +34,6 @@ class MeestParcelModel extends Model
         'weight',
         'meest_senders_id',
         'meest_recipients_id',
-        'name_sender',
-        'name_recipient',
     ];
 
     protected $useAutoIncrement = true;
@@ -65,4 +63,36 @@ class MeestParcelModel extends Model
         else
             return $builder->where(['meest_parcels.id' => $id])->get()->getRowArray();
     }
+
+    public function createParcelNumber($ClientTLA = 'KEY', $DestCountryIso2 = 'UA')
+    {
+        $lastRecord = $this->select('parcelNumber')
+            ->orderBy('parcelNumber', 'DESC')
+            ->first();
+
+        if ($lastRecord) {
+            $lastKey = (int) substr($lastRecord['parcelNumber'], strlen($ClientTLA), -strlen($DestCountryIso2));
+            $newKey = $lastKey + 1;
+        } else {
+            // Если это первая запись
+            $newKey = 1;
+        }
+        $newKeyString = str_pad($newKey, 13, '0', STR_PAD_LEFT); // Здесь 13 означает желаемую длину числовой последовательности
+
+        $newParcelNumber = $ClientTLA . $newKeyString . $DestCountryIso2;
+
+        return $newParcelNumber;
+    }
+
+    public function getParcelNumberParent(){
+        $lastRecord = $this->select('parcelNumber')
+            ->orderBy('parcelNumber', 'DESC')
+            ->first();
+        if ($lastRecord){
+            return $lastRecord['parcelNumber'];
+        }else{
+            return null;
+        }
+    }
+
 }

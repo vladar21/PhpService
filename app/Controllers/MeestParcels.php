@@ -197,10 +197,34 @@ class MeestParcels extends BaseController
                 return $data;
             }
 
-
             if ($invoice)
             {
-                $data = $invoice;
+                $parcelModel = new MeestParcelModel();
+                $newParcel = [
+                    'parcelNumber' => $parcelModel->createParcelNumber(),
+                    'parcelNumberInternal' => null,
+                    'parcelNumberParent' => $parcelModel->getParcelNumberParent(),
+                    'partnerKey' => 'KEY_TEST01',
+                    'bagId' => 'TestBagId',
+                    'carrierLastMile' => 'MEEST',
+                    'createReturnParcel' => false,
+                    'returnCarrier' => '',
+                    'cod' => 820,
+                    'codCurrency' => 'UAH',
+                    'deliveryCost' => null,
+                    'serviceType' => 'Home Delivery',
+                    'totalValue' => 0, // $totalValue,
+                    'currency' => 'EUR',
+                    'fulfillment' => 'FULL',
+                    'incoterms' => 'DDP',
+                    'iossVatIDenc' => 'EuLyAWjprs9+SqY9n1vIjl7CvqoWoKcDFSDaQE+mmE4=',
+                    'senderID' => '5FD924625F6AB16A',
+                    'weight' => 1, // $weight,
+                    'meest_senders_id' => 1, //$meest_senders_id,
+                    'meest_recipients_id' => 1, //$meest_recipients_id,
+                ];
+
+
             }
             else
             {
@@ -213,5 +237,6 @@ class MeestParcels extends BaseController
 
         return view('meest_parcels/view', $data);
     }
+
 
 }
