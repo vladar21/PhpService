@@ -72,6 +72,12 @@ class Database extends Config
 
     public function __construct()
     {
+        // В конструкторе устанавливаем значения переменных класса
+        $this->default['hostname'] = getenv('DATABASE_URL') ?: 'localhost';
+        $this->default['username'] = getenv('DB_USERNAME') ?: 'root';
+        $this->default['password'] = getenv('DB_PASSWORD') ?: 'root';
+        $this->default['database'] = getenv('DB_DATABASE') ?: 'phpservicedb';
+        $this->default['DBDriver'] = 'MySQLi';
         parent::__construct();
 
         // Ensure that we always set the database group to 'tests' if
@@ -81,4 +87,5 @@ class Database extends Config
             $this->defaultGroup = 'tests';
         }
     }
+
 }
