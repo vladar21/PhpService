@@ -19,7 +19,6 @@ $(document).ready(function() {
                 'X-CSRF-TOKEN': csrfToken
             },
             data: function (d) {
-                d.csrf_token;
                 return JSON.stringify(d);
             },
             contentType: 'application/json',
@@ -125,30 +124,12 @@ $(document).ready(function() {
                 render: function (data, type, row) {
                     return row.weight ? row.weight : not_applicable;
                 }
-            },
-            // {
-            //     data: 'meest_recipients_id',
-            //     visible: false,
-            //     searchable: false,
-            //     render: function (data, type, row) {
-            //         return row.meest_recipients_id ? row.meest_recipients_id : not_applicable;
-            //     }
-            // },
-            {
+            },  {
                 data: 'name_recipient',
                 render: function (data, type, row) {
                     return row.name_recipient ? row.name_recipient : not_applicable;
                 }
-            },
-            // {
-            //     data: 'meest_senders_id',
-            //     visible: false,
-            //     searchable: false,
-            //     render: function (data, type, row) {
-            //         return row.meest_senders_id ? row.meest_senders_id : not_applicable;
-            //     }
-            // },
-            {
+            },  {
                 data: 'name_sender',
                 render: function (data, type, row) {
                     return row.name_sender ? row.name_sender : not_applicable;
@@ -169,7 +150,23 @@ $(document).ready(function() {
                 render: function (data, type, row) {
                     return '<a href="/meest_parcels/' + row.id + '" class="btn btn-sm btn-blue-outline">' + title_view + '</a>';
                 }
-            }
+            },
+            // {
+            //     data: 'meest_recipients_id',
+            //     visible: false,
+            //     searchable: false,
+            //     render: function (data, type, row) {
+            //         return row.meest_recipients_id ? row.meest_recipients_id : not_applicable;
+            //     }
+            // },
+            // {
+            //     data: 'meest_senders_id',
+            //     visible: false,
+            //     searchable: false,
+            //     render: function (data, type, row) {
+            //         return row.meest_senders_id ? row.meest_senders_id : not_applicable;
+            //     }
+            // },
         ]
     });
 });

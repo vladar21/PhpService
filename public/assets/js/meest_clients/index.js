@@ -7,7 +7,6 @@ $(document).ready(function() {
     const language = getAppVariable('language');
     const csrf_token = getAppVariable('csrf_token');
 
-
     let datatable_obj = $(table).DataTable({
         processing: true,
         serverSide: true,

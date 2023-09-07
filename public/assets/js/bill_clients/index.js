@@ -7,8 +7,12 @@ $(document).ready(function() {
     const language = getAppVariable('language');
     const csrf_token = getAppVariable('csrf_token');
 
+    $('input[type="search"]').on('keyup', function () {
+        table.search(this.value).draw();
+    });
 
     let datatable_obj = $(table).DataTable({
+        searching: true,
         processing: true,
         serverSide: true,
         pageLength: per_page,
@@ -23,6 +27,7 @@ $(document).ready(function() {
                 return JSON.stringify(d);
             },
             contentType: 'application/json',
+
         },
         columns: [
             {

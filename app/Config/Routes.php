@@ -34,43 +34,43 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Dashboard::index');
-$routes->get('dashboard', 'Dashboard::index');
-$routes->get('dashboard/get_users_ajax', 'Dashboard::get_users_ajax');
+$routes->get('/dashboard', 'Dashboard::index');
+$routes->get('/dashboard/get_users_ajax', 'Dashboard::get_users_ajax');
 
-$routes->get('bill_invoices', 'BillInvoices::index');
-$routes->get('bill_invoices/(:num)', 'BillInvoices::invoice/$1');
-$routes->get('bill_invoices/get_invoices_ajax', 'BillInvoices::get_invoices_ajax');
+$routes->get('/bill_invoices', 'BillInvoices::index');
+$routes->get('/bill_invoices/(:num)', 'BillInvoices::invoice/$1');
+$routes->get('/bill_invoices/get_invoices_ajax', 'BillInvoices::get_invoices_ajax');
 //$routes->get('bill_invoices/(:segment)', 'BillInvoices::page/$1');
-$routes->get('bill_positions/get_positions_ajax', 'BillPositions::get_positions_ajax');
+$routes->get('/bill_positions/get_positions_ajax', 'BillPositions::get_positions_ajax');
 
-$routes->get('bill_products', 'BillProducts::index');
-$routes->get('bill_products/(:num)', 'BillProducts::product/$1');
-$routes->get('bill_products/get_products_ajax', 'BillProducts::get_products_ajax');
+$routes->get('/bill_products', 'BillProducts::index');
+$routes->get('/bill_products/(:num)', 'BillProducts::product/$1');
+$routes->get('/bill_products/get_products_ajax', 'BillProducts::get_products_ajax');
 
-$routes->get('bill_clients', 'BillClients::index');
-$routes->get('bill_clients/(:num)', 'BillClients::client/$1');
-$routes->post('bill_clients/get_clients_ajax', 'BillClients::get_clients_ajax');
+$routes->get('/bill_clients', 'BillClients::index');
+$routes->get('/bill_clients/(:num)', 'BillClients::client/$1');
+$routes->post('/bill_clients/get_clients_ajax', 'BillClients::get_clients_ajax');
 
 // update all bill products
 $routes->get('/billapi/fetchProducts', 'api\BillAPIController::fetchProducts');
 $routes->get('/billapi/fetchClients', 'api\BillAPIController::fetchClients');
 $routes->get('/billapi/fetchInvoices', 'api\BillAPIController::fetchInvoices');
 
-$routes->get('meest_parcels', 'MeestParcels::index');
-$routes->get('meest_parcels/(:num)', 'MeestParcels::parcel/$1');
-$routes->post('meest_parcels/get_parcels_ajax', 'MeestParcels::get_parcels_ajax');
-$routes->post('meest_parcels/get_parcel_items_ajax', 'MeestItems::get_parcel_items_ajax');
-$routes->get('meest_parcels/add/(:num)', 'MeestParcels::add/$1');
+$routes->get('/meest_parcels', 'MeestParcels::index');
+$routes->get('/meest_parcels/(:num)', 'MeestParcels::parcel/$1');
+$routes->post('/meest_parcels/get_parcels_ajax', 'MeestParcels::get_parcels_ajax');
+$routes->post('/meest_parcels/get_parcel_items_ajax', 'MeestItems::get_parcel_items_ajax');
+$routes->get('/meest_parcels/add/(:num)', 'MeestParcels::add/$1');
 
-$routes->get('meest_clients', 'MeestSendersRecipients::index');
-$routes->get('meest_clients/(:num)', 'MeestSendersRecipients::clients/$1');
-$routes->post('meest_clients/get_meest_clients_ajax', 'MeestSendersRecipients::get_meest_clients_ajax');
-$routes->get('meest_clients/get_meest_client_docs', 'MeestSendersRecipients::get_meest_client_docs');
+$routes->get('/meest_clients', 'MeestSendersRecipients::index');
+$routes->get('/meest_clients/(:num)', 'MeestSendersRecipients::clients/$1');
+$routes->post('/meest_clients/get_meest_clients_ajax', 'MeestSendersRecipients::get_meest_clients_ajax');
+$routes->get('/meest_clients/get_meest_client_docs', 'MeestSendersRecipients::get_meest_client_docs');
 
-$routes->get('meest_items', 'MeestItems::index');
-$routes->get('meest_items/(:num)', 'MeestItems::item/$1');
-$routes->post('meest_items/get_parcel_items_ajax', 'MeestItems::get_parcel_items_ajax');
-$routes->get('meest_items/get_meest_item_desc_ajax', 'MeestItems::get_meest_item_desc_ajax');
+$routes->get('/meest_items', 'MeestItems::index');
+$routes->get('/meest_items/(:num)', 'MeestItems::item/$1');
+$routes->post('/meest_items/get_parcel_items_ajax', 'MeestItems::get_parcel_items_ajax');
+$routes->get('/meest_items/get_meest_item_desc_ajax', 'MeestItems::get_meest_item_desc_ajax');
 
 service('auth')->routes($routes);
 

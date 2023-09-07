@@ -213,16 +213,45 @@ class MeestParcels extends BaseController
                     'codCurrency' => 'UAH',
                     'deliveryCost' => null,
                     'serviceType' => 'Home Delivery',
-                    'totalValue' => 0, // $totalValue,
+                    'totalValue' => $invoice['price_gross'] ?? null,
                     'currency' => 'EUR',
                     'fulfillment' => 'FULL',
                     'incoterms' => 'DDP',
                     'iossVatIDenc' => 'EuLyAWjprs9+SqY9n1vIjl7CvqoWoKcDFSDaQE+mmE4=',
                     'senderID' => '5FD924625F6AB16A',
-                    'weight' => 1, // $weight,
+                    'weight' => 0, // $weight,
                     'meest_senders_id' => 1, //$meest_senders_id,
                     'meest_recipients_id' => 1, //$meest_recipients_id,
                 ];
+
+                $sender = [
+                    'buildingNumber' => '5A',
+                    'city' => 'CITY_TEST01',
+                    'companyName' => 'COMPANY_TEST01',
+                    'country' => 'PL',
+                    'email' => 'support@com.com',
+                    'flatNumber' => '2F',
+                    'name' => 'John Doe',
+                    'phone' => '+380999999999',
+                    'region1' => 'REGION_TEST01',
+                    'street' => 'STREET_TEST01',
+                    'zipCode' => 'ZIP_TEST01',
+                ];
+
+                $recipient = [
+                    'buildingNumber' => '5A',
+                    'city' => 'CITY_TEST01',
+                    'companyName' => 'COMPANY_TEST01',
+                    'country' => 'PL',
+                    'email' => 'support@com.com',
+                    'flatNumber' => '2F',
+                    'name' => 'John Doe',
+                    'phone' => '+380999999999',
+                    'region1' => 'REGION_TEST01',
+                    'street' => 'STREET_TEST01',
+                    'zipCode' => 'ZIP_TEST01',
+                ];
+
 
 
             }

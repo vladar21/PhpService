@@ -95,11 +95,6 @@
 <script>
     var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-    // $.ajaxSetup({
-    //     headers: {
-    //         'X-CSRF-TOKEN': csrfToken
-    //     }
-    // });
 
 </script>
 <script type="text/javascript" src= <?= $base_url."assets/js/helper.js" ?>></script>
