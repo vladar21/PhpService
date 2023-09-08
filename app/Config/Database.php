@@ -73,6 +73,7 @@ class Database extends Config
     public function __construct()
     {
         // В конструкторе устанавливаем значения переменных класса
+        $this->default['DSN'] = getenv('DATABASE_URL') ? 'pgsql:host=ec2-54-195-120-0.eu-west-1.compute.amazonaws.com;port=5432;dbname=df48n3jmhiipp0;sslmode=require' : 'localhost';
         $this->default['hostname'] = getenv('DATABASE_URL') ?: 'localhost';
         $this->default['username'] = getenv('DB_USERNAME') ?: 'root';
         $this->default['password'] = getenv('DB_PASSWORD') ?: 'root';
