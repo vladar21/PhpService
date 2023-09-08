@@ -25,8 +25,7 @@ class Database extends Config
      * The default database connection.
      */
     public array $default = [
-        'DSN'      => ' postgres://ezfyiejucncezp:c65d8c4acce60609b48afed78b2e9257636d9395a1c8bd08a8089a44d99197ef@ec2-54-195-120-0.eu-west-1.compute.amazonaws.com:5432/df48n3jmhiipp0',
-        'scheme'   => 'pgsql',
+        'DSN'      => ' pgsql://ezfyiejucncezp:c65d8c4acce60609b48afed78b2e9257636d9395a1c8bd08a8089a44d99197ef@ec2-54-195-120-0.eu-west-1.compute.amazonaws.com:5432/df48n3jmhiipp0',
 //        'hostname' => 'localhost',
 //        'username' => 'root',
 //        'password' => 'root',
