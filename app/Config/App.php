@@ -17,7 +17,8 @@ class App extends BaseConfig
      *
      *    http://example.com/
      */
-    public string $baseURL = '';
+    public string $baseURL = getenv('BASE_URL') ?: 'https://phpservice-cf471660c094.herokuapp.com/';
+
 
     /**
      * Allowed Hostnames in the Site URL other than the hostname in the baseURL.
