@@ -77,7 +77,7 @@ class Database extends Config
         $this->default['username'] = getenv('DB_USERNAME') ?: 'root';
         $this->default['password'] = getenv('DB_PASSWORD') ?: 'root';
         $this->default['database'] = getenv('DB_DATABASE') ?: 'phpservicedb';
-        $this->default['DBDriver'] = 'MySQLi';
+        $this->default['DBDriver'] = getenv('DATABASE_URL') ? 'Postgre' : 'MySQLi';
         parent::__construct();
 
         // Ensure that we always set the database group to 'tests' if
