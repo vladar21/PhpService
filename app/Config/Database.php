@@ -76,7 +76,7 @@ class Database extends Config
         $this->default['DSN'] = getenv('DATABASE_URL') ? 'pgsql:host=ec2-54-195-120-0.eu-west-1.compute.amazonaws.com;port=5432;dbname=df48n3jmhiipp0;sslmode=require' : 'localhost';
         $this->default['hostname'] = getenv('DATABASE_URL') ?: 'localhost';
         $this->default['username'] = getenv('DB_USERNAME') ?: 'root';
-        $this->default['password'] = getenv('DB_PASSWORD') ?: 'root';
+        $this->default['password'] = getenv('DATABASE_URL') ? 'c65d8c4acce60609b48afed78b2e9257636d9395a1c8bd08a8089a44d99197ef' : 'root';
         $this->default['database'] = getenv('DB_DATABASE') ?: 'phpservicedb';
         $this->default['DBDriver'] = getenv('DATABASE_URL') ? 'Postgre' : 'MySQLi';
         parent::__construct();
