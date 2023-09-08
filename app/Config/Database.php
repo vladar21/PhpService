@@ -30,6 +30,7 @@ class Database extends Config
 //        'username' => 'root',
 //        'password' => 'root',
 //        'database' => 'phpservicedb',
+        'DBDriver' => 'Postgre',
 //        'DBDriver' => 'MySQLi',
 //        'DBPrefix' => '',
 //        'pConnect' => false,
