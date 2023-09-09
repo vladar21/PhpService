@@ -22,6 +22,11 @@ jobs:
         with:
           php-version: 7.4
 
+      - name: Install PHP extensions
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y php7.4-mbstring php7.4-xml
+
       - name: Install Composer dependencies
         run: composer install
 
