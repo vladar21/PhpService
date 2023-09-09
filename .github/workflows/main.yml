@@ -30,9 +30,6 @@ jobs:
       - name: Debug
         run: echo "Debugging information"
 
-      - name: View Composer logs
-        run: cat /home/runner/.composer/composer.log
-
       - name: Install Composer dependencies
         run: composer install
 
