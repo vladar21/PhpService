@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
@@ -32,7 +32,10 @@ jobs:
 
       - name: Deploy to GitHub Pages
         run: |
+          git config --global user.name "vladar21"
+          git config --global user.email "vladar21@gmail.com"
           cp -r public/* $GITHUB_WORKSPACE
-          git add .
+          rm -rf application system composer.json composer.lock spark
+          git add [^1^][1].
           git commit -m "Deploy to GitHub Pages"
           git push origin HEAD:gh-pages
