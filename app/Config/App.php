@@ -17,7 +17,7 @@ class App extends BaseConfig
      *
      *    http://example.com/
      */
-    public string $baseURL = 'https://phpservice-cf471660c094.herokuapp.com/';
+    public string $baseURL = '';
 
 
     /**
