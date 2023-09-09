@@ -57,4 +57,4 @@ jobs:
           git commit -m "Deploy to GitHub Pages"
           git push origin HEAD:gh-pages --force # Добавляем параметр --force, чтобы перезаписать удаленную ветку
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }} # Передаем наш токен GH_TOKEN как переменную окружения из секретов репозитория
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
