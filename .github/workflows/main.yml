@@ -8,9 +8,11 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions: # Добавляем раздел permissions с записью в contents
+      contents: write
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2 # Используем версию 2, так как она работает лучше
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
@@ -53,6 +55,6 @@ jobs:
           rm -rf application system composer.json composer.lock spark
           git add .
           git commit -m "Deploy to GitHub Pages"
-          git push origin HEAD:gh-pages # Пушим наши изменения на GitHub Pages без указания токена, так как он уже сохранен в .netrc
+          git push origin HEAD:gh-pages --force # Добавляем параметр --force, чтобы перезаписать удаленную ветку
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }} # Передаем наш токен GH_TOKEN как переменную окружения из секретов репозитория
