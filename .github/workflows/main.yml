@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v2
 
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
@@ -30,4 +30,4 @@ jobs:
           cp -r public/* $GITHUB_WORKSPACE
           git add .
           git commit -m "Deploy to GitHub Pages"
-          git push origin main:gh-pages
+          git push origin HEAD:gh-pages
