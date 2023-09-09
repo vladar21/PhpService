@@ -35,6 +35,9 @@ jobs:
           composer install
         continue-on-error: true
 
+      - name: Update local repository
+        run: git pull origin gh-pages
+
       - name: Debug After Composer Install
         run: |
           echo "Debugging after composer install"
@@ -53,4 +56,3 @@ jobs:
           git push origin HEAD:gh-pages # Пушим наши изменения на GitHub Pages без указания токена, так как он уже сохранен в .netrc
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }} # Передаем наш токен GH_TOKEN как переменную окружения из секретов репозитория
-
