@@ -1,0 +1,52 @@
+.product-form {
+    width: 100%;
+}
+
+.bills {
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: stretch;
+    align-items: stretch;
+}
+
+.group-bills {
+    flex-grow: 1;flex-basis: calc(33% - 10px); /* Половина ширины контейнера, с учетом промежутков между элементами */
+    margin-bottom: 20px; /* Промежуток между строками */
+}
+
+.bills input[type="text"] {
+    width: 50%;
+    box-sizing: border-box;
+    padding: 5px;
+    margin-bottom: 5px;
+    border: 1px solid #ccc;
+    resize: none; /* отключаем изменение размера textarea */
+}
+
+.bills textarea {
+    width: 50%;
+    box-sizing: border-box;
+    padding: 5px;
+    margin-bottom: 5px;
+    border: 1px solid #ccc;
+    resize: none;
+    overflow: hidden; /* Скрываем любое внутреннее содержимое, выходящее за границы */
+    transition: height 0.3s ease; /* Добавляем плавное изменение высоты */
+}
+
+.bills textarea:focus {
+    height: auto; /* Автоматически увеличиваем высоту при фокусе */
+}
+
+.bills label {
+    display: inline-block;
+    width: 40%; /* Set the desired width for the labels */
+    text-align: right;
+    margin-right: 10px; /* Add some right margin for spacing */
+    vertical-align: top;
+}
+
+#created_at, #updated_at {
+    background-color: gray;
+}
