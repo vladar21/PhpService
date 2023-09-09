@@ -13,9 +13,10 @@ jobs:
         uses: actions/checkout@v3 # Используем версию 3, так как версия 2 работает на устаревшем Node.js 12
 
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v2.4.0
         with:
-          node-version: 16 # Указываем версию Node.js 16, так как она будет использоваться по умолчанию в скором времени
+          node-version: '14'
+          check-latest: true
 
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
