@@ -17,7 +17,7 @@ class App extends BaseConfig
      *
      *    http://example.com/
      */
-    public string $baseURL = '';
+    public string $baseURL = 'https://vladar21.github.io/PhpService/';
 
 
     /**
