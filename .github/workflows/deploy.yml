@@ -6,34 +6,28 @@ on:
       - git-hub-deploy
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v2
 
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '7.4'
+          php-version: 7.4
 
-      - name: Install Composer Dependencies
+      - name: Install Composer dependencies
         run: composer install
 
-      - name: Build CodeIgniter Application
-        run: php spark build
-
-      - name: Configure GitHub Pages
+      - name: Build your project
         run: |
-          git config --global user.name 'vladar21'
-          git config --global user.email 'vladar21@gmail.com'
+          php spark build
+          php spark optimize:all
 
-      - name: Commit and Deploy
+      - name: Deploy to GitHub Pages
         run: |
-          git checkout git-hub-deploy
-          git pull origin git-hub-deploy
-          cp -r public/* . # This copies your PHP application to the root of the git-hub-deploy branch
+          cp -r public/* $GITHUB_WORKSPACE
           git add .
-          git commit -m 'Update from git-hub-deploy branch'
-          git push origin git-hub-deploy
+          git commit -m "Deploy to GitHub Pages"
+          git push origin main:gh-pages
