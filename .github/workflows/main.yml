@@ -36,10 +36,10 @@ jobs:
       - name: Install Composer dependencies
         run: composer install
 
-      - name: Build your project
+      - name: Debug
         run: |
-          php spark build
-          php spark optimize:all
+          echo "Debugging information"
+          echo "Hello from Debug step"
 
       - name: Deploy to GitHub Pages
         run: |
