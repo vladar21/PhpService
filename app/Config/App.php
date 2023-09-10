@@ -17,8 +17,7 @@ class App extends BaseConfig
      *
      *    http://example.com/
      */
-    public string $baseURL = 'https://vladar21.github.io/PhpService/';
-
+    public string $baseURL = 'http://phpservice.host/';
 
     /**
      * Allowed Hostnames in the Site URL other than the hostname in the baseURL.
@@ -447,5 +446,4 @@ class App extends BaseConfig
      * @see http://www.w3.org/TR/CSP/
      */
     public bool $CSPEnabled = false;
-
 }
