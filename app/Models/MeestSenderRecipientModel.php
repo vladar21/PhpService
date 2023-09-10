@@ -12,6 +12,7 @@ class MeestSenderRecipientModel extends Model
 
     protected $allowedFields = [
         'id',
+        'bill_client_id',
         'buildingNumber',
         'city',
         'companyName',

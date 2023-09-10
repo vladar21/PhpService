@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\BillInvoiceModel;
 use App\Models\MeestItemModel;
 use App\Models\MeestParcelModel;
+use App\Models\MeestSenderRecipientModel;
 
 class MeestParcels extends BaseController
 {
@@ -199,31 +200,6 @@ class MeestParcels extends BaseController
 
             if ($invoice)
             {
-                $parcelModel = new MeestParcelModel();
-                $newParcel = [
-                    'parcelNumber' => $parcelModel->createParcelNumber(),
-                    'parcelNumberInternal' => null,
-                    'parcelNumberParent' => $parcelModel->getParcelNumberParent(),
-                    'partnerKey' => 'KEY_TEST01',
-                    'bagId' => 'TestBagId',
-                    'carrierLastMile' => 'MEEST',
-                    'createReturnParcel' => false,
-                    'returnCarrier' => '',
-                    'cod' => 820,
-                    'codCurrency' => 'UAH',
-                    'deliveryCost' => null,
-                    'serviceType' => 'Home Delivery',
-                    'totalValue' => $invoice['price_gross'] ?? null,
-                    'currency' => 'EUR',
-                    'fulfillment' => 'FULL',
-                    'incoterms' => 'DDP',
-                    'iossVatIDenc' => 'EuLyAWjprs9+SqY9n1vIjl7CvqoWoKcDFSDaQE+mmE4=',
-                    'senderID' => '5FD924625F6AB16A',
-                    'weight' => 0, // $weight,
-                    'meest_senders_id' => 1, //$meest_senders_id,
-                    'meest_recipients_id' => 1, //$meest_recipients_id,
-                ];
-
                 $sender = [
                     'buildingNumber' => '5A',
                     'city' => 'CITY_TEST01',
@@ -251,6 +227,45 @@ class MeestParcels extends BaseController
                     'region1' => '',
                     'street' => $invoice['recipient']['street'],
                     'zipCode' => $invoice['buyer_post_code'],
+                ];
+
+                $meestSenderRecipientModel = new MeestSenderRecipientModel();
+                $meestSenderRecipient = $meestSenderRecipientModel->getClients($recipient['bill_client_id']);
+                if (!$meestSenderRecipient){
+                    try{
+                        $id = $meestSenderRecipientModel->insert($recipient);
+                        $meestSenderRecipient['id'] = $id;
+                    }catch(\Throwable $ex){
+                        $data['code'] = '500';
+                        $data['message'] = $ex->getMessage();
+                        return $data;
+                    }
+
+                }
+
+                $parcelModel = new MeestParcelModel();
+                $newParcel = [
+                    'parcelNumber' => $parcelModel->createParcelNumber(),
+                    'parcelNumberInternal' => null,
+                    'parcelNumberParent' => $parcelModel->getParcelNumberParent(),
+                    'partnerKey' => 'KEY_TEST01',
+                    'bagId' => 'TestBagId',
+                    'carrierLastMile' => 'MEEST',
+                    'createReturnParcel' => false,
+                    'returnCarrier' => '',
+                    'cod' => 820,
+                    'codCurrency' => 'UAH',
+                    'deliveryCost' => null,
+                    'serviceType' => 'Home Delivery',
+                    'totalValue' => $invoice['price_gross'] ?? null,
+                    'currency' => 'EUR',
+                    'fulfillment' => 'FULL',
+                    'incoterms' => 'DDP',
+                    'iossVatIDenc' => 'EuLyAWjprs9+SqY9n1vIjl7CvqoWoKcDFSDaQE+mmE4=',
+                    'senderID' => '5FD924625F6AB16A',
+                    'weight' => 0, // $weight,
+                    'meest_senders_id' => 1, //$meest_senders_id,
+                    'meest_recipients_id' => $meestSenderRecipient['id'], //$meest_recipients_id,
                 ];
 
 
