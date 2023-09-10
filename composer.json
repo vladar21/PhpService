@@ -9,7 +9,8 @@
         "ext-json": "*",
         "codeigniter4/framework": "^4.0",
         "codeigniter4/shield": "^1.0@beta",
-        "composer/composer": "^2.0"
+        "composer/composer": "^2.0",
+        "predis/predis": "^1.1"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9",
