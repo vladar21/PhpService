@@ -38,7 +38,9 @@ jobs:
         continue-on-error: true
 
       - name: Update local repository
-        run: git pull origin gh-pages
+        run: |
+          git checkout gh-pages
+          git pull origin gh-pages
 
       - name: Debug After Composer Install
         run: |
