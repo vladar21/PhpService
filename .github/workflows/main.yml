@@ -58,4 +58,4 @@ jobs:
           git push origin HEAD:gh-pages --force # Добавляем параметр --force, чтобы перезаписать удаленную ветку
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
-          
+
