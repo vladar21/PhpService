@@ -190,7 +190,7 @@ class MeestParcels extends BaseController
             $invoiceModel = new BillInvoiceModel();
 
             try{
-                $invoice = $invoiceModel->getInvoiceWithPositions($invoice_id);
+                $invoice = $invoiceModel->getInvoiceWithPositionsAndRecipient($invoice_id);
             }catch(\Throwable $ex){
                 $data['code'] = '500';
                 $data['message'] = $ex->getMessage();
@@ -239,17 +239,18 @@ class MeestParcels extends BaseController
                 ];
 
                 $recipient = [
-                    'buildingNumber' => '5A',
-                    'city' => 'CITY_TEST01',
-                    'companyName' => 'COMPANY_TEST01',
-                    'country' => 'PL',
-                    'email' => 'support@com.com',
-                    'flatNumber' => '2F',
-                    'name' => 'John Doe',
-                    'phone' => '+380999999999',
-                    'region1' => 'REGION_TEST01',
-                    'street' => 'STREET_TEST01',
-                    'zipCode' => 'ZIP_TEST01',
+                    'bill_client_id' => $invoice['recipient']['id'],
+                    'buildingNumber' => $invoice['recipient']['street_no'],
+                    'city' => $invoice['buyer_city'],
+                    'companyName' => $invoice['buyer_name'],
+                    'country' => $invoice['buyer_country'],
+                    'email' => $invoice['buyer_email'],
+                    'flatNumber' => '',
+                    'name' => $invoice['buyer_first_name'].' '.$invoice['buyer_last_name'],
+                    'phone' => $invoice['recipient']['mobile_phone'] ?? $invoice['recipient']['phone'],
+                    'region1' => '',
+                    'street' => $invoice['recipient']['street'],
+                    'zipCode' => $invoice['buyer_post_code'],
                 ];
 
 
