@@ -37,11 +37,6 @@ jobs:
           composer install
         continue-on-error: true
 
-#      - name: Update local repository
-#        run: |
-#          git checkout gh-pages
-#          git pull origin gh-pages
-
       - name: Debug After Composer Install
         run: |
           echo "Debugging after composer install"
