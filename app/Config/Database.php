@@ -74,11 +74,11 @@ class Database extends Config
     {
         // В конструкторе устанавливаем значения переменных класса
 //        $this->default['DSN'] = getenv('DATABASE_URL') ? 'dbname=df48n3jmhiipp0 host=ec2-54-195-120-0.eu-west-1.compute.amazonaws.com port=5432 user=ezfyiejucncezp password=c65d8c4acce60609b48afed78b2e9257636d9395a1c8bd08a8089a44d99197ef sslmode=require' : '';
-        $this->default['hostname'] = getenv('DATABASE_URL') ? '' : '127.0.0.1';
-        $this->default['username'] = getenv('DATABASE_URL') ? '': 'root';
-        $this->default['password'] = getenv('DATABASE_URL') ? '' : 'root';
-        $this->default['database'] = getenv('DATABASE_URL') ? '' : 'phpservicedb';
-        $this->default['DBDriver'] = getenv('DATABASE_URL') ? 'Postgre' : 'MySQLi';
+//        $this->default['hostname'] = getenv('DATABASE_URL') ? '' : '127.0.0.1';
+//        $this->default['username'] = getenv('DATABASE_URL') ? '': 'root';
+//        $this->default['password'] = getenv('DATABASE_URL') ? '' : 'root';
+//        $this->default['database'] = getenv('DATABASE_URL') ? '' : 'phpservicedb';
+//        $this->default['DBDriver'] = getenv('DATABASE_URL') ? 'Postgre' : 'MySQLi';
 
         parent::__construct();
 
