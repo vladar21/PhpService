@@ -200,21 +200,11 @@ class MeestParcels extends BaseController
 
             if ($invoice)
             {
-                $sender = [
-                    'buildingNumber' => '5A',
-                    'city' => 'CITY_TEST01',
-                    'companyName' => 'COMPANY_TEST01',
-                    'country' => 'PL',
-                    'email' => 'support@com.com',
-                    'flatNumber' => '2F',
-                    'name' => 'John Doe',
-                    'phone' => '+380999999999',
-                    'region1' => 'REGION_TEST01',
-                    'street' => 'STREET_TEST01',
-                    'zipCode' => 'ZIP_TEST01',
-                ];
+                $meestSenderRecipientModel = new MeestSenderRecipientModel();
+                $sender = $meestSenderRecipientModel->getClients(1);
+                $meest_senders_id = $sender['id'];
 
-                $recipient = [
+                $bill_client = [
                     'bill_client_id' => $invoice['recipient']['id'],
                     'buildingNumber' => $invoice['recipient']['street_no'],
                     'city' => $invoice['buyer_city'],
@@ -229,18 +219,17 @@ class MeestParcels extends BaseController
                     'zipCode' => $invoice['buyer_post_code'],
                 ];
 
-                $meestSenderRecipientModel = new MeestSenderRecipientModel();
-                $meestSenderRecipient = $meestSenderRecipientModel->getClients($recipient['bill_client_id']);
+                $meestSenderRecipient = $meestSenderRecipientModel->getClients($bill_client['bill_client_id']);
                 if (!$meestSenderRecipient){
-                    try{
-                        $id = $meestSenderRecipientModel->insert($recipient);
-                        $meestSenderRecipient['id'] = $id;
-                    }catch(\Throwable $ex){
-                        $data['code'] = '500';
-                        $data['message'] = $ex->getMessage();
-                        return $data;
-                    }
-
+                    $recipient = null;
+//                    try{
+//                        $id = $meestSenderRecipientModel->insert($recipient);
+//                        $meestSenderRecipient['id'] = $id;
+//                    }catch(\Throwable $ex){
+//                        $data['code'] = '500';
+//                        $data['message'] = $ex->getMessage();
+//                        return $data;
+//                    }
                 }
 
                 $parcelModel = new MeestParcelModel();
@@ -264,9 +253,17 @@ class MeestParcels extends BaseController
                     'iossVatIDenc' => 'EuLyAWjprs9+SqY9n1vIjl7CvqoWoKcDFSDaQE+mmE4=',
                     'senderID' => '5FD924625F6AB16A',
                     'weight' => 0, // $weight,
-                    'meest_senders_id' => 1, //$meest_senders_id,
-                    'meest_recipients_id' => $meestSenderRecipient['id'], //$meest_recipients_id,
+                    'meest_senders_id' => $meest_senders_id, //$meest_senders_id,
+                    'meest_recipients_id' => $meestSenderRecipient['id'] ?? null, //$meest_recipients_id,
                 ];
+                try{
+                    $new_parcel_id = $parcelModel->insert($newParcel);
+                    $data = $parcelModel->getParcels($new_parcel_id);
+                }catch(\Throwable $ex){
+                    $data['code'] = '500';
+                    $data['message'] = $ex->getMessage();
+                    return json_encode($data);
+                }
 
 
 

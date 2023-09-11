@@ -10,7 +10,20 @@ class MeestSendersRecipientsSeeder extends Seeder
     public function run()
     {
         $datas = [];
-        $datas[0] = [            
+        $datas[0] =[ // sender
+            'buildingNumber' => '5A',
+            'city' => 'CITY_TEST01',
+            'companyName' => 'COMPANY_TEST01',
+            'country' => 'PL',
+            'email' => 'support@com.com',
+            'flatNumber' => '2F',
+            'name' => 'John Doe',
+            'phone' => '+380999999999',
+            'region1' => 'REGION_TEST01',
+            'street' => 'STREET_TEST01',
+            'zipCode' => 'ZIP_TEST01',
+        ];
+        $datas[1] = [
             "buildingNumber" => "54",
             "city" => "Лука-Мелешківська",
             "companyName" => "Shechenko&Co LLC",
@@ -25,7 +38,7 @@ class MeestSendersRecipientsSeeder extends Seeder
             "street" => "Тиврівське",
             "zipCode" => "23234",
         ];
-        $datas[1] = [           
+        $datas[2] = [
             "buildingNumber" => "45",
             "city" => "Warsaw",
             "companyName" => "CompanyName",

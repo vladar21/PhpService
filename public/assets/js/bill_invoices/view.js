@@ -86,17 +86,30 @@ $(document).ready(function() {
     $('#createParcelBtn').click(function() {
         // Send a GET request when the button is clicked
         $.get('/meest_parcels/add/' + invoice_id)
-            .done(function(response) {
-                var message = response.message || 'Parcel created successfully.';
-                // Show the success message with a fade-in effect
-                $('#successMessage').text(message).fadeIn(1000, function () {
-                    // Hide the success message after 5 seconds with a fade-out effect
-                    setTimeout(function () {
-                        $('#successMessage').fadeOut(1000);
-                    }, 5000);
-                });
-                // Hide the error message if it's currently displayed
-                $('#errorMessage').hide();
+            .done(function(data) {
+                let response = JSON.parse(data);
+                if (response.code === '404' || response.code === '500'){
+                    let message = response.message || "Error! Parcel didn't creat.";
+                    $('#errorMessage').text(message).fadeIn(1000, function () {
+                        // Hide the success message after 5 seconds with a fade-out effect
+                        setTimeout(function () {
+                            $('#errorMessage').fadeOut(1000);
+                        }, 5000);
+                    });
+                    $('#successMessage').hide();
+                }else{
+                    let message = response.message || 'Parcel created successfully.';
+                    // Show the success message with a fade-in effect
+                    $('#successMessage').text(message).fadeIn(1000, function () {
+                        // Hide the success message after 5 seconds with a fade-out effect
+                        setTimeout(function () {
+                            $('#successMessage').fadeOut(1000);
+                        }, 5000);
+                    });
+                    // Hide the error message if it's currently displayed
+                    $('#errorMessage').hide();
+                }
+
             })
             .fail(function(xhr) {
                 var errorMessage = xhr.responseJSON && xhr.responseJSON.message;
