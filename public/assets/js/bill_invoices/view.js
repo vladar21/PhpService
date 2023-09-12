@@ -87,6 +87,7 @@ $(document).ready(function() {
         // Send a GET request when the button is clicked
         $.get('/meest_parcels/add/' + invoice_id)
             .done(function(data) {
+                $('body').html(data);
                 let response = JSON.parse(data);
                 if (response.code === '404' || response.code === '500'){
                     let message = response.message || "Error! Parcel didn't creat.";

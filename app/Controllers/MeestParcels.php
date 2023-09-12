@@ -262,11 +262,8 @@ class MeestParcels extends BaseController
                 }catch(\Throwable $ex){
                     $data['code'] = '500';
                     $data['message'] = $ex->getMessage();
-                    return json_encode($data);
+                    return $this->response->setStatusCode(500)->setJSON($data);
                 }
-
-
-
             }
             else
             {
