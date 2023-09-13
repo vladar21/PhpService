@@ -3,6 +3,7 @@ $(document).ready(function() {
     const not_applicable = 'not_applicable';
     const per_page = getAppVariable('per_page');
     const title_view = getAppVariable('title_view');
+    const title_delete = getAppVariable('title_delete');
     const base_url = getAppVariable('base_url');
     const language = getAppVariable('language');
     const csrf_token = getAppVariable('csrf_token');
@@ -153,7 +154,7 @@ $(document).ready(function() {
                 data: 'actions',
                 orderable: false,
                 render: function (data, type, row) {
-                    return '<a href="/meest_parcels/' + row.id + '" class="btn btn-sm btn-blue-outline">' + title_view + '</a>';
+                    return '<a href="/meest_parcels/' + row.id + '" class="btn btn-sm btn-blue-outline">' + title_view + '</a> <a href="/meest_parcels/delete/' + row.id + '" class="btn btn-sm btn-blue-outline">' + title_delete + '</a>';
                 }
             },
             // {

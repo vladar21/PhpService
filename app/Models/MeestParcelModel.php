@@ -35,11 +35,15 @@ class MeestParcelModel extends Model
         'weight',
         'meest_senders_id',
         'meest_recipients_id',
+        'created_at',
+        'updated_at'
     ];
 
     protected $useAutoIncrement = true;
 
     protected $useTimestamps = true;
+    protected $createdField  = 'created_at';
+    protected $updatedField  = 'updated_at';
 
     public function sender()
     {
@@ -102,4 +106,28 @@ class MeestParcelModel extends Model
         return $this->asArray()->where(['bill_invoice_id' => $bill_invoice_id])->first();
     }
 
+    /**
+     * @throws \Exception
+     */
+    public function deleteParcel($id){
+        try{
+            $model = new MeestParcelModel();
+            $record = $model->find($id);
+
+            if ($record) {
+
+                $modelItems = new MeestItemModel();
+                $whereCondition = ['meest_parcels_id' => $record['id']];
+                $modelItems->where($whereCondition)->delete();
+
+                $model->delete($id);
+
+                return true;
+            } else {
+                throw new \Exception(lang('app_lang.deleted_object_not_found'));
+            }
+        }catch(\Throwable $ex){
+            throw new \Exception($ex->getMessage());
+        }
+    }
 }

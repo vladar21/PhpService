@@ -248,11 +248,12 @@ class MeestParcels extends BaseController
                     'incoterms' => 'DDP',
                     'iossVatIDenc' => 'EuLyAWjprs9+SqY9n1vIjl7CvqoWoKcDFSDaQE+mmE4=',
                     'senderID' => '5FD924625F6AB16A',
-                    'weight' => 0, // $weight,
-                    'meest_senders_id' => $meest_senders_id, //$meest_senders_id,
-                    'meest_recipients_id' => $meestSenderRecipient['id'] ?? null, //$meest_recipients_id,
+                    'weight' => 0,
+                    'meest_senders_id' => $meest_senders_id,
+                    'meest_recipients_id' => $meestSenderRecipient['id'] ?? null,
                 ];
 
+                $new_parcel_id = null;
                 $meestParcel = $parcelModel->getMeesParcelByBillInvoiceId($invoice['id']);
                 if (!$meestParcel){
                     try{
@@ -263,6 +264,8 @@ class MeestParcels extends BaseController
                         $data['message'] = $ex->getMessage();
                         return $this->response->setStatusCode(500)->setJSON($data);
                     }
+                }else{
+                    $data = $meestParcel;
                 }
 
                 if ($new_parcel_id) {
@@ -355,6 +358,19 @@ class MeestParcels extends BaseController
 //            // Если данные некорректны, то возвращаемся на страницу с формой с сообщением об ошибке и заполненными полями
 //            return redirect()->back()->withInput()->with('error', lang('app_lang.data_not_saved'));
 //        }
+    }
+
+    public function delete($id){
+
+        $model = new MeestParcelModel();
+
+        try{
+            $model->deleteParcel($id);
+        }catch(\Throwable $ex){
+            return redirect()->back()->with('error', $ex->getMessage());
+        }
+
+        return redirect()->to('/meest_parcels')->with('success', lang('app_lang.data_delete'));
     }
 
 }
