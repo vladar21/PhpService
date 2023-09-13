@@ -322,15 +322,16 @@ class MeestParcels extends BaseController
         if (isset($data['parcel_id'])) {
             // Если есть, то это обновление существующей записи
             $data['id'] = $data['parcel_id'];
+            unset($data['parcel_id']);
         } else {
             // Если нет, то это вставка новой записи
             $data['id'] = null;
         }
 
         // Задаем правила валидации для каждого поля
-        $rules = [
-            'bill_invoice_id' => 'numeric',
-            'parcelNumber' => 'required|alpha_numeric',
+//        $rules = [
+//            'bill_invoice_id' => 'numeric',
+//            'parcelNumber' => 'required|alpha_numeric',
 //            'parcelNumberInternal' => 'alpha_numeric',
 //            'parcelNumberParent' => 'alpha_numeric',
 //            'partnerKey' => 'alpha_numeric',
@@ -340,19 +341,20 @@ class MeestParcels extends BaseController
 //            'returnCarrier' => 'required|alpha_numeric',
 //            'cod' => 'required|decimal',
 //            'codCurrency' => 'required|alpha'
-        ];
+//        ];
 
         // Проверяем данные по правилам
-        if ($this->validate($rules)) {
+//        if ($this->validate($rules)) {
             // Если данные корректны, то сохраняем их в базу данных с помощью метода save модели
             $model->save($data);
 
             // Возвращаемся на страницу со списком посылок с сообщением об успехе
             return redirect()->to('/meest_parcels')->with('success', lang('app_lang.data_saved'));
-        } else {
-            // Если данные некорректны, то возвращаемся на страницу с формой с сообщением об ошибке и заполненными полями
-            return redirect()->back()->withInput()->with('error', lang('app_lang.data_not_saved'));
-        }
+//        }
+//        else {
+//            // Если данные некорректны, то возвращаемся на страницу с формой с сообщением об ошибке и заполненными полями
+//            return redirect()->back()->withInput()->with('error', lang('app_lang.data_not_saved'));
+//        }
     }
 
 }

@@ -154,7 +154,7 @@ $(document).ready(function() {
         this.style.height = (this.scrollHeight) + 'px'; // Установите высоту, чтобы вместить содержимое
     });
 
-    $('#select_recipient').select2({
+    $('#meest_recipients_id').select2({
         allowClear: true,
         placeholder: "Choose recipient",
         width: "50%",
@@ -167,7 +167,8 @@ $(document).ready(function() {
             data: function (params) {
                 let query = {
                     search: params.term,
-                    page: params.page || 1
+                    page: params.page || 1,
+                    meest_recipients_id: document.getElementById('meestRecipientsId').value
                 }
 
                 // Query parameters will be ?search=[term]&page=[page]

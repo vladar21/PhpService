@@ -114,15 +114,19 @@ echo generate_breadcrumbs($breadcrumbs, ' / ');
                             <input type="text" id="weight" name="weight" value="<?= $weight ?>">
                         </div>
                         <div style="margin-bottom:7px;">
-                            <label for="select_recipient"><?= lang('app_lang.name_recipient') ?>:</label>
-                            <select id="select_recipient" class="select2">
+                            <label for="meest_recipients_id"><?= lang('app_lang.name_recipient') ?>:</label>
+                            <select id="meest_recipients_id" name="meest_recipients_id" class="select2">
                                 <option value=""></option>
+                                <?php if ($meest_recipients_id){ ?>
+                                    <option value="<?= $meest_recipients_id?>" selected><?= $name_recipient ?></option>
+                                <?php } ?>
                             </select>
-<!--                            <input type="text" id="name_recipient" name="name_recipient" value="--><?php //= $name_recipient ?><!--" readonly>-->
+                            <input type="text" id="meestRecipientsId" value="<?= $meest_recipients_id ?>" style="display:none;">
                         </div>
                         <div>
-                            <label for="name_sender"><?= lang('app_lang.name_sender') ?>:</label>
-                            <input type="text" id="name_sender" name="name_sender" value="<?= $name_sender ?>">
+                            <label for="meest_senders_id"><?= lang('app_lang.name_sender') ?>:</label>
+                            <input type="text" id="meest_senders_id" name="meest_senders_id" value="<?= $meest_senders_id ?>" style="display:none;">
+                            <input type="text" value="<?= $name_sender ?>" style="color:white;" disabled>
                         </div>
                         <div>
                             <label for="created_at"><?= lang('app_lang.created_at') ?>:</label>
