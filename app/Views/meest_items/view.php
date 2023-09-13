@@ -16,7 +16,12 @@ $breadcrumbs = [
 echo generate_breadcrumbs($breadcrumbs, ' / ');
 ?>
 
-<h2><?= lang('app_lang.parcel_item') ?></h2>
+<h2 class="float-left"><?= lang('app_lang.parcel_item') ?></h2>
+    <form id="addUpdateMeestItem" method="POST" action="/meest_items/save">
+    <?= csrf_field() ?>
+    <!-- Button to save parcel -->
+    <button type="submit" id="saveParcelBtn" class="btn btn-primary float-right"><?= lang('app_lang.save') ?></button>
+    <div class="clear-both"></div>
     <section id="invoice">
         <fieldset>
             <legend><?= lang('app_lang.items_data') ?></legend>
@@ -29,7 +34,7 @@ echo generate_breadcrumbs($breadcrumbs, ' / ');
                     </div>
                     <div>
                         <label for="barcode"><?= lang('app_lang.barcode') ?>:</label>
-                        <input type="text" id="barcode" name="barcode" value="<?= $barcode ?>" readonly>
+                        <input type="text" id="barcode" name="barcode" value="<?= $barcode ?>" >
                     </div>
                     <div>
                         <label for="brand"><?= lang('app_lang.brand') ?>:</label>

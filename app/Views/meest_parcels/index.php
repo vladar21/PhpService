@@ -26,6 +26,7 @@ echo generate_breadcrumbs($breadcrumbs, ' / ');
         <thead>
         <tr>
             <th><?= lang('app_lang.id') ?></th>
+            <th><?= lang('app_lang.bill_invoice_id') ?></th>
             <th><?= lang('app_lang.parcelNumber') ?></th>
             <th><?= lang('app_lang.parcelNumberInternal') ?></th>
             <th><?= lang('app_lang.parcelNumberParent') ?></th>

@@ -32,6 +32,10 @@ echo generate_breadcrumbs($breadcrumbs, ' / ');
                         <input type="text" id="meest_client_id" name="meest_client_id" value="<?= $id ?>" >
                     </div>
                     <div class="product-item">
+                        <label for="bill_client_id"><?= lang('app_lang.bill_client_id') ?>:</label>
+                        <input type="text" id="bill_client_id" name="bill_client_id" value="<?= $bill_client_id ?>" >
+                    </div>
+                    <div class="product-item">
                         <label for="companyName"><?= lang('app_lang.company_name') ?>:</label>
                         <input type="text" id="companyName" name="companyName" value="<?= $companyName ?>" >
                     </div>

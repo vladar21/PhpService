@@ -36,8 +36,8 @@ class MeestParcels extends BaseController
         $db = \Config\Database::connect();
         $builder = $db->table('meest_parcels');
         $builder->select('*, meest_parcels.id as parcel_id, s.name as name_sender, r.name as name_recipient');
-        $builder->join('meest_senders_recipients as s', 's.id = meest_parcels.meest_senders_id');
-        $builder->join('meest_senders_recipients as r', 'r.id = meest_parcels.meest_recipients_id');
+        $builder->join('meest_senders_recipients as s', 's.id = meest_parcels.meest_senders_id', 'left');
+        $builder->join('meest_senders_recipients as r', 'r.id = meest_parcels.meest_recipients_id', 'left');
         $builderAllRecords = clone $builder;
 
         $totalRecords = $builderAllRecords->countAllResults();
@@ -45,6 +45,7 @@ class MeestParcels extends BaseController
         // Conditions
         if ($search) {
             $builder->where('parcel_id', $search)
+                ->orWhere('bill_invoice_id', $search)
                 ->orWhere('name_sender', 'LIKE', "%$search%")
                 ->orWhere('name_recipient', 'LIKE', "%$search%")
                 ->orWhere('parcelNumber', 'LIKE', "%$search%")
@@ -75,6 +76,7 @@ class MeestParcels extends BaseController
         // Iterate through each order element
         $columns = [
             'parcel_id',
+            'bill_invoice_id',
             'parcelNumber',
             'parcelNumberInternal',
             'parcelNumberParent',
@@ -128,6 +130,7 @@ class MeestParcels extends BaseController
             foreach ($results as $key => $value) {
 
                 $responseData['data'][$key]['id'] = $value['parcel_id'];
+                $responseData['data'][$key]['bill_invoice_id'] = $value['bill_invoice_id'];
                 $responseData['data'][$key]['parcelNumber'] = $value['parcelNumber'];
                 $responseData['data'][$key]['parcelNumberInternal'] = $value['parcelNumberInternal'];
                 $responseData['data'][$key]['parcelNumberParent'] = $value['parcelNumberParent'];
@@ -219,21 +222,14 @@ class MeestParcels extends BaseController
                     'zipCode' => $invoice['buyer_post_code'],
                 ];
 
-                $meestSenderRecipient = $meestSenderRecipientModel->getClients($bill_client['bill_client_id']);
+                $meestSenderRecipient = $meestSenderRecipientModel->getClientByBillClientId($bill_client['bill_client_id']);
                 if (!$meestSenderRecipient){
                     $recipient = null;
-//                    try{
-//                        $id = $meestSenderRecipientModel->insert($recipient);
-//                        $meestSenderRecipient['id'] = $id;
-//                    }catch(\Throwable $ex){
-//                        $data['code'] = '500';
-//                        $data['message'] = $ex->getMessage();
-//                        return $data;
-//                    }
                 }
 
                 $parcelModel = new MeestParcelModel();
                 $newParcel = [
+                    'bill_invoice_id' => $invoice['id'],
                     'parcelNumber' => $parcelModel->createParcelNumber(),
                     'parcelNumberInternal' => null,
                     'parcelNumberParent' => $parcelModel->getParcelNumberParent(),
@@ -256,17 +252,53 @@ class MeestParcels extends BaseController
                     'meest_senders_id' => $meest_senders_id, //$meest_senders_id,
                     'meest_recipients_id' => $meestSenderRecipient['id'] ?? null, //$meest_recipients_id,
                 ];
-                try{
-                    $new_parcel_id = $parcelModel->insert($newParcel);
-                    $data = $parcelModel->getParcels($new_parcel_id);
-                }catch(\Throwable $ex){
-                    $data['code'] = '500';
-                    $data['message'] = $ex->getMessage();
-                    return $this->response->setStatusCode(500)->setJSON($data);
+
+                $meestParcel = $parcelModel->getMeesParcelByBillInvoiceId($invoice['id']);
+                if (!$meestParcel){
+                    try{
+                        $new_parcel_id = $parcelModel->insert($newParcel);
+                        $data = $parcelModel->getParcels($new_parcel_id);
+                    }catch(\Throwable $ex){
+                        $data['code'] = '500';
+                        $data['message'] = $ex->getMessage();
+                        return $this->response->setStatusCode(500)->setJSON($data);
+                    }
                 }
-            }
-            else
-            {
+
+                if ($new_parcel_id) {
+                    if (count($invoice['positions']) > 0){
+
+                        $itemData = $invoice['positions'];
+
+                        foreach ($itemData as $item) {
+                            $newItem = [
+                                'barcode' => '',
+                                'brand' => '',
+                                'description' => (explode(" ", $item['name']))[0] ?? '',
+                                'hsCode' => '851830000080',
+                                'manufacturer' => '',
+                                'originCountry' => '',
+                                'productCategory' => '',
+                                'productEAN' => '',
+                                'productURL' => '',
+                                'quantity' => $item['quantity'],
+                                'skuCode' => '',
+                                'value' => $item['total_price_gross'],
+                                'weight' => '',
+                                'meest_parcels_id' => $new_parcel_id,
+                            ];
+
+                            // Create a new instance of the MeestItems model
+                            $meestItemModel = new MeestItemModel();
+
+                            // Insert the item data into the meest_items table
+                            $meestItemModel->insert($newItem);
+                        }
+                    }
+
+                }
+
+            }else{
                 $data['code'] = '404';
                 $data['message'] = 'Page Not Found';
                 return view('errors/message', $data);
@@ -277,5 +309,50 @@ class MeestParcels extends BaseController
         return view('meest_parcels/view', $data);
     }
 
+    // Метод для сохранения данных из формы
+    public function save()
+    {
+        // Получаем экземпляр модели MeestParcelsModel
+        $model = new MeestParcelModel();
+
+        // Получаем данные из формы
+        $data = $this->request->getPost();
+
+        // Проверяем, есть ли parcel_id в данных
+        if (isset($data['parcel_id'])) {
+            // Если есть, то это обновление существующей записи
+            $data['id'] = $data['parcel_id'];
+        } else {
+            // Если нет, то это вставка новой записи
+            $data['id'] = null;
+        }
+
+        // Задаем правила валидации для каждого поля
+        $rules = [
+            'bill_invoice_id' => 'numeric',
+            'parcelNumber' => 'required|alpha_numeric',
+//            'parcelNumberInternal' => 'alpha_numeric',
+//            'parcelNumberParent' => 'alpha_numeric',
+//            'partnerKey' => 'alpha_numeric',
+//            'bagId' => 'required|alpha_numeric',
+//            'carrierLastMile' => 'required|alpha_numeric',
+//            'createReturnParcel' => 'required|in_list[yes,no]',
+//            'returnCarrier' => 'required|alpha_numeric',
+//            'cod' => 'required|decimal',
+//            'codCurrency' => 'required|alpha'
+        ];
+
+        // Проверяем данные по правилам
+        if ($this->validate($rules)) {
+            // Если данные корректны, то сохраняем их в базу данных с помощью метода save модели
+            $model->save($data);
+
+            // Возвращаемся на страницу со списком посылок с сообщением об успехе
+            return redirect()->to('/meest_parcels')->with('success', lang('app_lang.data_saved'));
+        } else {
+            // Если данные некорректны, то возвращаемся на страницу с формой с сообщением об ошибке и заполненными полями
+            return redirect()->back()->withInput()->with('error', lang('app_lang.data_not_saved'));
+        }
+    }
 
 }

@@ -39,7 +39,7 @@ $(document).ready(function() {
             }, {
                 data: 'product_id',
                 render: function(data, type, row) {
-                    return row.product_id ? row.product_id : not_applicable;
+                    return row.id ? row.id : not_applicable;
                 }
             }, {
                 data: 'barcode',
@@ -120,7 +120,7 @@ $(document).ready(function() {
                 data: 'actions',
                 orderable: false,
                 render: function (data, type, row) {
-                    return '<a href="/meest_items/' + row.product_id + '" class="btn btn-sm btn-blue-outline">' + title_view + '</a>';
+                    return '<a href="/meest_items/' + row.id + '" class="btn btn-sm btn-blue-outline">' + title_view + '</a>';
                 }
             }
         ],

@@ -13,6 +13,7 @@ class MeestParcelModel extends Model
     protected $primaryKey = 'id';
 
     protected $allowedFields = [
+        'bill_invoice_id',
         'parcelNumber',
         'parcelNumberInternal',
         'parcelNumberParent',
@@ -95,6 +96,10 @@ class MeestParcelModel extends Model
         }else{
             return null;
         }
+    }
+
+    public function getMeesParcelByBillInvoiceId($bill_invoice_id){
+        return $this->asArray()->where(['bill_invoice_id' => $bill_invoice_id])->first();
     }
 
 }

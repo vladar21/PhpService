@@ -29,6 +29,11 @@ $(document).ready(function() {
                 render: function (data, type, row) {
                     return row.id ? row.id : not_applicable;
                 }
+            },{
+                data: 'bill_invoice_id',
+                render: function (data, type, row) {
+                    return row.bill_invoice_id ? row.bill_invoice_id : not_applicable;
+                }
             }, {
                 data: 'parcelNumber',
                 render: function (data, type, row) {

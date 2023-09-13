@@ -199,6 +199,10 @@ return [
     'parcel_item' => 'Parcel item',
     'create_parcel' => 'Create parcel',
     'deleted_at' => 'Deleted',
-
+    'bill_client_id' => 'Bill client id',
+    'bill_invoice_id' => 'Bill invoice id',
+    'save' => 'Save',
+    'data_saved' => 'Success! Data saved',
+    'data_not_saved' => 'Error! Data not saved',
 
 ];

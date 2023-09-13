@@ -25,6 +25,7 @@ echo generate_breadcrumbs($breadcrumbs, ' / ');
         <thead>
         <tr>
             <th><?= lang('app_lang.id') ?></th>
+            <th><?= lang('app_lang.bill_client_id') ?></th>
             <th><?= lang('app_lang.company_name') ?></th>
             <th><?= lang('app_lang.name') ?></th>
             <th><?= lang('app_lang.phone') ?></th>

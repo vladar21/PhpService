@@ -40,4 +40,8 @@ class MeestSenderRecipientModel extends Model
             return $this->asArray()->where(['id' => $id])->first();
     }
 
+    public function getClientByBillClientId($bill_client_id){
+        return $this->asArray()->where(['bill_client_id' => $bill_client_id])->first();
+    }
+
 }

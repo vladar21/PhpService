@@ -41,6 +41,7 @@ class MeestSendersRecipients extends BaseController
         // Conditions
         if ($search) {
             $builder->where('id', $search)
+                ->where('bill_client_id', $search)
                 ->orWhere('buildingNumber', 'LIKE', "%$search%")
                 ->orWhere('city', 'LIKE', "%$search%")
                 ->orWhere('companyName', 'LIKE', "%$search%")
@@ -63,6 +64,7 @@ class MeestSendersRecipients extends BaseController
         // Iterate through each order element
         $columns = [
             'id',
+            'bill_client_id',
             'companyName',
             'name',
             'phone',
@@ -108,6 +110,7 @@ class MeestSendersRecipients extends BaseController
             foreach ($results as $key => $value) {
 
                 $responseData['data'][$key]['id'] = $value['id'];
+                $responseData['data'][$key]['bill_client_id'] = $value['bill_client_id'];
                 $responseData['data'][$key]['buildingNumber'] = $value['buildingNumber'];
                 $responseData['data'][$key]['city'] = $value['city'];
                 $responseData['data'][$key]['companyName'] = $value['companyName'];
