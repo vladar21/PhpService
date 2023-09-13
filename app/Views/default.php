@@ -49,6 +49,19 @@
 
     <main class="content">
         <!-- Messages -->
+        <!-- Проверяем, есть ли флэш-сообщение "success" в сессии -->
+        <?php if(session()->getFlashdata('success')): ?>
+            <div class="successMessage">
+                <?= session()->getFlashdata('success') ?>
+            </div>
+        <?php endif; ?>
+        <!-- Проверяем, есть ли флэш-сообщение "success" в сессии -->
+        <?php if(session()->getFlashdata('error')): ?>
+            <div class="errorMessage">
+                <?= session()->getFlashdata('error') ?>
+            </div>
+        <?php endif; ?>
+
         <div id="successMessage"></div>
 
         <div id="errorMessage" style="display: none;" class="alert alert-danger"></div>

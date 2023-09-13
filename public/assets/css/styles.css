@@ -133,6 +133,18 @@ td a {
 
 
 /* Success and Error messages */
+.successMessage {
+    background-color: lightgray;
+    color: darkgreen;
+    padding:5px;
+    margin-bottom: 15px;
+}
+.errorMessage {
+    background-color: lightgray;
+    color: red;
+    padding:5px;
+}
+
 #successMessage {
     display: none;
     background-color: lightgray;
