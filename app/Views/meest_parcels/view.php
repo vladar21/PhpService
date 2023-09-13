@@ -147,7 +147,6 @@ echo generate_breadcrumbs($breadcrumbs, ' / ');
                         <th><?= lang('app_lang.barcode') ?></th>
                         <th><?= lang('app_lang.brand') ?></th>
                         <th><?= lang('app_lang.description') ?></th>
-    <!--                    <th>--><?php //= lang('app_lang.descriptions') ?><!--</th>-->
                         <th><?= lang('app_lang.hsCode') ?></th>
                         <th><?= lang('app_lang.manufacturer') ?></th>
                         <th><?= lang('app_lang.originCountry') ?></th>
