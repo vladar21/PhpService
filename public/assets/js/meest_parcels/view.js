@@ -141,7 +141,6 @@ $(document).ready(function() {
                     return parseFloat(intVal(a).toFixed(2)) + parseFloat(intVal(b).toFixed(2));
                 }, 0 );
 
-
             // Update footer by showing the total with the reference of the column index
             $( api.column( 10 ).footer() ).html('Total');
             $( api.column( 11 ).footer() ).html(thuTotal);
@@ -149,11 +148,32 @@ $(document).ready(function() {
         },
     });
 
-
-
     // При изменении содержимого textarea
     $('.bills textarea').on('input', function() {
         this.style.height = 'auto'; // Сначала установите высоту в auto, чтобы сбросить высоту
         this.style.height = (this.scrollHeight) + 'px'; // Установите высоту, чтобы вместить содержимое
     });
+
+    $('#select_recipient').select2({
+        allowClear: true,
+        placeholder: "Choose recipient",
+        width: "50%",
+        ajax: {
+            url: '/meest_clients/select2list',
+            dataType: 'json',
+            headers: {
+                'X-CSRF-TOKEN': csrfToken
+            },
+            data: function (params) {
+                let query = {
+                    search: params.term,
+                    page: params.page || 1
+                }
+
+                // Query parameters will be ?search=[term]&page=[page]
+                return query;
+            }
+        }
+    });
+
 })

@@ -113,9 +113,12 @@ echo generate_breadcrumbs($breadcrumbs, ' / ');
                             <label for="weight"><?= lang('app_lang.weight') ?>:</label>
                             <input type="text" id="weight" name="weight" value="<?= $weight ?>">
                         </div>
-                        <div>
-                            <label for="name_recipient"><?= lang('app_lang.name_recipient') ?>:</label>
-                            <input type="text" id="name_recipient" name="name_recipient" value="<?= $name_recipient ?>">
+                        <div style="margin-bottom:7px;">
+                            <label for="select_recipient"><?= lang('app_lang.name_recipient') ?>:</label>
+                            <select id="select_recipient" class="select2">
+                                <option value=""></option>
+                            </select>
+<!--                            <input type="text" id="name_recipient" name="name_recipient" value="--><?php //= $name_recipient ?><!--" readonly>-->
                         </div>
                         <div>
                             <label for="name_sender"><?= lang('app_lang.name_sender') ?>:</label>

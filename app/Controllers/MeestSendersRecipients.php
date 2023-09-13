@@ -202,4 +202,41 @@ class MeestSendersRecipients extends BaseController
         }
     }
 
+    public function select2list(){
+        // Получаем данные из запроса
+        $request = $this->request;
+        $getData = $request->getGet();
+        $search = $getData['search'] ?? ''; // Термин для поиска
+        $page = $getData['page'];
+//        $search = $request->getGet('search') || ''; // Термин для поиска
+//        $page = $request->getGet('page'); // Номер страницы для пагинации
+        $limit = 10; // Количество записей на страницу
+
+        // Создаем экземпляр модели RecipientModel
+        $model = new MeestSenderRecipientModel();
+
+        // Выполняем поиск по термину с пагинацией и получаем результаты в виде массива
+
+        $results = $model->like('name', $search)->asArray()->paginate($limit, 'default', $page);
+
+        // Формируем массив данных для ответа
+        $data = [];
+        foreach ($results as $row) {
+            $data[] = [
+                'id' => $row['id'], // Идентификатор получателя
+                'text' => $row['name'] // Имя получателя
+            ];
+        }
+
+        // Формируем массив метаданных для ответа
+        $meta = [
+            'pagination' => [
+                'more' => $model->pager->hasMore() // Есть ли еще страницы
+            ]
+        ];
+
+        // Устанавливаем тип контента ответа в формате JSON и отправляем ответ
+        return $this->response->setContentType('application/json')->setBody(json_encode(['results' => $data, 'meta' => $meta]));
+    }
+
 }
