@@ -82,47 +82,51 @@ class BillAPIController extends BaseController
 
     public function fetchInvoices()
     {
-        $perPage = 25;
-        $page = 1;
-        $errorMessage = null;
+        try{
+            $perPage = 25;
+            $page = 1;
+            $errorMessage = null;
 
-        // Get the logger instance
-        $logger = service('logger');
+            // Get the logger instance
+            $logger = service('logger');
 
-        while (true) {
-            // Logging the message
-            $logger->info(service('router')->controllerName()."::".service('router')->methodName().": Fetching page {$page}...");
-            // Make a GET request to the external API
-            $url = "https://elista.fakturownia.pl/invoices.json?page={$page}&per_page={$perPage}&include_positions=true&api_token={$this->apiToken}";
-            $response = $this->sendGetRequest($url);
+            while (true) {
+                // Logging the message
+                $logger->info(service('router')->controllerName()."::".service('router')->methodName().": Fetching page {$page}...");
+                // Make a GET request to the external API
+                $url = "https://elista.fakturownia.pl/invoices.json?page={$page}&per_page={$perPage}&include_positions=true&api_token={$this->apiToken}";
+                $response = $this->sendGetRequest($url);
 
-            // Check if the response is successful
-            if ($response['status'] === 200) {
-                $responseData = json_decode($response['body'], true);
-                // Check if the response has data
-                if (!empty($responseData)) {
-                    // Process and save the products from the current page
-                    $this->saveInvoicesToDatabase($responseData);
+                // Check if the response is successful
+                if ($response['status'] === 200) {
+                    $responseData = json_decode($response['body'], true);
+                    // Check if the response has data
+                    if (!empty($responseData)) {
+                        // Process and save the products from the current page
+                        $this->saveInvoicesToDatabase($responseData);
 
-                    // Check if there are more pages to fetch
-                    if (count($responseData) < $perPage) {
-                        // The response data count is less than the per_page value,
-                        // indicating that it's the last page, stop the loop
+                        // Check if there are more pages to fetch
+                        if (count($responseData) < $perPage) {
+                            // The response data count is less than the per_page value,
+                            // indicating that it's the last page, stop the loop
+                            break;
+                        }
+
+                        // Move to the next page for the next iteration
+                        $page++;
+                    } else {
+                        // No data in the response, stop the loop
                         break;
                     }
-
-                    // Move to the next page for the next iteration
-                    $page++;
                 } else {
-                    // No data in the response, stop the loop
+                    // Request failed, set an error message and stop the loop
+                    $errorMessage = "Error: Failed to fetch invoices from the API. HTTP Status Code: {$response['status']}";
+                    // Request failed, stop the loop
                     break;
                 }
-            } else {
-                // Request failed, set an error message and stop the loop
-                $errorMessage = "Error: Failed to fetch invoices from the API. HTTP Status Code: {$response['status']}";
-                // Request failed, stop the loop
-                break;
             }
+        }catch(\Throwable $ex){
+            $errorMessage = $ex->getMessage();
         }
 
         if ($errorMessage) {
@@ -140,50 +144,54 @@ class BillAPIController extends BaseController
 
     public function fetchProducts()
     {
-        $perPage = 25;
-        $page = 1;
-        $errorMessage = null;
+        try{
+            $perPage = 25;
+            $page = 1;
+            $errorMessage = null;
 
-        // Get the logger instance
-        $logger = service('logger');
+            // Get the logger instance
+            $logger = service('logger');
 
-        while (true) {
-            // Logging the message
-            $logger->info(service('router')->controllerName()."::".service('router')->methodName().": Fetching page {$page}...");
-            // Make a GET request to the external API
-            $url = "https://elista.fakturownia.pl/products.json?page={$page}&per_page={$perPage}&api_token={$this->apiToken}";
-            $response = $this->sendGetRequest($url);
+            while (true) {
+                // Logging the message
+                $logger->info(service('router')->controllerName()."::".service('router')->methodName().": Fetching page {$page}...");
+                // Make a GET request to the external API
+                $url = "https://elista.fakturownia.pl/products.json?page={$page}&per_page={$perPage}&api_token={$this->apiToken}";
+                $response = $this->sendGetRequest($url);
 
-            // Check if the response is successful
-            if ($response['status'] === 200) {
-                $responseData = json_decode($response['body'], true);
+                // Check if the response is successful
+                if ($response['status'] === 200) {
+                    $responseData = json_decode($response['body'], true);
 
-                // Check if the response has data
-                if (!empty($responseData)) {
-                    // Process and save the products from the current page
-                    $this->saveProductsToDatabase($responseData);
+                    // Check if the response has data
+                    if (!empty($responseData)) {
+                        // Process and save the products from the current page
+                        $this->saveProductsToDatabase($responseData);
 
-                    // Check if there are more pages to fetch
-                    if (count($responseData) < $perPage) {
-                        // The response data count is less than the per_page value,
-                        // indicating that it's the last page, stop the loop
+                        // Check if there are more pages to fetch
+                        if (count($responseData) < $perPage) {
+                            // The response data count is less than the per_page value,
+                            // indicating that it's the last page, stop the loop
+                            break;
+                        }
+
+                        // Move to the next page for the next iteration
+                        $page++;
+                    } else {
+                        // No data in the response, stop the loop
                         break;
                     }
-
-                    // Move to the next page for the next iteration
-                    $page++;
                 } else {
-                    // No data in the response, stop the loop
+                    // Request failed, set an error message and stop the loop
+                    $errorMessage = "Error: Failed to fetch products from the API. HTTP Status Code: {$response['status']}";
+                    // Request failed, stop the loop
                     break;
                 }
-            } else {
-                // Request failed, set an error message and stop the loop
-                $errorMessage = "Error: Failed to fetch products from the API. HTTP Status Code: {$response['status']}";
-                // Request failed, stop the loop
-                break;
             }
+        }catch(\Throwable $ex){
+            $errorMessage = $ex->getMessage();
         }
-
+        
         if ($errorMessage) {
             return json_encode([
                 'success' => false,
