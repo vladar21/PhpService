@@ -109,7 +109,7 @@ class Cache extends BaseConfig
      * @var array<string, int|string|null>
      */
     public array $file = [
-        'storePath' => WRITEPATH . 'cache/',
+        'storePath' => sys_get_temp_dir(),
         'mode'      => 0640,
     ];
 
