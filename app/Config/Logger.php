@@ -146,5 +146,30 @@ class Logger extends BaseConfig
         //     */
         //     'messageType' => 0,
         // ],
+
     ];
+
+    public $logDirectory;
+
+    public function __construct()
+    {
+        // Проверяем, находится ли приложение на Heroku
+        if ($this->isHeroku()) {
+            // Если да, то устанавливаем путь к месту хранения логов на Heroku
+            $this->logDirectory = getenv('HOME') . '/logs';
+        } else {
+            // В противном случае, используем локальный путь для хранения логов
+            $this->logDirectory = WRITEPATH . 'logs';
+        }
+    }
+
+    /**
+     * Проверяет, находится ли приложение на Heroku.
+     *
+     * @return bool
+     */
+    private function isHeroku()
+    {
+        return getenv('DYNO') !== false;
+    }
 }
