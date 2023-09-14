@@ -41,6 +41,7 @@
                         <li><a href="/meest_clients">Clients</a></li>
                     </ul>
                 </li>
+                <li><a href="/logout">Logout</a></li>
             </ul>
         </nav>
         <div class="search-panel">
