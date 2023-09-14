@@ -59,7 +59,7 @@ class MeestParcelModel extends Model
     {
         $db = \Config\Database::connect();
         $builder = $db->table('meest_parcels');
-        $builder->select('*, meest_parcels.id as parcel_id, s.name as name_sender, r.name as name_recipient');
+        $builder->select('*, meest_parcels.id as id, s.name as name_sender, r.name as name_recipient');
         $builder->join('meest_senders_recipients as s', 's.id = meest_parcels.meest_senders_id', 'left');
         $builder->join('meest_senders_recipients as r', 'r.id = meest_parcels.meest_recipients_id', 'left');
 

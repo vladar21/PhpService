@@ -238,7 +238,7 @@ class MeestParcels extends BaseController
                     'bagId' => 'TestBagId',
                     'carrierLastMile' => 'MEEST',
                     'createReturnParcel' => false,
-                    'returnCarrier' => '',
+                    'returnCarrier' => 'VENIPAK',
                     'cod' => 820,
                     'codCurrency' => 'UAH',
                     'deliveryCost' => null,
@@ -274,6 +274,9 @@ class MeestParcels extends BaseController
 
                         $itemData = $invoice['positions'];
 
+                        // Create a new instance of the MeestItems model
+                        $meestItemModel = new MeestItemModel();
+
                         foreach ($itemData as $item) {
                             $newItem = [
                                 'barcode' => '',
@@ -291,9 +294,6 @@ class MeestParcels extends BaseController
                                 'weight' => '',
                                 'meest_parcels_id' => $new_parcel_id,
                             ];
-
-                            // Create a new instance of the MeestItems model
-                            $meestItemModel = new MeestItemModel();
 
                             // Insert the item data into the meest_items table
                             $meestItemModel->insert($newItem);

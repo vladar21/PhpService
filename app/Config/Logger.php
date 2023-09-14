@@ -146,6 +146,7 @@ class Logger extends BaseConfig
         //     */
         //     'messageType' => 0,
         // ],
+
     ];
 
     public $logDirectory;
