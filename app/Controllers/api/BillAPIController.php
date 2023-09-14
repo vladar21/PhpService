@@ -152,7 +152,8 @@ class BillAPIController extends BaseController
             // Get the logger instance
             $logger = service('logger');
 
-            while (true) {
+//            while (true) {
+            while ($page < 5) {
                 // Logging the message
                 $logger->info(service('router')->controllerName()."::".service('router')->methodName().": Fetching page {$page}...");
                 // Make a GET request to the external API
