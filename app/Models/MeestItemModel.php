@@ -46,6 +46,12 @@ class MeestItemModel extends Model
             return $this->asArray()->where(['parcelNumber' => $parcelNumber])->findAll();
     }
 
+    public function getParcelItemsByMeesParcelId($meest_parcels_id)
+    {
+        if ($meest_parcels_id !== false)
+            return $this->asArray()->where(['meest_parcels_id' => $meest_parcels_id])->findAll();
+    }
+
     public function getDatatableData($start, $length, $search, $orders, $id = null)
     {
 

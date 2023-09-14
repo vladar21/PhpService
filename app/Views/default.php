@@ -54,13 +54,18 @@
         <!-- Проверяем, есть ли флэш-сообщение "success" в сессии -->
         <?php if(session()->getFlashdata('success')): ?>
             <div class="successMessage">
-                <?= session()->getFlashdata('success') ?>
+                <?=
+                '<pre>' . htmlspecialchars(session()->getFlashdata('success')) . '</pre>'
+
+                ?>
             </div>
         <?php endif; ?>
         <!-- Проверяем, есть ли флэш-сообщение "success" в сессии -->
         <?php if(session()->getFlashdata('error')): ?>
             <div class="errorMessage">
-                <?= session()->getFlashdata('error') ?>
+                <?=
+                '<pre>' . htmlspecialchars(session()->getFlashdata('error')) . '</pre>'
+                 ?>
             </div>
         <?php endif; ?>
 

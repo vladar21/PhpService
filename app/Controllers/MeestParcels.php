@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Controllers\Api\MeestAPIController;
 use App\Controllers\BaseController;
 use App\Models\BillInvoiceModel;
 use App\Models\MeestItemModel;
@@ -352,7 +353,7 @@ class MeestParcels extends BaseController
             $model->save($data);
 
             // Возвращаемся на страницу со списком посылок с сообщением об успехе
-            return redirect()->to('/meest_parcels')->with('success', lang('app_lang.data_saved'));
+            return redirect()->back()->with('success', lang('app_lang.data_saved'));
 //        }
 //        else {
 //            // Если данные некорректны, то возвращаемся на страницу с формой с сообщением об ошибке и заполненными полями
@@ -371,6 +372,35 @@ class MeestParcels extends BaseController
         }
 
         return redirect()->to('/meest_parcels')->with('success', lang('app_lang.data_delete'));
+    }
+
+    public function sent($id){
+        $request = service('request');
+
+        $model = new MeestParcelModel();
+        $parcelData = $model->getParcelData($id);
+
+        $meestAPIController = new api\MeestAPIController();
+
+        $response = $meestAPIController->createParcel($parcelData);
+
+        // Check if the response is successful
+        if ($response['status'] !== 200) {
+
+            $responseArray = [];
+            $responseArray['idObject'] = $response['body']->idObject;
+            $responseArray['message'] = lang('app_lang.parcel_sent_error');
+            $responseArray['details'] = $response['body']->details;
+
+            $responseJson = json_encode($responseArray, JSON_PRETTY_PRINT);
+
+            return redirect()->to('/meest_parcels/'.$id)->with('error', $responseJson);
+        }
+        return redirect()->to('/meest_parcels')->with('success', lang('app_lang.parcel_sent_success'));
+
+
+
+
     }
 
 }

@@ -133,6 +133,7 @@ $(document).ready(function() {
                 .reduce( function (a, b) {
                     return parseFloat(intVal(a).toFixed(2)) + parseFloat(intVal(b).toFixed(2));
                 }, 0 );
+            thuTotal = thuTotal.toFixed(2);
 
             var friTotal = api
                 .column( 13 )
@@ -140,11 +141,21 @@ $(document).ready(function() {
                 .reduce( function (a, b) {
                     return parseFloat(intVal(a).toFixed(2)) + parseFloat(intVal(b).toFixed(2));
                 }, 0 );
+            friTotal = friTotal.toFixed(2);
+
+            var weightTotal = api
+                .column( 14 )
+                .data()
+                .reduce( function (a, b) {
+                    return parseFloat(intVal(a).toFixed(1)) + parseFloat(intVal(b).toFixed(1));
+                }, 0 );
+            weightTotal = weightTotal.toFixed(2);
 
             // Update footer by showing the total with the reference of the column index
             $( api.column( 10 ).footer() ).html('Total');
             $( api.column( 11 ).footer() ).html(thuTotal);
             $( api.column( 13 ).footer() ).html(friTotal);
+            $( api.column( 14 ).footer() ).html(weightTotal);
         },
     });
 
@@ -171,10 +182,25 @@ $(document).ready(function() {
                     meest_recipients_id: document.getElementById('meestRecipientsId').value
                 }
 
-                // Query parameters will be ?search=[term]&page=[page]
                 return query;
             }
         }
     });
+
+    $('#sentParcelBtn').on('click', function (event){
+        let meest_parcels_id = document.getElementById('parcel_id').value;
+        $.get('/meest_parcels/sent/' + meest_parcels_id, function(data) {
+            // Function to handle the response
+            $('body').html(data);
+        })
+            .done(function() {
+                // Function to execute when the request is successful
+                console.log('Request completed successfully');
+            })
+            .fail(function(xhr, status, error) {
+                // Function to execute when there's an error
+                console.error(error);
+            });
+    })
 
 })

@@ -167,7 +167,7 @@ class MeestItems extends BaseController
             $model->save($data);
 
             // Возвращаемся на страницу со списком посылок с сообщением об успехе
-            return redirect()->to('/meest_items')->with('success', lang('app_lang.data_saved'));
+            return redirect()->back()->with('success', lang('app_lang.data_saved'));
         } else {
             // Если данные некорректны, то возвращаемся на страницу с формой с сообщением об ошибке и заполненными полями
             return redirect()->back()->withInput()->with('error', lang('app_lang.data_not_saved'));

@@ -206,5 +206,8 @@ return [
     'data_not_saved' => 'Error! Data not saved',
     'data_delete' => 'Success! Data is deleted',
     'deleted_object_not_found' => 'Error! The object to be deleted was not found',
+    'sent_by_meest_api' => 'Sent to Meest API',
+    'parcel_sent_success' => 'Success! Parcel is created by Meest API.',
+    'parcel_sent_error' => "Error! Parcel isn't sent by Meest API.",
 
 ];

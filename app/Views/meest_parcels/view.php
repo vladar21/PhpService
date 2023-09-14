@@ -20,7 +20,10 @@ echo generate_breadcrumbs($breadcrumbs, ' / ');
     <form id="addUpdateMeestParcel" method="POST" action="/meest_parcels/save">
         <?= csrf_field() ?>
         <!-- Button to save parcel -->
-        <button type="submit" id="saveParcelBtn" class="btn btn-primary float-right"><?= lang('app_lang.save') ?></button>
+        <button type="button" id="sentParcelBtn" class="btn btn-primary float-right"><?= lang('app_lang.sent_by_meest_api') ?></button>
+
+        <button type="submit" id="saveParcelBtn" class="btn btn-primary float-right" style="margin-right:15px;"><?= lang('app_lang.save') ?></button>
+
         <div class="clear-both"></div>
         <section id="invoice">
             <fieldset>
