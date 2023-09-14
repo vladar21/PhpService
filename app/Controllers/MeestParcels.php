@@ -353,7 +353,7 @@ class MeestParcels extends BaseController
             $model->save($data);
 
             // Возвращаемся на страницу со списком посылок с сообщением об успехе
-            return redirect()->back()->with('success', lang('app_lang.data_saved'));
+            return redirect()->to('/meest_parcels/'.$data['id'])->with('success', lang('app_lang.data_saved'));
 //        }
 //        else {
 //            // Если данные некорректны, то возвращаемся на страницу с формой с сообщением об ошибке и заполненными полями
