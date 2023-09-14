@@ -238,7 +238,7 @@ class MeestParcels extends BaseController
                     'bagId' => 'TestBagId',
                     'carrierLastMile' => 'MEEST',
                     'createReturnParcel' => false,
-                    'returnCarrier' => '',
+                    'returnCarrier' => 'VENIPAK',
                     'cod' => 820,
                     'codCurrency' => 'UAH',
                     'deliveryCost' => null,
