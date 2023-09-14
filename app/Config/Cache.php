@@ -109,7 +109,7 @@ class Cache extends BaseConfig
      * @var array<string, int|string|null>
      */
     public array $file = [
-        'storePath' => sys_get_temp_dir(),
+        'storePath' => WRITEPATH . 'cache/',
         'mode'      => 0640,
     ];
 
@@ -166,4 +166,14 @@ class Cache extends BaseConfig
         'redis'     => RedisHandler::class,
         'wincache'  => WincacheHandler::class,
     ];
+
+    // В файле app/Config/Cache.php
+    public function __construct()
+    {
+        $this->file = [
+            'storePath' => sys_get_temp_dir(),
+            'mode'      => 0640,
+        ];
+    }
+
 }
