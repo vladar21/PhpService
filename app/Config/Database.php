@@ -25,8 +25,25 @@ class Database extends Config
      * The default database connection.
      */
     public array $default = [
-        'DSN'      => "mysql://b2vlhkcspj9g4uw6:dw1ojlz4g9wzhmiq@f80b6byii2vwv8cx.chr7pe7iynqr.eu-west-1.rds.amazonaws.com:3306/mki56kmk47zw4fcu",
+        'DSN'      => '',
+        'hostname' => 'f80b6byii2vwv8cx.chr7pe7iynqr.eu-west-1.rds.amazonaws.com',
+        'username' => 'b2vlhkcspj9g4uw6',
+        'password' => 'dw1ojlz4g9wzhmiq',
+        'database' => 'mki56kmk47zw4fcu',
         'DBDriver' => 'MySQLi',
+        'DBPrefix' => '',
+        'pConnect' => false,
+        'DBDebug'  => (ENVIRONMENT !== 'production'),
+        'cacheOn'  => false,
+        'cacheDir' => '',
+        'charset'  => 'utf8',
+        'DBCollat' => 'utf8_general_ci',
+        'swapPre'  => '',
+        'encrypt'  => false,
+        'compress' => false,
+        'strictOn' => false,
+        'failover' => [],
+        'port'     => 3306,
     ];
 
     /**
