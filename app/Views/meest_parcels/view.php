@@ -33,7 +33,7 @@ echo generate_breadcrumbs($breadcrumbs, ' / ');
                     <div class="group-bills">
                         <div>
                             <label for="parcel_id"><?= lang('app_lang.id') ?>:</label>
-                            <input type="text" id="parcel_id" name="parcel_id" value="<?= $parcel_id ?>" readonly>
+                            <input type="text" id="parcel_id" name="parcel_id" value="<?= $id ?>" readonly>
                         </div>
                         <div>
                             <label for="bill_invoice_id"><?= lang('app_lang.bill_invoice_id') ?>:</label>
