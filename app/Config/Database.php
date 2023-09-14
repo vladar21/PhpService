@@ -25,12 +25,12 @@ class Database extends Config
      * The default database connection.
      */
     public array $default = [
-        'DSN'      => '',
-        'hostname' => 'localhost',
-        'username' => 'root',
-        'password' => 'root',
-        'database' => 'phpservicedb',
-        'DBDriver' => 'MySQLi',
+        'DSN'      => "dbname=df48n3jmhiipp0 host=ec2-54-195-120-0.eu-west-1.compute.amazonaws.com port=5432 user=ezfyiejucncezp password=c65d8c4acce60609b48afed78b2e9257636d9395a1c8bd08a8089a44d99197ef sslmode=require",
+        'hostname' => '',
+        'username' => '',
+        'password' => '',
+        'database' => '',
+        'DBDriver' => 'Postgre',
         'DBPrefix' => '',
         'pConnect' => false,
         'DBDebug'  => true,
@@ -41,7 +41,7 @@ class Database extends Config
         'compress' => false,
         'strictOn' => false,
         'failover' => [],
-        'port'     => 3306,
+        'port'     => '',
     ];
 
     /**
