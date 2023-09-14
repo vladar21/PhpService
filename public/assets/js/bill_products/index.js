@@ -9,6 +9,7 @@ $(document).ready(function() {
     const language = getAppVariable('language');
 
     let datatable_obj = $(table).DataTable({
+        searching: true,
         processing: true,
         serverSide: true,
         pageLength: per_page,
@@ -100,10 +101,11 @@ $(document).ready(function() {
             }
         ]
     });
+})
 
-
-    // Handler for the "Load Products" button click
-    // Add click event listener to the "Load Products" button
+$(document).ready(function() {
+// Handler for the "Load Products" button click
+// Add click event listener to the "Load Products" button
     $("#loadProductsBtn").on("click", function() {
         $('.spinner-overlay').show();
         // Send an AJAX request to fetch products
@@ -123,6 +125,7 @@ $(document).ready(function() {
                 });
                 // Hide the error message if it's currently displayed
                 $('#errorMessage').hide();
+                $('#billProductsTable').DataTable().ajax.reload();
             },
             error: function(xhr) {
                 $('.spinner-overlay').hide();
