@@ -25,8 +25,8 @@ class Database extends Config
      * The default database connection.
      */
     public array $default = [
-        'DSN'      => "dbname=df48n3jmhiipp0 host=ec2-54-195-120-0.eu-west-1.compute.amazonaws.com port=5432 user=ezfyiejucncezp password=c65d8c4acce60609b48afed78b2e9257636d9395a1c8bd08a8089a44d99197ef sslmode=require",
-        'DBDriver' => 'Postgre',
+        'DSN'      => "mysql://b2vlhkcspj9g4uw6:dw1ojlz4g9wzhmiq@f80b6byii2vwv8cx.chr7pe7iynqr.eu-west-1.rds.amazonaws.com:3306/mki56kmk47zw4fcu",
+        'DBDriver' => 'MySQLi',
     ];
 
     /**
