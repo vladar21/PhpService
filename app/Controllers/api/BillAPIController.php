@@ -199,9 +199,6 @@ class BillAPIController extends BaseController
 
     private function sendGetRequest($url)
     {
-        // Use any appropriate method to send a GET request, like using cURL or HTTP client
-        // For demonstration purposes, I'll use cURL here
-
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $responseBody = curl_exec($ch);

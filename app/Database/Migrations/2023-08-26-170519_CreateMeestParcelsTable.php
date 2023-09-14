@@ -111,11 +111,13 @@ class CreateMeestParcelsTable extends Migration
                 'type' => 'INT',
                 'constraint' => 5,
                 'unsigned' => true,
+                'null' => true,
             ],
             'meest_senders_id' => [ // Поле для связи с meest_parcels
                 'type' => 'INT',
                 'constraint' => 5,
                 'unsigned' => true,
+                'null' => true,
             ],
             'created_at' => [
                 'type' => 'DATETIME',

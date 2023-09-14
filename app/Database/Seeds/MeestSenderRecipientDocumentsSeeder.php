@@ -10,7 +10,7 @@ class MeestSenderRecipientDocumentsSeeder extends Seeder
     public function run()
     {
         $data = [
-            "sender_recipient_id" => 1,
+            "sender_recipient_id" => 2,
             "date" => "2020-03-13",
             "id_number" => "25451115544",
             "issuer" => "1402",

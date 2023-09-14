@@ -29,6 +29,11 @@ $(document).ready(function() {
                 render: function(data, type, row) {
                     return row.id ? row.id : not_applicable;
                 }
+            },{
+                data: 'bill_client_id',
+                render: function(data, type, row) {
+                    return row.bill_client_id ? row.bill_client_id : not_applicable;
+                }
             }, {
                 data: 'companyName',
                 render: function(data, type, row) {

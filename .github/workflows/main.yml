@@ -1,4 +1,4 @@
-name: PhpService
+name: Deploy to GitHub Pages
 
 on:
   push:
@@ -8,26 +8,50 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions: # Добавляем раздел permissions с записью в contents
+      contents: write
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2 # Используем версию 2, так как она работает лучше
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
 
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: 7.4
 
-      - name: Install Composer dependencies
-        run: composer install
-
-      - name: Build your project
+      - name: Install PHP extensions
         run: |
-          php spark build
-          php spark optimize:all
+          sudo apt-get update
+          sudo apt-get install -y php7.4-mbstring php7.4-xml
+
+      - name: Debug Before Composer Install
+        run: echo "Debugging before composer install"
+
+      - name: Install Composer dependencies
+        run: |
+          composer install
+        continue-on-error: true
+
+      - name: Debug After Composer Install
+        run: |
+          echo "Debugging after composer install"
+          echo "Hello from Debug step"
 
       - name: Deploy to GitHub Pages
         run: |
+          git config --global user.name "vladar21"
+          git config --global user.email "vladar21@gmail.com"
+          git config --global credential.helper store # Используем хелпер для хранения учетных данных Git
+          echo "machine github.com login vladar21 password $GH_TOKEN" > ~/.netrc # Сохраняем наш логин и токен GH_TOKEN в файле .netrc
           cp -r public/* $GITHUB_WORKSPACE
+          rm -rf application system composer.json composer.lock spark
           git add .
           git commit -m "Deploy to GitHub Pages"
-          git push origin main:gh-pages
+          git push origin HEAD:gh-pages --force # Добавляем параметр --force, чтобы перезаписать удаленную ветку
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}

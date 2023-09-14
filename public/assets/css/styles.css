@@ -133,6 +133,18 @@ td a {
 
 
 /* Success and Error messages */
+.successMessage {
+    background-color: lightgray;
+    color: darkgreen;
+    padding:5px;
+    margin-bottom: 15px;
+}
+.errorMessage {
+    background-color: lightgray;
+    color: red;
+    padding:5px;
+}
+
 #successMessage {
     display: none;
     background-color: lightgray;
@@ -240,8 +252,10 @@ td a {
     background-color: #555;
 }
 
-
-
+/* Styles for select2 */
+.select2-results__options li {
+    color: grey;
+}
 
 @keyframes spin {
     0% { transform: rotate(0deg); }

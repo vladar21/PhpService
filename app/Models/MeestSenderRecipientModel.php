@@ -12,6 +12,7 @@ class MeestSenderRecipientModel extends Model
 
     protected $allowedFields = [
         'id',
+        'bill_client_id',
         'buildingNumber',
         'city',
         'companyName',
@@ -37,6 +38,10 @@ class MeestSenderRecipientModel extends Model
             return $this->findAll();
         else
             return $this->asArray()->where(['id' => $id])->first();
+    }
+
+    public function getClientByBillClientId($bill_client_id){
+        return $this->asArray()->where(['bill_client_id' => $bill_client_id])->first();
     }
 
 }

@@ -41,6 +41,7 @@ class MeestSendersRecipients extends BaseController
         // Conditions
         if ($search) {
             $builder->where('id', $search)
+                ->where('bill_client_id', $search)
                 ->orWhere('buildingNumber', 'LIKE', "%$search%")
                 ->orWhere('city', 'LIKE', "%$search%")
                 ->orWhere('companyName', 'LIKE', "%$search%")
@@ -63,6 +64,7 @@ class MeestSendersRecipients extends BaseController
         // Iterate through each order element
         $columns = [
             'id',
+            'bill_client_id',
             'companyName',
             'name',
             'phone',
@@ -108,6 +110,7 @@ class MeestSendersRecipients extends BaseController
             foreach ($results as $key => $value) {
 
                 $responseData['data'][$key]['id'] = $value['id'];
+                $responseData['data'][$key]['bill_client_id'] = $value['bill_client_id'];
                 $responseData['data'][$key]['buildingNumber'] = $value['buildingNumber'];
                 $responseData['data'][$key]['city'] = $value['city'];
                 $responseData['data'][$key]['companyName'] = $value['companyName'];
@@ -197,6 +200,43 @@ class MeestSendersRecipients extends BaseController
             }
             echo json_encode($responseData); die();
         }
+    }
+
+    public function select2list(){
+        // Получаем данные из запроса
+        $request = $this->request;
+        $getData = $request->getGet();
+        $search = $getData['search'] ?? ''; // Термин для поиска
+        $page = $getData['page'];
+//        $search = $request->getGet('search') || ''; // Термин для поиска
+//        $page = $request->getGet('page'); // Номер страницы для пагинации
+        $limit = 10; // Количество записей на страницу
+
+        // Создаем экземпляр модели RecipientModel
+        $model = new MeestSenderRecipientModel();
+
+        // Выполняем поиск по термину с пагинацией и получаем результаты в виде массива
+
+        $results = $model->like('name', $search)->asArray()->paginate($limit, 'default', $page);
+
+        // Формируем массив данных для ответа
+        $data = [];
+        foreach ($results as $row) {
+            $data[] = [
+                'id' => $row['id'], // Идентификатор получателя
+                'text' => $row['name'] // Имя получателя
+            ];
+        }
+
+        // Формируем массив метаданных для ответа
+        $meta = [
+            'pagination' => [
+                'more' => $model->pager->hasMore() // Есть ли еще страницы
+            ]
+        ];
+
+        // Устанавливаем тип контента ответа в формате JSON и отправляем ответ
+        return $this->response->setContentType('application/json')->setBody(json_encode(['results' => $data, 'meta' => $meta]));
     }
 
 }

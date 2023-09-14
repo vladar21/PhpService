@@ -36,7 +36,7 @@ $(document).ready(function() {
             }, {
                 data: 'product_id',
                 render: function(data, type, row) {
-                    return row.product_id ? row.product_id : not_applicable;
+                    return row.id ? row.id : not_applicable;
                 }
             }, {
                 data: 'barcode',
@@ -103,6 +103,12 @@ $(document).ready(function() {
                 render: function(data, type, row) {
                     return row.weight ? row.weight : not_applicable;
                 }
+            }, {
+                data: 'actions',
+                orderable: false,
+                render: function (data, type, row) {
+                    return '<a href="/meest_items/' + row.id + '" class="btn btn-sm btn-blue-outline">' + title_view + '</a>';
+                }
             }
         ],
         footerCallback: function ( row, data, start, end, display ) {
@@ -127,6 +133,7 @@ $(document).ready(function() {
                 .reduce( function (a, b) {
                     return parseFloat(intVal(a).toFixed(2)) + parseFloat(intVal(b).toFixed(2));
                 }, 0 );
+            thuTotal = thuTotal.toFixed(2);
 
             var friTotal = api
                 .column( 13 )
@@ -134,20 +141,66 @@ $(document).ready(function() {
                 .reduce( function (a, b) {
                     return parseFloat(intVal(a).toFixed(2)) + parseFloat(intVal(b).toFixed(2));
                 }, 0 );
+            friTotal = friTotal.toFixed(2);
 
+            var weightTotal = api
+                .column( 14 )
+                .data()
+                .reduce( function (a, b) {
+                    return parseFloat(intVal(a).toFixed(1)) + parseFloat(intVal(b).toFixed(1));
+                }, 0 );
+            weightTotal = weightTotal.toFixed(2);
 
             // Update footer by showing the total with the reference of the column index
             $( api.column( 10 ).footer() ).html('Total');
             $( api.column( 11 ).footer() ).html(thuTotal);
             $( api.column( 13 ).footer() ).html(friTotal);
+            $( api.column( 14 ).footer() ).html(weightTotal);
         },
     });
-
-
 
     // При изменении содержимого textarea
     $('.bills textarea').on('input', function() {
         this.style.height = 'auto'; // Сначала установите высоту в auto, чтобы сбросить высоту
         this.style.height = (this.scrollHeight) + 'px'; // Установите высоту, чтобы вместить содержимое
     });
+
+    $('#meest_recipients_id').select2({
+        allowClear: true,
+        placeholder: "Choose recipient",
+        width: "50%",
+        ajax: {
+            url: '/meest_clients/select2list',
+            dataType: 'json',
+            headers: {
+                'X-CSRF-TOKEN': csrfToken
+            },
+            data: function (params) {
+                let query = {
+                    search: params.term,
+                    page: params.page || 1,
+                    meest_recipients_id: document.getElementById('meestRecipientsId').value
+                }
+
+                return query;
+            }
+        }
+    });
+
+    $('#sentParcelBtn').on('click', function (event){
+        let meest_parcels_id = document.getElementById('parcel_id').value;
+        $.get('/meest_parcels/sent/' + meest_parcels_id, function(data) {
+            // Function to handle the response
+            $('body').html(data);
+        })
+            .done(function() {
+                // Function to execute when the request is successful
+                console.log('Request completed successfully');
+            })
+            .fail(function(xhr, status, error) {
+                // Function to execute when there's an error
+                console.error(error);
+            });
+    })
+
 })
