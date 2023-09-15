@@ -4,8 +4,18 @@ namespace App\Controllers;
 
 use App\Models\UserModel;
 
+/**
+ * Class Dashboard Controller
+ *
+ * @package App\Controllers\Api
+ */
 class Dashboard extends BaseController
 {
+    /**
+     * Displays the index page.
+     *
+     * @return mixed
+     */
     public function index()
     {
         helper('language');
@@ -16,6 +26,11 @@ class Dashboard extends BaseController
         return view('dashboard/index', $data);
     }
 
+    /**
+     * Fetches users data from the database and returns it in JSON format.
+     *
+     * @return void
+     */
     public function get_users_ajax(){
 
         $request = service('request');
