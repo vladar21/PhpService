@@ -8,6 +8,11 @@ use App\Controllers\BaseController;
 
 class BillInvoices extends BaseController
 {
+    /**
+     * Displays the index page.
+     *
+     * @return mixed
+     */
     public function index()
     {
         helper('language');
@@ -18,6 +23,11 @@ class BillInvoices extends BaseController
         return view('bill_invoices/index', $data);
     }
 
+    /**
+     * Fetches invoice data from the database and returns it in JSON format.
+     *
+     * @return void
+     */
     public function get_invoices_ajax(){
 
         $request = service('request');
@@ -183,6 +193,13 @@ class BillInvoices extends BaseController
         echo json_encode($responseData); die();
     }
 
+    /**
+     * Displays the invoice page.
+     *
+     * @param int|null $id The ID of the invoice to display.
+     *
+     * @return mixed
+     */
     public function invoice($id = NULL)
     {
         $model = new BillInvoiceModel();
