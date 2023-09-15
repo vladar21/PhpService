@@ -8,21 +8,21 @@ class Admin extends BaseController
 {
     public function index()
     {
-        // Ваш код для отображения списка пользователей
+        // TODO: code for displaying the list of users
     }
 
     public function addUser()
     {
-        // Ваш код для добавления пользователя
+        // TODO: code for adding a user
     }
 
     public function editUser($id)
     {
-        // Ваш код для редактирования пользователя
+        // TODO: code for editing a user
     }
 
     public function deleteUser($id)
     {
-        // Ваш код для удаления пользователя
+        // TODO: code for deleting a user
     }
 }
