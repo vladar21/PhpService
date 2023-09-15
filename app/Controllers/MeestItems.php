@@ -29,7 +29,7 @@ class MeestItems extends BaseController
     }
 
     /**
-     * Fetches parcels data from the database and returns it in JSON format.
+     * Fetches items (products) data from the database and returns it in JSON format.
      *
      * @return void
      */

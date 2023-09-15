@@ -9,8 +9,18 @@ use App\Models\MeestItemModel;
 use App\Models\MeestParcelModel;
 use App\Models\MeestSenderRecipientModel;
 
+/**
+ * Class MeestParcels Controller
+ *
+ * @package App\Controllers\Api
+ */
 class MeestParcels extends BaseController
 {
+    /**
+     * Displays the index page.
+     *
+     * @return mixed
+     */
     public function index()
     {
         helper('language');
@@ -21,6 +31,11 @@ class MeestParcels extends BaseController
         return view('meest_parcels/index', $data);
     }
 
+    /**
+     * Fetches parcels data from the database and returns it in JSON format.
+     *
+     * @return void
+     */
     public function get_parcels_ajax(){
         $request = service('request');
         $jsonData = $request->getJSON();
@@ -168,6 +183,13 @@ class MeestParcels extends BaseController
 
     }
 
+    /**
+     * Displays the parcel page.
+     *
+     * @param int|null $id The ID of the parcel to display.
+     *
+     * @return mixed
+     */
     public function parcel($id = NULL)
     {
         if ($id){
@@ -189,6 +211,13 @@ class MeestParcels extends BaseController
         return view('meest_parcels/view', $data);
     }
 
+    /**
+     * Adds a new parcel to the database.
+     *
+     * @param int|null $invoice_id The ID of the invoice to add the parcel to.
+     *
+     * @return mixed
+     */
     public function add($invoice_id = NULL){
         if ($invoice_id){
 
@@ -313,26 +342,24 @@ class MeestParcels extends BaseController
         return view('meest_parcels/view', $data);
     }
 
-    // Метод для сохранения данных из формы
+    /**
+     * Saves parcel data to the database.
+     *
+     * @return mixed
+     */
     public function save()
     {
-        // Получаем экземпляр модели MeestParcelsModel
         $model = new MeestParcelModel();
 
-        // Получаем данные из формы
         $data = $this->request->getPost();
 
-        // Проверяем, есть ли parcel_id в данных
         if (isset($data['parcel_id'])) {
-            // Если есть, то это обновление существующей записи
             $data['id'] = $data['parcel_id'];
             unset($data['parcel_id']);
         } else {
-            // Если нет, то это вставка новой записи
             $data['id'] = null;
         }
 
-        // Задаем правила валидации для каждого поля
 //        $rules = [
 //            'bill_invoice_id' => 'numeric',
 //            'parcelNumber' => 'required|alpha_numeric',
@@ -347,12 +374,10 @@ class MeestParcels extends BaseController
 //            'codCurrency' => 'required|alpha'
 //        ];
 
-        // Проверяем данные по правилам
 //        if ($this->validate($rules)) {
             // Если данные корректны, то сохраняем их в базу данных с помощью метода save модели
             $model->save($data);
 
-            // Возвращаемся на страницу со списком посылок с сообщением об успехе
             return redirect()->to('/meest_parcels/'.$data['id'])->with('success', lang('app_lang.data_saved'));
 //        }
 //        else {
@@ -361,6 +386,13 @@ class MeestParcels extends BaseController
 //        }
     }
 
+    /**
+     * Deletes a parcel from the database.
+     *
+     * @param int $id The ID of the parcel to delete.
+     *
+     * @return mixed
+     */
     public function delete($id){
 
         $model = new MeestParcelModel();
@@ -374,6 +406,13 @@ class MeestParcels extends BaseController
         return redirect()->to('/meest_parcels')->with('success', lang('app_lang.data_delete'));
     }
 
+    /**
+     * Sends a parcel to the recipient.
+     *
+     * @param int $id The ID of the parcel to send.
+     *
+     * @return mixed
+     */
     public function sent($id){
         $request = service('request');
 
@@ -397,10 +436,6 @@ class MeestParcels extends BaseController
             return redirect()->to('/meest_parcels/'.$id)->with('error', $responseJson);
         }
         return redirect()->to('/meest_parcels')->with('success', lang('app_lang.parcel_sent_success'));
-
-
-
-
     }
 
 }
