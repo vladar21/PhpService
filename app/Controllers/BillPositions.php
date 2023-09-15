@@ -5,17 +5,34 @@ namespace App\Controllers;
 use App\Models\BillPositionModel;
 use App\Controllers\BaseController;
 
+/**
+ * Class BillPositions Controller
+ *
+ * @package App\Controllers\Api
+ */
 class BillPositions extends BaseController
 {
+    /**
+     * Displays the index page.
+     *
+     * @return mixed
+     */
     public function index()
     {
-//        $db = \Config\Database::connect();
-//        $query   = $db->query('SELECT * FROM bill_invoices');
-//        $data['bill_invoices'] = $query->getResultArray();
+        helper('language');
+        $lang = lang('app_lang');
+        $data=[
+            'per_page' => 10
+        ];
         $data=[];
         return view('bill_positions/index', $data);
     }
 
+    /**
+     * Fetches positions (products) data from the database and returns it in JSON format.
+     *
+     * @return void
+     */
     public function get_positions_ajax(){
 
         $request = service('request');
@@ -62,25 +79,5 @@ class BillPositions extends BaseController
             echo json_encode($responseData); die();
         }
 
-    }
-
-    public function invoice($id = NULL)
-    {
-        $model = new BillInvoicesModel();
-
-        $invoice = $model->getInvoices($id);
-
-        if ($invoice)
-        {
-            $data = $invoice;
-        }
-        else
-        {
-            $data['code'] = '404';
-            $data['message'] = 'Page Not Found';
-            return view('errors/message');
-        }
-
-        return view('bill_invoices/view', $data);
     }
 }

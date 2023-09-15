@@ -6,6 +6,11 @@ use App\Models\BillInvoiceModel;
 use App\Models\BillInvoicesModel;
 use App\Controllers\BaseController;
 
+/**
+ * Class BillInvoices Controller
+ *
+ * @package App\Controllers\Api
+ */
 class BillInvoices extends BaseController
 {
     /**
