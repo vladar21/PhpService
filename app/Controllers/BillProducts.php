@@ -207,6 +207,6 @@ class BillProducts extends BaseController
             $responseData['data'] = [];
         }
         echo json_encode($responseData); die();
-        
+
     }
 }
