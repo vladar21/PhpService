@@ -10,6 +10,11 @@ use App\Models\BillProductModel;
 use CodeIgniter\API\ResponseTrait;
 use CodeIgniter\Log\Logger;
 
+/**
+ * Class BillAPIController
+ *
+ * @package App\Controllers\Api
+ */
 class BillAPIController extends BaseController
 {
     use ResponseTrait;
@@ -22,6 +27,11 @@ class BillAPIController extends BaseController
         $this->apiToken = env('API_TOKEN'); // Make sure you have the API_TOKEN defined in your .env file
     }
 
+    /**
+     * Fetches clients from external API and saves them to the database.
+     *
+     * @return mixed
+     */
     public function fetchClients()
     {
         $perPage = 25;
@@ -80,6 +90,11 @@ class BillAPIController extends BaseController
         }
     }
 
+    /**
+     * Fetches invoices from external API and saves them to the database.
+     *
+     * @return mixed
+     */
     public function fetchInvoices()
     {
         try{
@@ -142,6 +157,11 @@ class BillAPIController extends BaseController
         }
     }
 
+    /**
+     * Fetches products from external API and saves them to the database.
+     *
+     * @return mixed
+     */
     public function fetchProducts()
     {
         try{
@@ -205,6 +225,13 @@ class BillAPIController extends BaseController
         }
     }
 
+    /**
+     * Sends a GET request to the specified URL.
+     *
+     * @param string $url The URL to send the request to.
+     *
+     * @return array An array containing the response status code and body.
+     */
     private function sendGetRequest($url)
     {
         $ch = curl_init($url);
@@ -216,7 +243,14 @@ class BillAPIController extends BaseController
         return ['status' => $responseCode, 'body' => $responseBody];
     }
 
-        private function saveClientsToDatabase($clients)
+    /**
+     * Saves clients to the database.
+     *
+     * @param array $clients An array of clients data.
+     *
+     * @return void
+     */
+    private function saveClientsToDatabase($clients)
     {
         // Assuming you have a model called ProductModel to interact with the database
         $model = new BillClientModel();
@@ -247,6 +281,13 @@ class BillAPIController extends BaseController
         }
     }
 
+    /**
+     * Saves invoices to the database.
+     *
+     * @param array $invoices An array of invoices data.
+     *
+     * @return void
+     */
     private function saveInvoicesToDatabase($invoices)
     {
         $exceptionFields = ['app', 'payment_type', 'status', 'seller_fax', 'seller_person', 'buyer_tax_no', 'buyer_www', 'buyer_fax', 'buyer_phone', 'kind', 'pattern', 'pattern_nr', 'pattern_nr_m', 'pattern_nr_d', 'payment_to', 'paid', 'seller_bank_account_id', 'issue_date', 'price_tax', 'department_id', 'correction', 'buyer_note', 'additional_info_desc', 'additional_info', 'from_invoice_id', 'oid', 'discount', 'show_discount', 'sent_time', 'print_time', 'recurring_id', 'tax2_visible', 'warehouse_id', 'paid_date', 'product_id', 'issue_year', 'internal_note', 'invoice_id', 'invoice_template_id', 'description_long', 'buyer_tax_no_kind', 'seller_tax_no_kind', 'description_footer', 'sell_date_kind', 'payment_to_kind', 'exchange_currency', 'discount_kind', 'income', 'from_api', 'category_id', 'warehouse_document_id', 'exchange_kind', 'exchange_rate', 'use_delivery_address', 'delivery_address', 'accounting_kind', 'buyer_person', 'buyer_bank_account', 'buyer_bank', 'buyer_mass_payment_code', 'exchange_note', 'buyer_company', 'show_attachments', 'exchange_currency_rate', 'has_attachments', 'exchange_date', 'attachments_count', 'fiscal_status', 'use_moss', 'calculating_strategy', 'transaction_date', 'email_status', 'exclude_from_stock_level', 'exclude_from_accounting', 'exchange_rate_den', 'exchange_currency_rate_den', 'accounting_scheme', 'exchange_difference', 'not_cost', 'reverse_charge', 'issuer', 'use_issuer', 'cancelled', 'recipient_id', 'recipient_name', 'test', 'discount_net', 'approval_status', 'accounting_vat_tax_date', 'accounting_income_tax_date', 'accounting_other_tax_date', 'accounting_status', 'normalized_number', 'na_tax_kind', 'issued_to_receipt', 'sales_code', 'additional_invoice_field', 'products_margin', 'payment_url', 'view_url', 'buyer_mobile_phone', 'kind_text', 'invoice_for_receipt_id', 'receipt_for_invoice_id', 'recipient_company', 'recipient_first_name', 'recipient_last_name', 'recipient_tax_no', 'recipient_street', 'recipient_post_code', 'recipient_city', 'recipient_country', 'recipient_email', 'recipient_phone', 'recipient_note', 'overdue?', 'get_tax_name', 'tax_visible?', 'tax_name_type', 'split_payment', 'gtu_codes', 'procedure_designations'];
@@ -291,6 +332,13 @@ class BillAPIController extends BaseController
         }
     }
 
+    /**
+     * Saves positions to the database.
+     *
+     * @param array $positions An array of positions data.
+     *
+     * @return void
+     */
     private function savePositionsToDatabase($positions)
     {
 //        echo "Positions ".print_r($positions);
@@ -324,6 +372,13 @@ class BillAPIController extends BaseController
         }
     }
 
+    /**
+     * Saves products to the database.
+     *
+     * @param array $products An array of products data.
+     *
+     * @return void
+     */
     private function saveProductsToDatabase($products)
     {
         // Assuming you have a model called ProductModel to interact with the database
