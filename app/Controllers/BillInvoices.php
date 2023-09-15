@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use App\Models\BillInvoiceModel;
-use App\Models\BillInvoicesModel;
 use App\Controllers\BaseController;
 
 /**

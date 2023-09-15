@@ -6,8 +6,18 @@ use App\Controllers\BaseController;
 use App\Models\MeestItemDescriptionModel;
 use App\Models\MeestItemModel;
 
+/**
+ * Class MeestItems Controller
+ *
+ * @package App\Controllers\Api
+ */
 class MeestItems extends BaseController
 {
+    /**
+     * Displays the index page.
+     *
+     * @return mixed
+     */
     public function index()
     {
         helper('language');
@@ -18,6 +28,11 @@ class MeestItems extends BaseController
         return view('meest_items/index', $data);
     }
 
+    /**
+     * Fetches parcels data from the database and returns it in JSON format.
+     *
+     * @return void
+     */
     public function get_parcel_items_ajax()
     {
         $request = service('request');
@@ -62,6 +77,13 @@ class MeestItems extends BaseController
         echo json_encode($responseData); die();
     }
 
+    /**
+     * Displays the item page.
+     *
+     * @param int|null $id The ID of the item to display.
+     *
+     * @return mixed
+     */
     public function item($id = NULL)
     {
         $model = new MeestItemModel();
@@ -82,6 +104,11 @@ class MeestItems extends BaseController
         return view('meest_items/view', $data);
     }
 
+    /**
+     * Fetches items (products) data from the database and returns it in JSON format.
+     *
+     * @return void
+     */
     public function get_meest_item_desc_ajax(){
 
         $request = service('request');
@@ -128,25 +155,25 @@ class MeestItems extends BaseController
         }
 
     }
+
+    /**
+     * Saves item (product) data to the database.
+     *
+     * @return mixed
+     */
     public function save()
     {
-        // Получаем экземпляр модели MeestParcelsModel
         $model = new MeestItemModel();
 
-        // Получаем данные из формы
         $data = $this->request->getPost();
 
-        // Проверяем, есть ли parcel_id в данных
         if (isset($data['product_id'])) {
-            // Если есть, то это обновление существующей записи
             $data['id'] = $data['product_id'];
             unset($data['product_id']);
         } else {
-            // Если нет, то это вставка новой записи
             $data['id'] = null;
         }
 
-        // Задаем правила валидации для каждого поля
         $rules = [
             'description' => 'required',
 //            'parcelNumber' => 'required|alpha_numeric',
@@ -161,20 +188,14 @@ class MeestItems extends BaseController
 //            'codCurrency' => 'required|alpha'
         ];
 
-        // Проверяем данные по правилам
         if ($this->validate($rules)) {
-            // Если данные корректны, то сохраняем их в базу данных с помощью метода save модели
             $model->save($data);
 
-            // Возвращаемся на страницу со списком посылок с сообщением об успехе
             return redirect()->back()->with('success', lang('app_lang.data_saved'));
         } else {
-            // Если данные некорректны, то возвращаемся на страницу с формой с сообщением об ошибке и заполненными полями
             return redirect()->back()->withInput()->with('error', lang('app_lang.data_not_saved'));
         }
     }
-
-
 }
 
 
