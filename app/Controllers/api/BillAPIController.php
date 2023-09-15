@@ -21,6 +21,9 @@ class BillAPIController extends BaseController
 
     protected $apiToken;
 
+    /**
+     * BillAPIController constructor.
+     */
     public function __construct()
     {
         // Load the API token from .env file or any other appropriate method

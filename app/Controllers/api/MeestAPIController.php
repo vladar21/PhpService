@@ -10,12 +10,20 @@ use App\Models\BillProductModel;
 use CodeIgniter\API\ResponseTrait;
 use CodeIgniter\Log\Logger;
 
+/**
+ * Class BillAPIController
+ *
+ * @package App\Controllers\Api
+ */
 class MeestAPIController extends BaseController
 {
     use ResponseTrait;
 
     protected $authorizationHeader;
 
+    /**
+     * MeestAPIController constructor.
+     */
     public function __construct()
     {
         // Meest API credentials
@@ -32,6 +40,13 @@ class MeestAPIController extends BaseController
         $this->authorizationHeader = $authorization;
     }
 
+    /**
+     * Sends a GET request to the specified URL.
+     *
+     * @param string $url The URL to send the request to.
+     *
+     * @return array An array containing the response status code and body.
+     */
     private function sendGetRequest($url, $postData)
     {
         $data = [
@@ -127,6 +142,13 @@ class MeestAPIController extends BaseController
 
     }
 
+    /**
+     * Creates a parcel.
+     *
+     * @param array $parcelData An array of parcel data.
+     *
+     * @return mixed
+     */
     public function createParcel($parcelData)
     {
         $errorMessage = null;
