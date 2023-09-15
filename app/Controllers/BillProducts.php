@@ -4,8 +4,18 @@ namespace App\Controllers;
 
 use App\Models\BillProductModel;
 
+/**
+ * Class BillProducts Controller
+ *
+ * @package App\Controllers\Api
+ */
 class BillProducts extends BaseController
 {
+    /**
+     * Displays the index page.
+     *
+     * @return mixed
+     */
     public function index()
     {
         helper('language');
@@ -16,6 +26,13 @@ class BillProducts extends BaseController
         return view('bill_products/index', $data);
     }
 
+    /**
+     * Displays the product page.
+     *
+     * @param int|null $id The ID of the product to display.
+     *
+     * @return mixed
+     */
     public function product($id = NULL)
     {
         $model = new BillProductModel();
@@ -36,6 +53,11 @@ class BillProducts extends BaseController
         return view('bill_products/view', $data);
     }
 
+    /**
+     * Saves product data to the database.
+     *
+     * @return mixed
+     */
     public function save()
     {
         // Check if the request is a POST request
@@ -61,7 +83,6 @@ class BillProducts extends BaseController
                 ];
                 $model->insert($data);
 
-                // Optionally, you can add a success message or redirect the user to a success page.
             } else {
                 // Update an existing product in the database
                 $data = [
@@ -72,7 +93,6 @@ class BillProducts extends BaseController
                 ];
                 $model->update($product_id, $data);
 
-                // Optionally, you can add a success message or redirect the user to a success page.
             }
         }
 
@@ -80,6 +100,11 @@ class BillProducts extends BaseController
         return redirect()->to('/bill_products/form');
     }
 
+    /**
+     * Fetches products data from the database and returns it in JSON format.
+     *
+     * @return void
+     */
     public function get_products_ajax(){
 
         $request = service('request');
@@ -182,7 +207,6 @@ class BillProducts extends BaseController
             $responseData['data'] = [];
         }
         echo json_encode($responseData); die();
-
-
+        
     }
 }
