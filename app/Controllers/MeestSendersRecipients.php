@@ -6,8 +6,18 @@ use App\Controllers\BaseController;
 use App\Models\MeestSenderRecipientDocumentModel;
 use App\Models\MeestSenderRecipientModel;
 
+/**
+ * Class MeestSendersRecipients Controller
+ *
+ * @package App\Controllers\Api
+ */
 class MeestSendersRecipients extends BaseController
 {
+    /**
+     * Displays the index page.
+     *
+     * @return mixed
+     */
     public function index()
     {
         helper('language');
@@ -18,6 +28,11 @@ class MeestSendersRecipients extends BaseController
         return view('meest_clients/index', $data);
     }
 
+    /**
+     * Fetches clients data from the database and returns it in JSON format.
+     *
+     * @return void
+     */
     public function get_meest_clients_ajax(){
         $request = service('request');
         $jsonData = $request->getJSON();
@@ -137,6 +152,13 @@ class MeestSendersRecipients extends BaseController
 
     }
 
+    /**
+     * Displays the client page.
+     *
+     * @param int|null $id The ID of the client to display.
+     *
+     * @return mixed
+     */
     public function clients($id = NULL)
     {
         $model = new MeestSenderRecipientModel();
@@ -157,6 +179,11 @@ class MeestSendersRecipients extends BaseController
         return view('meest_clients/view', $data);
     }
 
+    /**
+     * Fetches docs of client from the database and returns it in JSON format.
+     *
+     * @return void
+     */
     public function get_meest_client_docs(){
         $request = service('request');
         $getData = $request->getGet();
@@ -202,6 +229,11 @@ class MeestSendersRecipients extends BaseController
         }
     }
 
+    /**
+     * Returns a list of recipients in JSON format for use with Select2.
+     *
+     * @return mixed
+     */
     public function select2list(){
         // Получаем данные из запроса
         $request = $this->request;
