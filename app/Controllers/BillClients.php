@@ -5,8 +5,16 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\BillClientModel;
 
+/**
+ * Class BillClients
+ *
+ * @package App\Controllers\Api
+ */
 class BillClients extends BaseController
 {
+    /**
+     * Displays the index view for Bill Clients.
+     */
     public function index()
     {
         helper('language');
@@ -17,6 +25,11 @@ class BillClients extends BaseController
         return view('bill_clients/index', $data);
     }
 
+    /**
+     * Retrieves and displays information about a specific client.
+     *
+     * @param int|null $id The ID of the client to retrieve.
+     */
     public function client($id = NULL)
     {
         $model = new BillClientModel();
@@ -36,7 +49,12 @@ class BillClients extends BaseController
 
         return view('bill_clients/view', $data);
     }
-    
+
+    /**
+     * Fetches clients data from the database and returns it in JSON format.
+     *
+     * @return void
+     */
     public function get_clients_ajax(){
 
         $request = service('request');
