@@ -4,8 +4,12 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
+/**
+ * Model class for managing bill clients data.
+ */
 class BillClientModel extends Model
 {
+    // Database configuration
     protected $DBGroup          = 'default';
     protected $table            = 'bill_clients';
     protected $primaryKey       = 'id';
@@ -13,24 +17,26 @@ class BillClientModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
+
+    // Allowed fields in the database
     protected $allowedFields = [
         'id', 'name', 'tax_no', 'post_code', 'city', 'street', 'first_name', 'country', 'email', 'phone', 'www', 'fax', 'created_at', 'updated_at', 'street_no', 'kind', 'bank', 'bank_account', 'bank_account_id', 'shortcut', 'note', 'last_name', 'referrer', 'token', 'fuid', 'fname', 'femail', 'department_id', 'import', 'discount', 'payment_to_kind', 'category_id', 'use_delivery_address', 'delivery_address', 'person', 'panel_user_id', 'use_mass_payment', 'mass_payment_code', 'external_id', 'company', 'title', 'mobile_phone', 'register_number', 'tax_no_check', 'attachments_count', 'default_payment_type', 'tax_no_kind', 'accounting_id', 'disable_auto_reminders', 'buyer_id', 'price_list_id', 'panel_url',
     ];
 
-    // Dates
+    // Dates configuration
     protected $useTimestamps = false;
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
     protected $deletedField  = 'deleted_at';
 
-    // Validation
+    // Validation rules and messages (if any)
     protected $validationRules      = [];
     protected $validationMessages   = [];
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;
 
-    // Callbacks
+    // Callbacks configuration
     protected $allowCallbacks = true;
     protected $beforeInsert   = [];
     protected $afterInsert    = [];
@@ -41,6 +47,13 @@ class BillClientModel extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
+    /**
+     * Get a list of clients from the database.
+     *
+     * @param int|bool $id The client's ID to retrieve, or false to retrieve all clients.
+     *
+     * @return array|object The client data.
+     */
     public function getClients($id = false)
     {
         if ($id === false)
@@ -49,6 +62,16 @@ class BillClientModel extends Model
             return $this->asArray()->where(['id' => $id])->first();
     }
 
+    /**
+     * Get data for DataTables, including filtering and sorting.
+     *
+     * @param int    $start   The start index for pagination.
+     * @param int    $length  The number of records per page.
+     * @param string $search  The search term.
+     * @param array  $orders  An array of column orders for sorting.
+     *
+     * @return array The DataTables data.
+     */
     public function getDatatableData($start, $length, $search, $orders)
     {
 
