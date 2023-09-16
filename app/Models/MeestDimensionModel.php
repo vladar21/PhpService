@@ -1,17 +1,20 @@
 <?php
 
-// app/Models/MeestDimensionModel.php
-
 namespace App\Models;
 
 use CodeIgniter\Model;
 
+/**
+ * Model class for dimension meest parcel data.
+ */
 class MeestDimensionModel extends Model
 {
+    // Database configuration
     protected $table = 'meest_dimensions';
-
     protected $primaryKey = 'id';
+    protected $useAutoIncrement = true;
 
+    // Allowed fields in the database
     protected $allowedFields = [
         'height',
         'length',
@@ -21,11 +24,13 @@ class MeestDimensionModel extends Model
         'updated_at',
     ];
 
-    protected $useAutoIncrement = true;
-
+    // Dates configuration
     protected $useTimestamps = true;
 
-    // Определите отношения к другим моделям, если это необходимо.
+    /**
+     * Defines a one-to-one relationship with the MeestParcelModel class.
+     * @return \CodeIgniter\Database\BaseBuilder A query builder object that can be used to fetch the related record.
+     */
     public function parcel()
     {
         return $this->belongsTo(MeestParcelModel::class, 'meest_parcels_id');
