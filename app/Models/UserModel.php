@@ -4,6 +4,9 @@ namespace App\Models;
 
 use CodeIgniter\Shield\Models\UserModel as BaseUserModel;
 
+/**
+ * Model class for managing user's data.
+ */
 class UserModel extends BaseUserModel
 {
     // Your custom methods and properties here...
