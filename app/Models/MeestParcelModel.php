@@ -1,17 +1,20 @@
 <?php
 
-// app/Models/MeestParcelsModel.php
-
 namespace App\Models;
 
 use CodeIgniter\Model;
 
+/**
+ * Model class for managing meest parcel's data.
+ */
 class MeestParcelModel extends Model
 {
+    // Database configuration
     protected $table = 'meest_parcels';
-
     protected $primaryKey = 'id';
+    protected $useAutoIncrement = true;
 
+    // Allowed fields in the database
     protected $allowedFields = [
         'bill_invoice_id',
         'parcelNumber',
@@ -39,22 +42,38 @@ class MeestParcelModel extends Model
         'updated_at'
     ];
 
-    protected $useAutoIncrement = true;
-
+    // Dates configuration
     protected $useTimestamps = true;
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
 
+    /**
+     * Get the sender information associated with this parcel.
+     *
+     * @return \CodeIgniter\Database\BaseBuilder|null The sender information or null if not found.
+     */
     public function sender()
     {
         return $this->belongsTo(MeestSenderRecipientModel::class, 'meest_senders_id', 'id');
     }
 
+    /**
+     * Get the recipient information associated with this parcel.
+     *
+     * @return \CodeIgniter\Database\BaseBuilder|null The recipient information or null if not found.
+     */
     public function recipient()
     {
         return $this->belongsTo(MeestSenderRecipientModel::class, 'meest_recipients_id', 'id');
     }
 
+    /**
+     * Get parcels based on the provided ID or retrieve all parcels if ID is false.
+     *
+     * @param int|false $id The ID of the parcel to retrieve, or false to retrieve all parcels.
+     *
+     * @return array|null An array of parcels or null if not found.
+     */
     public function getParcels($id = false)
     {
         $db = \Config\Database::connect();
@@ -71,6 +90,13 @@ class MeestParcelModel extends Model
         return $result;
     }
 
+    /**
+     * Get parcel data for the provided parcel ID.
+     *
+     * @param int $id The ID of the parcel to retrieve data for.
+     *
+     * @return array|null An array containing parcel data or null if not found.
+     */
     public function getParcelData($id)
     {
         $result = false;
@@ -118,6 +144,14 @@ class MeestParcelModel extends Model
         return $parcelData;
     }
 
+    /**
+     * Create a new parcel number based on the provided parameters.
+     *
+     * @param string $ClientTLA       The client TLA code.
+     * @param string $DestCountryIso2 The destination country ISO2 code.
+     *
+     * @return string The new parcel number.
+     */
     public function createParcelNumber($ClientTLA = 'KEY', $DestCountryIso2 = 'UA')
     {
         $lastRecord = $this->select('parcelNumber')
@@ -138,6 +172,11 @@ class MeestParcelModel extends Model
         return $newParcelNumber;
     }
 
+    /**
+     * Get the parent parcel number for the latest parcel in the database.
+     *
+     * @return string|null The parent parcel number or null if none found.
+     */
     public function getParcelNumberParent(){
         $lastRecord = $this->select('parcelNumber')
             ->orderBy('parcelNumber', 'DESC')
@@ -149,12 +188,23 @@ class MeestParcelModel extends Model
         }
     }
 
+    /**
+     * Get a Mees parcel by its associated bill invoice ID.
+     *
+     * @param int $bill_invoice_id The bill invoice ID to retrieve the Mees parcel for.
+     *
+     * @return array|null An array containing Mees parcel data or null if not found.
+     */
     public function getMeesParcelByBillInvoiceId($bill_invoice_id){
         return $this->asArray()->where(['bill_invoice_id' => $bill_invoice_id])->first();
     }
 
     /**
-     * @throws \Exception
+     * Delete a Mees parcel and its associated items by ID.
+     *
+     * @param int $id The ID of the Mees parcel to delete.
+     *
+     * @throws \Exception If the parcel or associated items are not found.
      */
     public function deleteParcel($id){
         try{
