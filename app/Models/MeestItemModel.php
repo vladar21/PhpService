@@ -4,12 +4,17 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
+/**
+ * Model class for managing meest item of parcels data.
+ */
 class MeestItemModel extends Model
 {
+    // Database configuration
     protected $table = 'meest_items';
-
     protected $primaryKey = 'id';
+    protected $useAutoIncrement = true;
 
+    // Allowed fields in the database
     protected $allowedFields = [
         'id',
         'barcode',
@@ -28,10 +33,16 @@ class MeestItemModel extends Model
         'meest_parcels_id',
     ];
 
-    protected $useAutoIncrement = true;
-
+    // Dates configuration
     protected $useTimestamps = true;
 
+    /**
+     * Get Meest items based on the provided ID.
+     *
+     * @param int|false $id The ID of the item to retrieve, or false to retrieve all items.
+     *
+     * @return array|null An array of Meest items or null if not found.
+     */
     public function getMeestItems($id = false)
     {
         if ($id === false)
@@ -40,18 +51,43 @@ class MeestItemModel extends Model
             return $this->asArray()->where(['id' => $id])->first();
     }
 
+    /**
+     * Get Meest items belonging to a specific parcel based on the provided parcel number.
+     *
+     * @param string|false $parcelNumber The parcel number to retrieve items for, or false to retrieve all items.
+     *
+     * @return array|null An array of Meest items or null if not found.
+     */
     public function getParcelItems($parcelNumber = false)
     {
         if ($parcelNumber !== false)
             return $this->asArray()->where(['parcelNumber' => $parcelNumber])->findAll();
     }
 
+    /**
+     * Get Meest items belonging to a specific Meest parcel based on the provided Meest parcel ID.
+     *
+     * @param int|false $meest_parcels_id The Meest parcel ID to retrieve items for, or false to retrieve all items.
+     *
+     * @return array|null An array of Meest items or null if not found.
+     */
     public function getParcelItemsByMeesParcelId($meest_parcels_id)
     {
         if ($meest_parcels_id !== false)
             return $this->asArray()->where(['meest_parcels_id' => $meest_parcels_id])->findAll();
     }
 
+    /**
+     * Get DataTables-compatible data for Meest items with optional filtering by Meest parcel ID.
+     *
+     * @param int      $start    The starting record for pagination.
+     * @param int      $length   The number of records to retrieve for pagination.
+     * @param string   $search   The search term for filtering records.
+     * @param array    $orders   The sorting order for columns.
+     * @param int|null $id       The Meest parcel ID to filter items by, or null for no filtering.
+     *
+     * @return array An array containing DataTables-compatible data.
+     */
     public function getDatatableData($start, $length, $search, $orders, $id = null)
     {
 
