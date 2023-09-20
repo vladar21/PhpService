@@ -1,86 +1,93 @@
 # PhpService
 
-Проект по созданию PhpService - это бекенд сервис на языке PHP 7, который связывает три внешних API: BillAPI, SalesAPI и CustomAPI, и предоставляет свой собственный API (PhpServiceAPI) для информирования пользователя о текущем состоянии заказа и перенаправления сообщений об ошибках.
+## Description
 
-## Описание связываемых API
+PhpService is an MVP web service designed to automate data preparation for importing goods. The web service interacts with two external APIs: BillAPI, which provides data on invoices for imported goods, and MeestAPI, which supplies information for shipping and customs documents related to imported goods.
 
-- BillAPI:
-API веб-сервиса по созданию счетов-фактур. По запросу от PhpService, BillAPI возвращает набор данных, содержащихся в имеющихся и вновь созданных счетах-фактурах. Один счет-фактура является атомарной единицей заказа. BillAPI получает данные о проданных товарах от SalesAPI, затем подготавливает набор данных для счета-фактуры и отправляет этот набор данных в CustomAPI.
+PhpService allows users to retrieve and process data from BillAPI, subsequently transmitting it to MeestAPI. The project is built using the following software components, as specified in the composer.json file:
 
-- CustomAPI:
-API веб-сервиса по созданию таможенных накладных. PhpService передает набор данных заказа CustomAPI для создания или обновления таможенных накладных.
+```json
+{
+    "name": "codeigniter4/appstarter",
+    "type": "project",
+    "description": "CodeIgniter4 starter app",
+    "homepage": "https://codeigniter.com",
+    "license": "MIT",
+    "require": {
+        "php": "^7.4 || ^8.0",
+        "ext-json": "*",
+        "codeigniter4/framework": "4.3.7",
+        "codeigniter4/shield": "^1.0@beta",
+        "composer/composer": "^2.0"
+    },
+    ...
+}
+```
+## Project documentations
+Project docs available by [link](docs/index.html)
 
-- SalesAPI:
-API веб-сервиса статистики продаж. PhpService передает набор данных заказа SalesAPI для обновления статистики продаж.
+## User Goals
 
-## Функциональные требования
+The primary goals for users of this website are:
 
-- PhpService должен быть реализован на языке PHP 7 с использованием стиля ООП в программировании на PHP.
-- PhpService должен использовать фреймворк CodeIgniter 4 для создания веб-приложения и RESTful API.
-- PhpService должен поддерживать аутентификацию и авторизацию пользователей с помощью JWT (JSON Web Token).
-- PhpService должен регулярно опрашивать BillAPI для получения набора данных вновь созданного или обновленного заказа и сохранять его в локальной базе данных MySQL.
-- PhpService должен передавать полученную от BillAPI информацию в CustomAPI.
-- PhpService должен постоянно опрашивать CustomAP о статусе переданной информации.
-- PhpService должен обновлять статус заказа в локальной базе данных в зависимости от ответа от CustomAPI.
-- PhpService API должен предоставлять метод GET /status для получения текущего статуса заказа по его идентификатору.
-- PhpService API должен предоставлять метод POST /notify для отправки уведомления пользователю по электронной почте или телефону о статусе заказа. Для отправки уведомлений PhpService должен использовать сервисы Mailgun и Twilio соответственно.
-- PhpService должен логировать все запросы и ответы от API, а также ошибки и исключения в файлы журнала.
+1. **Retrieve Invoices**: Users can fetch invoices from BillAPI and work with them in the "Bills" section, which includes sub-sections for "Invoices," "Products," and "Clients."
 
-## Диаграмма классов
+2. **Manage Parcels**: Users can create parcels associated with specific invoices and continue working with them in the "Meest" section, comprising sub-sections for "Parcels," "Items" (products), and "Clients."
 
-![PhpService Class Diagram](PhpService_Class_Diagram.png)
+3. **Send Parcel Data**: Within a parcel, users can submit completed data to MeestAPI. MeestAPI responds by confirming successful data receipt or providing a list of fields with errors.
 
-На диаграмме показаны основные классы, используемые в PhpService, их атрибуты и методы, а также связи между ними. Краткое описание каждого класса:
+## Features
 
-- **Controller** - абстрактный класс, который определяет общую логику для всех контроллеров в PhpService. Он наследует от базового класса CodeIgniter\Controller и содержит методы для проверки аутентификации и авторизации пользователя, а также для отправки ответов в формате JSON.
-- **UserController** - класс, который отвечает за обработку запросов, связанных с пользователями. Он наследует от класса Controller и содержит методы для регистрации, входа и выхода пользователя, а также для получения и обновления профиля пользователя.
-- **OrderController** - класс, который отвечает за обработку запросов, связанных с заказами. Он наследует от класса Controller и содержит методы для получения списка заказов пользователя, получения деталей заказа по его идентификатору, и запроса уведомления о статусе заказа по электронной почте или телефону.
-- **Model** - абстрактный класс, который определяет общую логику для всех моделей в PhpService. Он наследует от базового класса CodeIgniter\Model и содержит методы для работы с базой данных MySQL с помощью библиотеки Query Builder.
-- **UserModel** - класс, который отвечает за работу с данными о пользователях. Он наследует от класса Model и содержит методы для создания, поиска, проверки и обновления пользователей в базе данных.
-- **OrderModel** - класс, который отвечает за работу с данными о заказах. Он наследует от класса Model и содержит методы для создания, поиска, обновления и удаления заказов в базе данных.
-- **SalesAPI** - класс, который отвечает за взаимодействие с SalesAPI. Он содержит методы для отправки POST запросов к SalesAPI с данными о заказах.
-- **BillAPI** - класс, который отвечает за взаимодействие с BillAPI. Он содержит методы для отправки GET запросов к BillAPI для получения данных заказов в формате JSON.
-- **CustomAPI** - класс, который отвечает за взаимодействие с CustomAPI. Он содержит методы для отправки POST запросов к CustomAPI с данными о заказах и получения ответа о статусе таможенных накладных.
-- **Mailgun** - класс, который отвечает за отправку уведомлений по электронной почте с помощью сервиса Mailgun. Он содержит методы для формирования и отправки сообщений по заданным параметрам: адресат, тема, текст и т.д.
-- **Twilio** - класс, который отвечает за отправку уведомлений по телефону с помощью сервиса Twilio. Он содержит методы для формирования и отправки сообщений по заданным параметрам: номер телефона, текст и т.д.
+- **Data Import**: PhpService seamlessly imports data from BillAPI and prepares it for further processing. Users can view invoices, products, and client details in a user-friendly interface.
 
-## Product Backlog and sprints
+- **Parcel Management**: Users can create and manage parcels associated with invoices. The system ensures the smooth flow of data from BillAPI to MeestAPI.
 
-|      | Product Backlog для проекта PhpService:                                                                                                                                                                                                                                                     | старт                | 25.06.2023 |
-| ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- | ---------- |
-|      |                                                                                                                                                                                                                                                                                             |                      |            |
-|      | Наименование                                                                                                                                                                                                                                                                                | длительность, недель | срок       |
-| 1    | Создание окружения разработки                                                                                                                                                                                                                                                               | 1                    | 01.07.2023 |
-| 1.1  | Установка и настройка необходимого программного обеспечения, такого как веб-сервер (например, Apache), PHP 7, CodeIgniter 4, MySQL.                                                                                                                                                         |                      |            |
-| 1.2  | Создать новый проект в CodeIgniter 4 и настройка его конфигурации                                                                                                                                                                                                                           |                      |            |
-| 2    | Разработка классов моделей (UserModel, OrderModel)                                                                                                                                                                                                                                          | 1                    | 08.07.2023 |
-| 2.1  | Создать абстрактный класс Model, наследуемый от базового класса CodeIgniter\\Model.                                                                                                                                                                                                         |                      |            |
-| 2.2  | Создать классы UserModel и OrderModel, наследуемые от класса Model, для работы с данными о пользователях и заказах соответственно.                                                                                                                                                          |                      |            |
-| 2.3  | В каждом классе реализовать методы для создания, поиска, обновления и удаления соответствующих записей в базе данных MySQL с использованием библиотеки Query Builder.                                                                                                                       |                      |            |
-| 3    | Разработка классов контроллеров (UserController, OrderController)                                                                                                                                                                                                                           | 1                    | 15.07.2023 |
-| 3.1  | Создать абстрактный класс Controller, наследуемый от базового класса CodeIgniter\\Controller.                                                                                                                                                                                               |                      |            |
-| 3.2  | Создать классы UserController и OrderController, наследуемые от класса Controller, для обработки запросов, связанных с пользователями и заказами соответственно.                                                                                                                            |                      |            |
-| 3.3  | В каждом классе реализовать методы для регистрации, входа, выхода пользователей, получения и обновления профилей пользователей, получения списка заказов пользователя, получения деталей заказа по идентификатору и запроса уведомления о статусе заказа по электронной почте или телефону. |                      |            |
-| 3.4  | В каждом методе контроллера использовать методы моделей для выполнения операций с данными.                                                                                                                                                                                                  |                      |            |
-| 4    | Разработка классов API (SalesAPI, BillAPI, CustomAPI)                                                                                                                                                                                                                                       | 1                    | 22.07.2023 |
-| 4.1  | Создать классы SalesAPI, BillAPI и CustomAPI для взаимодействия с соответствующими API.                                                                                                                                                                                                     |                      |            |
-| 4.2  | В каждом классе реализовать методы для отправки запросов к соответствующим API и получения данных в формате JSON.                                                                                                                                                                           |                      |            |
-| 5    | Разработка классов для отправки уведомлений (Mailgun, Twilio)                                                                                                                                                                                                                               | 1                    | 29.07.2023 |
-| 5.1  | Создать классы Mailgun и Twilio для отправки уведомлений по электронной почте и телефону соответственно.                                                                                                                                                                                    |                      |            |
-| 5.2  | В каждом классе реализовать методы для формирования и отправки уведомлений с использованием соответствующих сервисов.                                                                                                                                                                       |                      |            |
-| 6    | Реализация аутентификации и авторизации пользователей                                                                                                                                                                                                                                       | 1                    | 05.08.2023 |
-| 6.1  | Настроить аутентификацию и авторизацию пользователей с помощью JSON Web Token (JWT).                                                                                                                                                                                                        |                      |            |
-| 6.2  | Реализовать методы в UserController для регистрации, входа и выхода пользователей с использованием JWT.                                                                                                                                                                                     |                      |            |
-| 7    | Интеграция с API и отправка уведомлений                                                                                                                                                                                                                                                     | 1                    | 12.08.2023 |
-| 7.1  | В методах OrderController использовать классы API для взаимодействия с SalesAPI, BillAPI и CustomAPI.                                                                                                                                                                                       |                      |            |
-| 7.2  | Использовать классы для отправки уведомлений (Mailgun и Twilio) для уведомления пользователей о статусе заказов.                                                                                                                                                                            |                      |            |
-| 8    | Тестирование и отладка                                                                                                                                                                                                                                                                      | 1                    | 19.08.2023 |
-| 8.1  | Написфть тесты для каждого класса и метода, чтобы убедиться в их корректной работе.                                                                                                                                                                                                         |                      |            |
-| 8.2  | Выполнить тестирование, отладку и исправление ошибок в процессе разработки.                                                                                                                                                                                                                 |                      |            |
-| 9    | Документация и развертывание                                                                                                                                                                                                                                                                | 1                    | 26.08.2023 |
-| 9.1  | Создать документацию по использованию и настройке проекта PhpService.                                                                                                                                                                                                                       |                      |            |
-| 9.2  | Подготовить проект для развертывания на выбранном сервере.                                                                                                                                                                                                                                  |                      |            |
-| 10   | Развертывание и запуск                                                                                                                                                                                                                                                                      | 1                    | 02.09.2023 |
-| 10.1 | Развернуть проект PhpService на выбранном сервере.                                                                                                                                                                                                                                          |                      |            |
-| 10.2 | Убедиться, что все функции работают должным образом.                                                                                                                                                                                                                                        |                      |            |
-|      | Итого:                                                                                                                                                                                                                                                                                      | 10                   |
+- **Error Handling**: The application includes robust error handling mechanisms. Users receive clear notifications in case of issues with data submission or other processes.
+
+- **Logging**: PhpService includes comprehensive logging capabilities. It logs requests to and responses from external APIs, as well as errors and exceptions occurring during application operation. Logging is managed using [log library name, e.g., Monolog], which writes data to log files. Configuration settings for the logger can be adjusted in the [configuration file name, e.g., log_config.php]. To view logs, navigate to the logs directory in the project's root directory and open the corresponding log file.
+
+- **Extensibility**: PhpService is designed for extensibility. Future enhancements can include connecting a third external API, SalesAPI, to update sales statistics. Additionally, the service aims to provide users with their own API (PhpServiceAPI) for real-time order status updates and forwarding external API error messages.
+
+## Technologies Used
+
+PhpService is built using the following technologies:
+
+- **CodeIgniter 4**: The core framework that powers PhpService.
+
+- **CodeIgniter Shield**: A security extension for CodeIgniter that enhances protection against common web vulnerabilities.
+
+- **DataTables**: A powerful jQuery plugin for interactive data tables in the application's frontend.
+
+- **Select2**: A jQuery-based replacement for select boxes, enhancing the user experience when selecting items.
+
+## Installation and Usage
+
+[Provide installation and usage instructions here, including any specific configuration steps, if needed.]
+
+## Future Enhancements
+
+Here are some future enhancements planned for PhpService:
+
+1. **Integration with SalesAPI**: Connect the SalesAPI to update sales statistics automatically. This enhancement will provide users with valuable insights into their sales data.
+
+2. **PhpServiceAPI for Users**: Develop a dedicated API, PhpServiceAPI, for users to check the current status of their orders and receive error messages from external APIs in real-time.
+
+## Testing
+
+[Include instructions for running tests if applicable.]
+
+## Deployment
+
+[Provide guidance on how to deploy PhpService to a production environment.]
+
+## Credits
+
+[Give credit to individuals or organizations that contributed to the project.]
+
+## License
+
+[Specify the project's license, e.g., MIT License, Apache License, etc.]
+
+---
+
+This README file is a concise guide to the PhpService project, providing an overview of its features, installation instructions, future plans, and more.
