@@ -24,7 +24,7 @@ PhpService allows users to retrieve and process data from BillAPI, subsequently 
 }
 ```
 ## Project documentations
-Project docs available by [link](docs/index.html)
+Project docs available by [link](https://vladar21.github.io/PhpServiceDocs/)
 
 ## User Goals
 
