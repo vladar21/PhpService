@@ -14,7 +14,7 @@ PhpService allows users to retrieve and process data from BillAPI, subsequently 
     "homepage": "https://codeigniter.com",
     "license": "MIT",
     "require": {
-        "php": "^7.4 || ^8.0",
+        "php": "^7.4",
         "ext-json": "*",
         "codeigniter4/framework": "4.3.7",
         "codeigniter4/shield": "^1.0@beta",
