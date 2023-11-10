@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 /**
  * Model class for managing bill clients data.
  */
-class BillClientModel extends Model
+class BillClientModel extends MyBaseModel
 {
     // Database configuration
     protected $DBGroup          = 'default';
@@ -30,22 +30,19 @@ class BillClientModel extends Model
     protected $updatedField  = 'updated_at';
     protected $deletedField  = 'deleted_at';
 
-    // Validation rules and messages (if any)
-    protected $validationRules      = [];
-    protected $validationMessages   = [];
-    protected $skipValidation       = false;
-    protected $cleanValidationRules = true;
+    // Поля, по которым можно искать
+    protected $searchableFields = [
+        'name', 'tax_no', 'post_code', 'city', 'email', // и так далее...
+    ];
 
-    // Callbacks configuration
-    protected $allowCallbacks = true;
-    protected $beforeInsert   = [];
-    protected $afterInsert    = [];
-    protected $beforeUpdate   = [];
-    protected $afterUpdate    = [];
-    protected $beforeFind     = [];
-    protected $afterFind      = [];
-    protected $beforeDelete   = [];
-    protected $afterDelete    = [];
+    // Поля, по которым можно сортировать
+    protected $sortableFields = [
+        0 => 'id',
+        1 => 'name',
+        2 => 'tax_no',
+        // и так далее...
+    ];
+
 
     /**
      * Get a list of clients from the database.
