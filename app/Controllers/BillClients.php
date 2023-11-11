@@ -54,9 +54,10 @@ class BillClients extends BaseController
     public function get_clients_ajax(){
 
         $model = new BillClientModel();
-        $params = $this->request->getVar(); // Получаем параметры запроса DataTables
+        // Получение данных из запроса и преобразование их в массив
+        $json = $this->request->getJSON(true); // Второй параметр true обеспечивает возвращение данных в виде ассоциативного массива
 
-        $data = $model->getDataForDataTable($params);
+        $data = $model->getDataForDataTable($json);
 
         return $this->response->setJSON($data);
 
