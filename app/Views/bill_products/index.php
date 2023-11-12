@@ -3,17 +3,17 @@
 <?= $this->section('content') ?>
 
 <?php
-// Load the breadcrumb helper
-helper('breadcrumb');
+    // Load the breadcrumb helper
+    helper('breadcrumb');
 
-// Breadcrumb items
-$breadcrumbs = [
-    'Home' => site_url(),
-    'Bill Products' => base_url('bill_products'),
-];
+    // Breadcrumb items
+    $breadcrumbs = [
+        'Home' => site_url(),
+        'Bill Products' => base_url('bill_products'),
+    ];
 
-// Generate and display the breadcrumbs
-echo generate_breadcrumbs($breadcrumbs, ' / ');
+    // Generate and display the breadcrumbs
+    echo generate_breadcrumbs($breadcrumbs, ' / ');
 ?>
 
 <h2 class="float-left"><?= lang('app_lang.bill_products') ?></h2>

@@ -40,12 +40,12 @@ $routes->get('/dashboard/get_users_ajax', 'Dashboard::get_users_ajax');
 $routes->get('/bill_invoices', 'BillInvoices::index');
 $routes->get('/bill_invoices/(:num)', 'BillInvoices::invoice/$1');
 $routes->get('/bill_invoices/get_invoices_ajax', 'BillInvoices::get_invoices_ajax');
-//$routes->get('bill_invoices/(:segment)', 'BillInvoices::page/$1');
 $routes->get('/bill_positions/get_positions_ajax', 'BillPositions::get_positions_ajax');
 
 $routes->get('/bill_products', 'BillProducts::index');
 $routes->get('/bill_products/(:num)', 'BillProducts::product/$1');
-$routes->get('/bill_products/get_products_ajax', 'BillProducts::get_products_ajax');
+$routes->post('/bill_products/post_products_ajax', 'BillProducts::get_products_ajax');
+//$routes->post('/bill_products/getproductajax', 'BillProducts::get_products_ajax');
 
 $routes->get('/bill_clients', 'BillClients::index');
 $routes->get('/bill_clients/(:num)', 'BillClients::client/$1');

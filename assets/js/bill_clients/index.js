@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
     const table = $('#billClientsTable');
     const not_applicable = 'not_applicable';
     const per_page = getAppVariable('per_page');
@@ -17,18 +18,7 @@ $(document).ready(function() {
         serverSide: true,
         pageLength: per_page,
         order: [[1, "desc"]],
-        ajax: {
-            url: '/bill_clients/get_clients_ajax',
-            type: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': csrfToken
-            },
-            data: function (d) {
-                return JSON.stringify(d);
-            },
-            contentType: 'application/json',
-
-        },
+        ajax: '/bill_clients/get_clients_ajax',
         columns: [
             {
                 data: 'id',
