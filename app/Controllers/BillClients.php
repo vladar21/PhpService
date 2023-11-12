@@ -50,50 +50,15 @@ class BillClients extends BaseController
         return view('bill_clients/view', $data);
     }
 
-    /**
-     * Fetches clients data from the database and returns it in JSON format.
-     *
-     * @return void
-     */
     public function get_clients_ajax(){
 
-        $request = service('request');
-        $jsonData = $request->getJSON();
-        $getData = json_decode(json_encode($jsonData), true);
-
-        // Get the request parameters from DataTables AJAX
-        $draw = $getData['draw'];
-        $start = $getData['start'];
-        $length = $getData['length'];
-        $search = $getData['search']['value'];
-        $orders = $getData['order'];
-
         $model = new BillClientModel();
+        // Получение данных из запроса и преобразование их в массив
+        $json = $this->request->getJSON(true); // Второй параметр true обеспечивает возвращение данных в виде ассоциативного массива
 
-        try {
-            // Execute the query and store the result in $results
-            $results = $model->getDatatableData($start, $length, $search, $orders);
-        } catch (\Exception $e) {
-            die($e->getMessage());
-        }
+        $data = $model->getDataForDataTable($json);
 
-        if (isset($results)) {
-            $responseData['draw'] = $draw;
-            $responseData['recordsTotal'] = $results['totalRecords'];
-            $responseData['recordsFiltered'] = $results['filteredRecords'];
-
-            foreach ($results['data'] as $key => $value) {
-                foreach($value as $k => $v){
-                    $responseData['data'][$key][$k] = $v;
-                }
-            }
-        } else {
-            $responseData['draw'] = $draw;
-            $responseData['recordsTotal'] = 0;
-            $responseData['recordsFiltered'] = 0;
-            $responseData['data'] = [];
-        }
-        echo json_encode($responseData); die();
+        return $this->response->setJSON($data);
 
     }
 
