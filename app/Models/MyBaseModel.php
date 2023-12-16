@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use CodeIgniter\Model;
@@ -8,10 +7,10 @@ class MyBaseModel extends Model
 {
 
     // Поля, по которым можно искать
-    protected $searchableFields = [];
+    public array $searchableFields = [];
 
     // Поля, по которым можно сортировать
-    protected $sortableFields = [];
+    public array $sortableFields = [];
 
     /**
      * Обобщенный метод для получения данных для DataTables.

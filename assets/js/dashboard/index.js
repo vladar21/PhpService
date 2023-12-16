@@ -13,7 +13,18 @@ $(document).ready(function() {
         serverSide: true,
         pageLength: per_page,
         order: [[0, "desc"]],
-        ajax: '/dashboard/get_users_ajax',
+        ajax: {
+            url: '/dashboard/get_users_ajax',
+            type: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': csrfToken
+            },
+            data: function (d) {
+                return JSON.stringify(d);
+            },
+            contentType: 'application/json',
+
+        },
         columns: [
             {
                 data: 'id',

@@ -9,7 +9,44 @@ use CodeIgniter\Shield\Models\UserModel as BaseUserModel;
  */
 class UserModel extends BaseUserModel
 {
-    // Your custom methods and properties here...
+    /**
+     * Instance of MyBaseModel.
+     */
+    private MyBaseModel $baseModel;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->baseModel = new MyBaseModel();
+        $this->baseModel->table = $this->table;
+        $this->baseModel->protectFields = $this->protectFields;
+        $this->baseModel->allowedFields = $this->allowedFields;
+        $this->baseModel->searchableFields = $this->searchableFields;
+        $this->baseModel->sortableFields = $this->searchableFields;
+    }
+
+// Database configuration
+    protected $table            = 'users';
+
+    protected $protectFields    = true;
+
+    // Allowed fields in the database
+    protected $allowedFields = [
+        "id", "username", "status", "status_message", "active", "last_active", "created_at", "updated_at", "deleted_at"
+    ];
+
+    // Поля, по которым можно искать и сортировать (указаны в дочерних моделях)
+    protected array $searchableFields = [
+        "id", "username", "status", "status_message", "active", "last_active", "created_at", "updated_at", "deleted_at"
+    ];
+    protected array $sortableFields = [
+        "id", "username", "status", "status_message", "active", "last_active", "created_at", "updated_at", "deleted_at"
+    ];
+
+    public function getDataForDataTable($params): array
+    {
+        return $this->baseModel->getDataForDataTable($params);
+    }
 
     /**
      * Get users.
@@ -18,10 +55,13 @@ class UserModel extends BaseUserModel
      */
     public function getUsers($id = null)
     {
+        $users = [];
         if ($id === null) {
-            return $this->asArray()->findAll();
+            $users = $this->asArray()->findAll();
         } else {
-            return $this->asArray()->where(['id' => $id])->first();
+            $users = $this->asArray()->where(['id' => $id])->first();
         }
+
+        return $users;
     }
 }

@@ -13,12 +13,12 @@ $routes = Services::routes();
 service('auth')->routes($routes);
 
 $routes->setDefaultNamespace('App\Controllers');
-$routes->setDefaultController('Home');
+$routes->setDefaultController('Dashboard');
 $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
 $routes->set404Override();
 
-$routes->setAutoRoute(true);
+//$routes->setAutoRoute(true);
 // The Auto Routing (Legacy) is very dangerous. It is easy to create vulnerable apps
 // where controller filters or CSRF protection are bypassed.
 // If you don't want to define all routes, please use the Auto Routing (Improved).
@@ -76,8 +76,6 @@ $routes->get('/meest_items/(:num)', 'MeestItems::item/$1');
 $routes->post('/meest_items/get_parcel_items_ajax', 'MeestItems::get_parcel_items_ajax');
 $routes->get('/meest_items/get_meest_item_desc_ajax', 'MeestItems::get_meest_item_desc_ajax');
 $routes->post('/meest_items/save', 'MeestItems::save');
-
-service('auth')->routes($routes);
 
 
 
