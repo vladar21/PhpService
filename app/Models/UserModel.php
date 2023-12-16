@@ -36,10 +36,10 @@ class UserModel extends BaseUserModel
     ];
 
     // Поля, по которым можно искать и сортировать (указаны в дочерних моделях)
-    protected array $searchableFields = [
+    protected $searchableFields = [
         "id", "username", "status", "status_message", "active", "last_active", "created_at", "updated_at", "deleted_at"
     ];
-    protected array $sortableFields = [
+    protected $sortableFields = [
         "id", "username", "status", "status_message", "active", "last_active", "created_at", "updated_at", "deleted_at"
     ];
 
@@ -48,20 +48,4 @@ class UserModel extends BaseUserModel
         return $this->baseModel->getDataForDataTable($params);
     }
 
-    /**
-     * Get users.
-     *
-     * @return array
-     */
-    public function getUsers($id = null)
-    {
-        $users = [];
-        if ($id === null) {
-            $users = $this->asArray()->findAll();
-        } else {
-            $users = $this->asArray()->where(['id' => $id])->first();
-        }
-
-        return $users;
-    }
 }

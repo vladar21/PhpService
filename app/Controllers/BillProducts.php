@@ -100,113 +100,16 @@ class BillProducts extends BaseController
         return redirect()->to('/bill_products/form');
     }
 
-    /**
-     * Fetches products data from the database and returns it in JSON format.
-     *
-     * @return void
-     */
-    public function get_products_ajax(){
+    public function get_products_ajax(): \CodeIgniter\HTTP\ResponseInterface
+    {
 
         $request = service('request');
-        $getData = $request->getGet();
+        $json = $request->getGet();
 
-        // Get the request parameters from DataTables AJAX
-        $draw = $getData['draw'];
-        $start = $getData['start'];
-        $length = $getData['length'];
-        $search = $getData['search']['value'];
-        $orders = $getData['order'];
-
-        // Create an instance of your model
         $model = new BillProductModel();
+        $data = $model->getDataForDataTable($json);
 
-        $query = $model->select('*');
-        $totalRecords = $query->countAllResults();
-        // Conditions
-        if ($search) {
-            $query->where('id', $search)
-                ->orWhere('name', 'LIKE', "%$search%")
-                ->orWhere('description', 'LIKE', "%$search%")
-                ->orWhere('price_net', 'LIKE', "%$search%")
-                ->orWhere('quantity', $search)
-                ->orWhere('quantity_unit', 'LIKE', "%$search%")
-                ->orWhere('additional_info', 'LIKE', "%$search%")
-                ->orWhere('price_gross', $search)
-                ->orWhere('form_name', 'LIKE', "%$search%")
-                ->orWhere('code', 'LIKE', "%$search%")
-                ->orWhere('currency', 'LIKE', "%$search%")
-                ->orWhere('weight_unit', 'LIKE', "%$search%")
-                ->orWhere('supplier_code', 'LIKE', "%$search%");
-        }
-
-        $filteredCount = $query->countAllResults();
-
-        // Iterate through each order element
-        $columns = [
-            'id', // 0
-            'name',
-            'description',
-            'price_net',
-            'quantity',
-            'quantity_unit',
-            'additional_info',
-            'price_gross',
-            'form_name',
-            'code',
-            'currency',
-            'weight_unit',
-            'supplier_code'
-        ];
-
-        foreach ($orders as $order) {
-            $order_column_index = $order['column'];
-            $order_column = $columns[$order_column_index]; // Map to your database column
-            $order_dir = $order['dir'];
-
-            // Add ordering for each column
-            $query->orderBy($order_column, $order_dir);
-        }
-
-        // Limit and offset
-        $query->limit($length, $start);
-
-        try {
-            // Execute the query and store the result in $results
-            $results = $query->get()->getResultArray();
-        } catch (\Exception $e) {
-            die($e->getMessage());
-        }
-
-        if (isset($results)) {
-            $responseData['draw'] = $draw;
-            $responseData['recordsTotal'] = $totalRecords;
-            $responseData['recordsFiltered'] = $filteredCount;
-
-            foreach ($results as $key => $value) {
-
-                $responseData['data'][$key]['id'] = $value['id'];
-                $responseData['data'][$key]['name'] = $value['name'];
-                $responseData['data'][$key]['description'] = $value['description'];
-                $responseData['data'][$key]['price_net'] = $value['price_net'];
-                $responseData['data'][$key]['quantity'] = $value['quantity'];
-                $responseData['data'][$key]['quantity_unit'] = $value['quantity_unit'];
-                $responseData['data'][$key]['additional_info'] = $value['additional_info'];
-                $responseData['data'][$key]['price_gross'] = $value['price_gross'];
-                $responseData['data'][$key]['form_name'] = $value['form_name'];
-                $responseData['data'][$key]['code'] = $value['code'];
-                $responseData['data'][$key]['currency'] = $value['currency'];
-                $responseData['data'][$key]['weight_unit'] = $value['weight_unit'];
-                $responseData['data'][$key]['supplier_code'] = $value['supplier_code'];
-                $responseData['data'][$key]['created_at'] = $value['created_at'];
-                $responseData['data'][$key]['updated_at'] = $value['updated_at'];
-            }
-        } else {
-            $responseData['draw'] = $draw;
-            $responseData['recordsTotal'] = 0;
-            $responseData['recordsFiltered'] = 0;
-            $responseData['data'] = [];
-        }
-        echo json_encode($responseData); die();
+        return $this->response->setJSON($data);
 
     }
 }

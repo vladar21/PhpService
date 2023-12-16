@@ -5,20 +5,13 @@ use CodeIgniter\Model;
 
 class MyBaseModel extends Model
 {
-
-    // Поля, по которым можно искать
-    public array $searchableFields = [];
-
-    // Поля, по которым можно сортировать
-    public array $sortableFields = [];
-
     /**
      * Обобщенный метод для получения данных для DataTables.
      *
      * @param array  $params  Массив параметров из запроса DataTables.
      * @return array Отформатированные данные для DataTables.
      */
-    public function getDataForDataTable(array $params)
+    public function getDataForDataTable(array $params): array
     {
         $builder = $this->db->table($this->table);
 

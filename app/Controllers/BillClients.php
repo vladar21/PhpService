@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Controllers\BaseController;
+//use App\Controllers\BaseController;
 use App\Models\BillClientModel;
 
 /**
@@ -50,12 +50,12 @@ class BillClients extends BaseController
         return view('bill_clients/view', $data);
     }
 
-    public function get_clients_ajax(){
+    public function get_clients_ajax(): \CodeIgniter\HTTP\ResponseInterface
+    {
+
+        $json = $this->request->getJSON(true);
 
         $model = new BillClientModel();
-        // Получение данных из запроса и преобразование их в массив
-        $json = $this->request->getJSON(true); // Второй параметр true обеспечивает возвращение данных в виде ассоциативного массива
-
         $data = $model->getDataForDataTable($json);
 
         return $this->response->setJSON($data);

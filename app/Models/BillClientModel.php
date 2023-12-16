@@ -94,7 +94,7 @@ class BillClientModel extends MyBaseModel
     public function getClients($id = false)
     {
         if ($id === false)
-            return $this->findAll();
+            return $this->asArray()->findAll();
         else
             return $this->asArray()->where(['id' => $id])->first();
     }
