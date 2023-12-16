@@ -14,9 +14,9 @@ class Dashboard extends BaseController
     /**
      * Displays the index page.
      *
-     * @return mixed
+     * @return string
      */
-    public function index()
+    public function index(): string
     {
         helper('language');
         $lang = lang('app_lang');
@@ -26,7 +26,8 @@ class Dashboard extends BaseController
         return view('dashboard/index', $data);
     }
 
-    public function get_users_ajax(){
+    public function get_users_ajax(): \CodeIgniter\HTTP\ResponseInterface
+    {
         $model = new UserModel();
         // Получение данных из запроса и преобразование их в массив
         $request = service('request');
