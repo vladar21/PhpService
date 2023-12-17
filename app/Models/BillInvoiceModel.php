@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 /**
  * Model class for managing bill invoices data.
  */
-class BillInvoiceModel extends Model
+class BillInvoiceModel extends MyBaseModel
 {
     // Database configuration
     protected $DBGroup          = 'default';
@@ -31,22 +31,12 @@ class BillInvoiceModel extends Model
     protected $updatedField  = 'updated_at';
     protected $deletedField  = 'deleted_at';
 
-    // Validation rules and messages (if any)
-    protected $validationRules      = [];
-    protected $validationMessages   = [];
-    protected $skipValidation       = false;
-    protected $cleanValidationRules = true;
-
-    // Callbacks configuration
-    protected $allowCallbacks = true;
-    protected $beforeInsert   = [];
-    protected $afterInsert    = [];
-    protected $beforeUpdate   = [];
-    protected $afterUpdate    = [];
-    protected $beforeFind     = [];
-    protected $afterFind      = [];
-    protected $beforeDelete   = [];
-    protected $afterDelete    = [];
+    protected $searchableFields = [
+        'id', 'user_id', 'number', 'place', 'sell_date', 'price_net', 'price_gross', 'currency', 'description', 'seller_name', 'seller_tax_no', 'seller_street', 'seller_post_code', 'seller_city', 'seller_country', 'seller_email', 'seller_phone', 'seller_www', 'seller_bank', 'seller_bank_account', 'buyer_name', 'buyer_post_code', 'buyer_city', 'buyer_street', 'buyer_first_name', 'buyer_country', 'created_at', 'updated_at', 'token', 'buyer_email', 'client_id', 'lang', 'product_cache', 'buyer_last_name', 'delivery_date'
+    ];
+    protected $sortableFields = [
+        'id', 'user_id', 'number', 'place', 'sell_date', 'price_net', 'price_gross', 'currency', 'description', 'seller_name', 'seller_tax_no', 'seller_street', 'seller_post_code', 'seller_city', 'seller_country', 'seller_email', 'seller_phone', 'seller_www', 'seller_bank', 'seller_bank_account', 'buyer_name', 'buyer_post_code', 'buyer_city', 'buyer_street', 'buyer_first_name', 'buyer_country', 'created_at', 'updated_at', 'token', 'buyer_email', 'client_id', 'lang', 'product_cache', 'buyer_last_name', 'delivery_date'
+    ];
 
     /**
      * Get a list of invoices from the database.

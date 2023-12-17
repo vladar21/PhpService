@@ -104,10 +104,10 @@ class BillProducts extends BaseController
     {
 
         $request = service('request');
-        $json = $request->getGet();
+        $getData = $request->getGet();
 
         $model = new BillProductModel();
-        $data = $model->getDataForDataTable($json);
+        $data = $model->getDataForDataTable($getData);
 
         return $this->response->setJSON($data);
 
