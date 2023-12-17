@@ -9,7 +9,7 @@ class BillProductModel extends MyBaseModel
 {
     // Database configuration
     protected $DBGroup          = 'default';
-    protected $table            = 'bill_products';
+    protected $table         = 'bill_products';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';

@@ -53,10 +53,10 @@ class BillClients extends BaseController
     public function get_clients_ajax(): \CodeIgniter\HTTP\ResponseInterface
     {
 
-        $json = $this->request->getJSON(true);
+        $getData = $this->request->getJSON(true);
 
         $model = new BillClientModel();
-        $data = $model->getDataForDataTable($json);
+        $data = $model->getDataForDataTable($getData);
 
         return $this->response->setJSON($data);
 
