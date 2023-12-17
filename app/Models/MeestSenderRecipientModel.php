@@ -2,17 +2,19 @@
 
 namespace App\Models;
 
-use CodeIgniter\Model;
-
 /**
  * Model class for managing meest user's data.
  */
-class MeestSenderRecipientModel extends Model
+class MeestSenderRecipientModel extends MyBaseModel
 {
     // Database configuration
+    protected $DBGroup          = 'default';
     protected $table = 'meest_senders_recipients';
     protected $primaryKey = 'id';
     protected $useAutoIncrement = true;
+    protected $returnType       = 'array';
+    protected $useSoftDeletes   = false;
+    protected $protectFields    = true;
 
     protected $allowedFields = [
         'id',
@@ -34,6 +36,16 @@ class MeestSenderRecipientModel extends Model
 
     // Dates configuration
     protected $useTimestamps = true;
+    protected $dateFormat    = 'datetime';
+    protected $createdField  = 'created_at';
+    protected $updatedField  = 'updated_at';
+
+    protected $searchableFields = [
+        'id', 'bill_client_id', 'companyName', 'name', 'phone', 'email', 'zipCode', 'country', 'city', 'street', 'buildingNumber', 'flatNumber', 'pickupPoint', 'region1', 'region2', 'created_at', 'updated_at'
+    ];
+    protected $sortableFields = [
+        'id', 'bill_client_id', 'companyName', 'name', 'phone', 'email', 'zipCode', 'country', 'city', 'street', 'buildingNumber', 'flatNumber', 'pickupPoint', 'region1', 'region2', 'created_at', 'updated_at'
+    ];
 
     /**
      * Get sender or recipient clients based on the provided ID, or retrieve all clients if ID is false.
@@ -42,10 +54,10 @@ class MeestSenderRecipientModel extends Model
      *
      * @return array|null An array of client data or null if not found.
      */
-    public function getClients($id = false)
+    public function getClients($id = false): ?array
     {
         if ($id === false)
-            return $this->findAll();
+            return $this->asArray()->findAll();
         else
             return $this->asArray()->where(['id' => $id])->first();
     }
@@ -57,7 +69,8 @@ class MeestSenderRecipientModel extends Model
      *
      * @return array|null An array of client data or null if not found.
      */
-    public function getClientByBillClientId($bill_client_id){
+    public function getClientByBillClientId(int $bill_client_id): ?array
+    {
         return $this->asArray()->where(['bill_client_id' => $bill_client_id])->first();
     }
 

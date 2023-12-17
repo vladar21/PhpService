@@ -14,9 +14,9 @@ class BillProducts extends BaseController
     /**
      * Displays the index page.
      *
-     * @return mixed
+     * @return string
      */
-    public function index()
+    public function index(): string
     {
         helper('language');
         $lang = lang('app_lang');
@@ -31,9 +31,9 @@ class BillProducts extends BaseController
      *
      * @param int|null $id The ID of the product to display.
      *
-     * @return mixed
+     * @return string
      */
-    public function product($id = NULL)
+    public function product(int $id = NULL): string
     {
         $model = new BillProductModel();
 
@@ -56,9 +56,10 @@ class BillProducts extends BaseController
     /**
      * Saves product data to the database.
      *
-     * @return mixed
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @throws \ReflectionException
      */
-    public function save()
+    public function save(): \CodeIgniter\HTTP\RedirectResponse
     {
         // Check if the request is a POST request
         if ($this->request->getMethod() === 'post') {

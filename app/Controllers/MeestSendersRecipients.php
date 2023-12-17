@@ -2,9 +2,9 @@
 
 namespace App\Controllers;
 
-use App\Controllers\BaseController;
 use App\Models\MeestSenderRecipientDocumentModel;
 use App\Models\MeestSenderRecipientModel;
+use CodeIgniter\HTTP\ResponseInterface;
 
 /**
  * Class MeestSendersRecipients Controller
@@ -16,9 +16,9 @@ class MeestSendersRecipients extends BaseController
     /**
      * Displays the index page.
      *
-     * @return mixed
+     * @return string
      */
-    public function index()
+    public function index(): string
     {
         helper('language');
         $lang = lang('app_lang');
@@ -31,124 +31,135 @@ class MeestSendersRecipients extends BaseController
     /**
      * Fetches clients data from the database and returns it in JSON format.
      *
-     * @return void
+     * @return ResponseInterface
      */
-    public function get_meest_clients_ajax(){
+    public function get_meest_clients_ajax(): ResponseInterface
+    {
+
         $request = service('request');
         $jsonData = $request->getJSON();
         $getData = json_decode(json_encode($jsonData), true);
 
-        // Get the request parameters from DataTables AJAX
-        $draw = $getData['draw'];
-        $start = $getData['start'];
-        $length = $getData['length'];
-        $search = $getData['search']['value'];
-        $orders = $getData['order'];
+        $model = new MeestSenderRecipientModel();
+        $data = $model->getDataForDataTable($getData);
 
-        // Create an instance of your model
-        $db = \Config\Database::connect();
-        $builder = $db->table('meest_senders_recipients');
-        $builder->select('*');
+        return $this->response->setJSON($data);
 
-        $builderAllRecords = clone $builder;
-        $totalRecords = $builderAllRecords->countAllResults();
-
-        // Conditions
-        if ($search) {
-            $builder->where('id', $search)
-                ->where('bill_client_id', $search)
-                ->orWhere('buildingNumber', 'LIKE', "%$search%")
-                ->orWhere('city', 'LIKE', "%$search%")
-                ->orWhere('companyName', 'LIKE', "%$search%")
-                ->orWhere('country', 'LIKE', "%$search%")
-                ->orWhere('email', 'LIKE', "%$search%")
-                ->orWhere('flatNumber', 'LIKE', "%$search%")
-                ->orWhere('name', 'LIKE', "%$search%")
-                ->orWhere('phone', 'LIKE', "%$search%")
-                ->orWhere('pickupPoint', 'LIKE', "%$search%")
-                ->orWhere('region1', 'LIKE', "%$search%")
-                ->orWhere('region2', 'LIKE', "%$search%")
-                ->orWhere('street', $search)
-                ->orWhere('zipCode', 'LIKE', "%$search%");
-        }
-
-        // total records
-        $builderFilteredResults = clone $builderAllRecords;
-        $filteredCount = $builderFilteredResults->countAllResults();
-
-        // Iterate through each order element
-        $columns = [
-            'id',
-            'bill_client_id',
-            'companyName',
-            'name',
-            'phone',
-            'email',
-            'zipCode',
-            'country',
-            'city',
-            'street',
-            'buildingNumber',
-            'flatNumber',
-            'pickupPoint',
-            'region1',
-            'region2',
-            'created_at',
-            'updated_at',
-        ];
-
-        foreach ($orders as $order) {
-            $order_column_index = $order['column'];
-            $order_column = $columns[$order_column_index]; // Map to your database column
-            $order_dir = $order['dir'];
-
-            // Add ordering for each column
-            $builder->orderBy($order_column, $order_dir);
-        }
-
-        // Limit and offset
-        $builder->limit($length, $start);
-
-        try {
-            // Execute the query and store the result in $results
-            $results = $builder->get()->getResultArray();
-//            $sql = $query->getCompiledSelect();
-        } catch (\Exception $e) {
-            die($e->getMessage());
-        }
-
-        if (isset($results)) {
-            $responseData['draw'] = $draw;
-            $responseData['recordsTotal'] = $totalRecords;
-            $responseData['recordsFiltered'] = $filteredCount;
-
-            foreach ($results as $key => $value) {
-
-                $responseData['data'][$key]['id'] = $value['id'];
-                $responseData['data'][$key]['bill_client_id'] = $value['bill_client_id'];
-                $responseData['data'][$key]['buildingNumber'] = $value['buildingNumber'];
-                $responseData['data'][$key]['city'] = $value['city'];
-                $responseData['data'][$key]['companyName'] = $value['companyName'];
-                $responseData['data'][$key]['country'] = $value['country'];
-                $responseData['data'][$key]['email'] = $value['email'];
-                $responseData['data'][$key]['flatNumber'] = $value['flatNumber'];
-                $responseData['data'][$key]['name'] = $value['name'];
-                $responseData['data'][$key]['phone'] = $value['phone'];
-                $responseData['data'][$key]['pickupPoint'] = $value['pickupPoint'];
-                $responseData['data'][$key]['region1'] = $value['region1'];
-                $responseData['data'][$key]['region2'] = $value['region2'];
-                $responseData['data'][$key]['street'] = $value['street'];
-                $responseData['data'][$key]['zipCode'] = $value['zipCode'];
-                $responseData['data'][$key]['created_at'] = $value['created_at'];
-                $responseData['data'][$key]['updated_at'] = $value['updated_at'];
-            }
-        } else {
-            $responseData['draw'] = $draw;
-            $responseData['recordsTotal'] = 0;
-            $responseData['recordsFiltered'] = 0;
-            $responseData['data'] = [];
-        }
-        echo json_encode($responseData); die();
+//        $request = service('request');
+//        $jsonData = $request->getJSON();
+//        $getData = json_decode(json_encode($jsonData), true);
+//
+//        // Get the request parameters from DataTables AJAX
+//        $draw = $getData['draw'];
+//        $start = $getData['start'];
+//        $length = $getData['length'];
+//        $search = $getData['search']['value'];
+//        $orders = $getData['order'];
+//
+//        // Create an instance of your model
+//        $db = \Config\Database::connect();
+//        $builder = $db->table('meest_senders_recipients');
+//        $builder->select('*');
+//
+//        $builderAllRecords = clone $builder;
+//        $totalRecords = $builderAllRecords->countAllResults();
+//
+//        // Conditions
+//        if ($search) {
+//            $builder->where('id', $search)
+//                ->where('bill_client_id', $search)
+//                ->orWhere('buildingNumber', 'LIKE', "%$search%")
+//                ->orWhere('city', 'LIKE', "%$search%")
+//                ->orWhere('companyName', 'LIKE', "%$search%")
+//                ->orWhere('country', 'LIKE', "%$search%")
+//                ->orWhere('email', 'LIKE', "%$search%")
+//                ->orWhere('flatNumber', 'LIKE', "%$search%")
+//                ->orWhere('name', 'LIKE', "%$search%")
+//                ->orWhere('phone', 'LIKE', "%$search%")
+//                ->orWhere('pickupPoint', 'LIKE', "%$search%")
+//                ->orWhere('region1', 'LIKE', "%$search%")
+//                ->orWhere('region2', 'LIKE', "%$search%")
+//                ->orWhere('street', $search)
+//                ->orWhere('zipCode', 'LIKE', "%$search%");
+//        }
+//
+//        // total records
+//        $builderFilteredResults = clone $builderAllRecords;
+//        $filteredCount = $builderFilteredResults->countAllResults();
+//
+//        // Iterate through each order element
+//        $columns = [
+//            'id',
+//            'bill_client_id',
+//            'companyName',
+//            'name',
+//            'phone',
+//            'email',
+//            'zipCode',
+//            'country',
+//            'city',
+//            'street',
+//            'buildingNumber',
+//            'flatNumber',
+//            'pickupPoint',
+//            'region1',
+//            'region2',
+//            'created_at',
+//            'updated_at',
+//        ];
+//
+//        foreach ($orders as $order) {
+//            $order_column_index = $order['column'];
+//            $order_column = $columns[$order_column_index]; // Map to your database column
+//            $order_dir = $order['dir'];
+//
+//            // Add ordering for each column
+//            $builder->orderBy($order_column, $order_dir);
+//        }
+//
+//        // Limit and offset
+//        $builder->limit($length, $start);
+//
+//        try {
+//            // Execute the query and store the result in $results
+//            $results = $builder->get()->getResultArray();
+////            $sql = $query->getCompiledSelect();
+//        } catch (\Exception $e) {
+//            die($e->getMessage());
+//        }
+//
+//        if (isset($results)) {
+//            $responseData['draw'] = $draw;
+//            $responseData['recordsTotal'] = $totalRecords;
+//            $responseData['recordsFiltered'] = $filteredCount;
+//
+//            foreach ($results as $key => $value) {
+//
+//                $responseData['data'][$key]['id'] = $value['id'];
+//                $responseData['data'][$key]['bill_client_id'] = $value['bill_client_id'];
+//                $responseData['data'][$key]['buildingNumber'] = $value['buildingNumber'];
+//                $responseData['data'][$key]['city'] = $value['city'];
+//                $responseData['data'][$key]['companyName'] = $value['companyName'];
+//                $responseData['data'][$key]['country'] = $value['country'];
+//                $responseData['data'][$key]['email'] = $value['email'];
+//                $responseData['data'][$key]['flatNumber'] = $value['flatNumber'];
+//                $responseData['data'][$key]['name'] = $value['name'];
+//                $responseData['data'][$key]['phone'] = $value['phone'];
+//                $responseData['data'][$key]['pickupPoint'] = $value['pickupPoint'];
+//                $responseData['data'][$key]['region1'] = $value['region1'];
+//                $responseData['data'][$key]['region2'] = $value['region2'];
+//                $responseData['data'][$key]['street'] = $value['street'];
+//                $responseData['data'][$key]['zipCode'] = $value['zipCode'];
+//                $responseData['data'][$key]['created_at'] = $value['created_at'];
+//                $responseData['data'][$key]['updated_at'] = $value['updated_at'];
+//            }
+//        } else {
+//            $responseData['draw'] = $draw;
+//            $responseData['recordsTotal'] = 0;
+//            $responseData['recordsFiltered'] = 0;
+//            $responseData['data'] = [];
+//        }
+//        echo json_encode($responseData); die();
 
     }
 
@@ -157,9 +168,9 @@ class MeestSendersRecipients extends BaseController
      *
      * @param int|null $id The ID of the client to display.
      *
-     * @return mixed
+     * @return string
      */
-    public function clients($id = NULL)
+    public function clients(int $id = NULL): string
     {
         $model = new MeestSenderRecipientModel();
 

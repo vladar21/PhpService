@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use CodeIgniter\Model;
-
 /**
  * Model class for managing bill products data.
  */
