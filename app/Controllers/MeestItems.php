@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\MeestItemDescriptionModel;
 use App\Models\MeestItemModel;
+use CodeIgniter\HTTP\ResponseInterface;
 
 /**
  * Class MeestItems Controller
@@ -31,50 +32,59 @@ class MeestItems extends BaseController
     /**
      * Fetches items (products) data from the database and returns it in JSON format.
      *
-     * @return void
+     * @return ResponseInterface
      */
-    public function get_parcel_items_ajax()
+    public function get_parcel_items_ajax(): ResponseInterface
     {
+//        $request = service('request');
+//        $getData = $request->getJSON(true);
         $request = service('request');
-        $jsonData = $request->getJSON();
-        $getData = json_decode(json_encode($jsonData), true);
-        $parcel_id = isset($getData['parcel_id']) ? $getData['parcel_id'] : null;
+        $getData = $request->getGet();
 
-        // Get the request parameters from DataTables AJAX
-        $draw = $getData['draw'];
-        $start = $getData['start'];
-        $length = $getData['length'];
-        $search = $getData['search']['value'];
-        $orders = $getData['order'];
-
-        // Create an instance of your model
         $model = new MeestItemModel();
+        $data = $model->getDataForDataTable($getData);
 
-        try {
-            // Execute the query and store the result in $results
-            $results = $model->getDatatableData($start, $length, $search, $orders, $parcel_id);
-        } catch (\Exception $e) {
-            die($e->getMessage());
-        }
+        return $this->response->setJSON($data);
+//        $jsonData = $request->getJSON();
+//        $getData = json_decode(json_encode($jsonData), true);
 
-        if (isset($results)) {
-            $responseData['draw'] = $draw;
-            $responseData['recordsTotal'] = $results['totalRecords'];
-            $responseData['recordsFiltered'] = $results['filteredRecords'];
-            $p2p = $start;
-            foreach ($results['data'] as $key => $value) {
-                $responseData['data'][$key]['p2p'] = ++$p2p;
-                foreach($value as $k => $v){
-                    $responseData['data'][$key][$k] = $v;
-                }
-            }
-        } else {
-            $responseData['draw'] = $draw;
-            $responseData['recordsTotal'] = 0;
-            $responseData['recordsFiltered'] = 0;
-            $responseData['data'] = [];
-        }
-        echo json_encode($responseData); die();
+//        $parcel_id = isset($getData['parcel_id']) ? $getData['parcel_id'] : null;
+//
+//        // Get the request parameters from DataTables AJAX
+//        $draw = $getData['draw'];
+//        $start = $getData['start'];
+//        $length = $getData['length'];
+//        $search = $getData['search']['value'];
+//        $orders = $getData['order'];
+//
+//        // Create an instance of your model
+//        $model = new MeestItemModel();
+//
+//        try {
+//            // Execute the query and store the result in $results
+//            $results = $model->getDatatableData($start, $length, $search, $orders, $parcel_id);
+//        } catch (\Exception $e) {
+//            die($e->getMessage());
+//        }
+//
+//        if (isset($results)) {
+//            $responseData['draw'] = $draw;
+//            $responseData['recordsTotal'] = $results['totalRecords'];
+//            $responseData['recordsFiltered'] = $results['filteredRecords'];
+//            $p2p = $start;
+//            foreach ($results['data'] as $key => $value) {
+//                $responseData['data'][$key]['p2p'] = ++$p2p;
+//                foreach($value as $k => $v){
+//                    $responseData['data'][$key][$k] = $v;
+//                }
+//            }
+//        } else {
+//            $responseData['draw'] = $draw;
+//            $responseData['recordsTotal'] = 0;
+//            $responseData['recordsFiltered'] = 0;
+//            $responseData['data'] = [];
+//        }
+//        echo json_encode($responseData); die();
     }
 
     /**

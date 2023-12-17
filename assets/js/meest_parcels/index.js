@@ -27,7 +27,7 @@ $(document).ready(function() {
             {
                 data: 'id',
                 render: function (data, type, row) {
-                    return row.id ? row.id : not_applicable;
+                    return row.parcel_id ? row.parcel_id : not_applicable;
                 }
             }, {
                 data: 'parcelNumber',
@@ -147,6 +147,7 @@ $(document).ready(function() {
             }, {
                 data: 'actions',
                 orderable: false,
+                searchable: false,
                 render: function (data, type, row) {
                     return '<a href="/meest_parcels/' + row.id + '" class="btn btn-sm btn-blue-outline">' + title_view + '</a>';
                 }

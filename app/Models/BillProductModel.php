@@ -35,7 +35,7 @@ class BillProductModel extends MyBaseModel
         "id", "name", "description", "price_net", "created_at", "updated_at", "quantity", "quantity_unit", "additional_info", "price_gross", "form_name", "code", "currency", "weight_unit", "supplier_code"
     ];
     protected $sortableFields = [
-        "id", "name", "description", "price_net", "created_at", "updated_at", "quantity", "quantity_unit", "additional_info", "price_gross", "form_name", "code", "currency", "weight_unit", "supplier_code"
+        "id", "name", "description", "price_net", "created_at", "updated_at", "quantity", "quantity_unit", "additional_info", "price_gross", "form_name", "code", "currency", "weight_unit", "supplier_code", "created_at", "updated_at"
     ];
 
     /**

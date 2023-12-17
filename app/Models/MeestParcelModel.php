@@ -2,17 +2,19 @@
 
 namespace App\Models;
 
-use CodeIgniter\Model;
-
 /**
  * Model class for managing meest parcel's data.
  */
-class MeestParcelModel extends Model
+class MeestParcelModel extends MyBaseModel
 {
     // Database configuration
+    protected $DBGroup = 'default';
     protected $table = 'meest_parcels';
     protected $primaryKey = 'id';
     protected $useAutoIncrement = true;
+    protected $returnType       = 'array';
+    protected $useSoftDeletes   = false;
+    protected $protectFields    = true;
 
     // Allowed fields in the database
     protected $allowedFields = [
@@ -44,8 +46,62 @@ class MeestParcelModel extends Model
 
     // Dates configuration
     protected $useTimestamps = true;
+    protected $dateFormat    = 'datetime';
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
+
+    protected $searchableFields = [
+        'bill_invoice_id',
+        'parcelNumber',
+        'parcelNumberInternal',
+        'parcelNumberParent',
+        'partnerKey',
+        'bagId',
+        'carrierLastMile',
+        'createReturnParcel',
+        'returnCarrier',
+        'cod',
+        'codCurrency',
+        'deliveryCost',
+        'serviceType',
+        'totalValue',
+        'currency',
+        'fulfillment',
+        'incoterms',
+        'iossVatIDenc',
+        'senderID',
+        'weight',
+        'meest_senders_id',
+        'meest_recipients_id',
+        'created_at',
+        'updated_at'
+    ];
+    protected $sortableFields = [
+        'bill_invoice_id',
+        'parcelNumber',
+        'parcelNumberInternal',
+        'parcelNumberParent',
+        'partnerKey',
+        'bagId',
+        'carrierLastMile',
+        'createReturnParcel',
+        'returnCarrier',
+        'cod',
+        'codCurrency',
+        'deliveryCost',
+        'serviceType',
+        'totalValue',
+        'currency',
+        'fulfillment',
+        'incoterms',
+        'iossVatIDenc',
+        'senderID',
+        'weight',
+        'meest_senders_id',
+        'meest_recipients_id',
+        'created_at',
+        'updated_at'
+    ];
 
     /**
      * Get the sender information associated with this parcel.

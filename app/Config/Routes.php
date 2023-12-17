@@ -67,13 +67,13 @@ $routes->get('/meest_parcels/sent/(:num)', 'MeestParcels::sent/$1');
 
 $routes->get('/meest_clients', 'MeestSendersRecipients::index');
 $routes->get('/meest_clients/(:num)', 'MeestSendersRecipients::clients/$1');
-$routes->post('/meest_clients/get_meest_clients_ajax', 'MeestSendersRecipients::get_meest_clients_ajax');
+$routes->get('/meest_clients/get_meest_clients_ajax', 'MeestSendersRecipients::get_meest_clients_ajax');
 $routes->get('/meest_clients/get_meest_client_docs', 'MeestSendersRecipients::get_meest_client_docs');
 $routes->get('/meest_clients/select2list', 'MeestSendersRecipients::select2list');
 
 $routes->get('/meest_items', 'MeestItems::index');
 $routes->get('/meest_items/(:num)', 'MeestItems::item/$1');
-$routes->post('/meest_items/get_parcel_items_ajax', 'MeestItems::get_parcel_items_ajax');
+$routes->get('/meest_items/get_parcel_items_ajax', 'MeestItems::get_parcel_items_ajax');
 $routes->get('/meest_items/get_meest_item_desc_ajax', 'MeestItems::get_meest_item_desc_ajax');
 $routes->post('/meest_items/save', 'MeestItems::save');
 

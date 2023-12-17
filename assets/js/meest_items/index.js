@@ -16,30 +16,26 @@ $(document).ready(function() {
         serverSide: true,
         pageLength: per_page,
         order: [[1, "desc"]],
-        ajax: {
-            url: url,
-            type: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': csrfToken
-            },
-            data: function (d) {
-                if (parcel_id){
-                    d.parcel_id = parcel_id;
-                }
-                return JSON.stringify(d);
-            },
-            contentType: 'application/json',
-        },
+        ajax: url,
+        // ajax: {
+        //     url: url,
+        //     type: 'POST',
+        //     headers: {
+        //         'X-CSRF-TOKEN': csrfToken
+        //     },
+        //     data: function (d) {
+        //         if (parcel_id){
+        //             d.parcel_id = parcel_id;
+        //         }
+        //         return JSON.stringify(d);
+        //     },
+        //     contentType: 'application/json',
+        // },
         columns: [
             {
-                data: 'p2p',
+                data: 'id',
                 render: function(data, type, row) {
-                    return row.p2p ? row.p2p : not_applicable;
-                }
-            }, {
-                data: 'product_id',
-                render: function(data, type, row) {
-                    return row.product_id ? row.product_id : not_applicable;
+                    return row.id ? row.id : not_applicable;
                 }
             }, {
                 data: 'barcode',
