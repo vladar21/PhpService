@@ -2,8 +2,6 @@
 
 **PHPService** is a diploma project for **IT Step Academy**, it is an **MVP project** of a website for automating import documentation processing.
 
-[View the live project here.](https://phpservice-cf471660c094.herokuapp.com/)
-
 ## Description
 
 The **PhpService** project is a **PHP 7** web service that:
